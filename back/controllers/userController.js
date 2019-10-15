@@ -29,31 +29,20 @@ exports.index = function (req, res) {
 };
 // Handle create contact actions
 exports.new = function (req, res) {
-    //validate the data before we a user
-const schema = Joi.object().keys({ 
-  name: Joi.string().alphanum().min(3).max(30).required(),
-  birthyear: Joi.number().integer().min(1970).max(2013), 
-}); 
-const dataToValidate = { 
-  name: "chris", 
-  birthyear: 1971 
-} 
-const result = Joi.validate(dataToValidate, schema); 
-res.send(result);
-    // var user = new User();
-    // user.email = req.body.email;
-    // user.first_name = req.body.first_name;
-    // user.last_name = req.body.last_name;
-    // user.password = req.body.password;
-    // // save the user and check for errors
-    // user.save(function (err) {
-    //     // if (err)
-    //     //     res.json(err);
-    //     res.json({
-    //         message: 'New user created!',
-    //         data: user
-    //     });
-    // });
+     var user = new User();
+     user.email = req.body.email;
+     user.first_name = req.body.first_name;
+     user.last_name = req.body.last_name;
+     user.password = req.body.password;
+    
+     user.save(function (err) {
+         // if (err)
+        //     res.json(err);
+         res.json({
+           message: 'New user created!',
+           data: user
+        });
+    });
 };
 // Handle view user info
 exports.view = function (req, res) {
