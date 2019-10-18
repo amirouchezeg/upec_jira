@@ -134,7 +134,9 @@ exports.new = function (req, res) {
 exports.view = function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
         if (err)
-            res.send(err);
+        res.status(42).json({
+                message:'user not found'
+            });
         res.json({
             message: 'user details loading..',
             data: user
@@ -177,7 +179,7 @@ function addUser(data, schema, res, req) {
     Joi.validate(data, schema, (err, value) => {
         if (err) {
             // send a 422 error response if validation fails
-            res.status(422).json({
+            res.status(404).json({
                 status: 'error',
                 message: 'Invalid request data',
                 data: err.message
