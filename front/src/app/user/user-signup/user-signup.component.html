@@ -1,0 +1,79 @@
+
+
+<table>
+    <tr>
+        <td style="text-align: center;">
+            
+                <h1>Outil de développement logiciel pour les équipes Agile</h1>
+                <img src="assets/img/imghome.png" width="600px" id="img-top">
+            
+            
+        </td>
+        <td >
+
+            <form [formGroup]="userform" (ngSubmit)="onSubmit()">
+                <div class="card">
+                    <div class="card-header" style="background-color:#2d353c; ">
+                        <p style="color:white; font-size:17px; ">
+                            <i  class="fa fa-list fa-1x" style=" margin:8px;color: white;"></i>
+                            Inscription
+                        </p>
+                    </div>
+                    <div class="card-body" >
+                       <div class="container">
+                            <div class="row">
+                                <div class="col-3">
+                                    Nom
+                                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Identifiant" formControlName="nom">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    Prenom
+                                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Mot de passe" formControlName="prenom">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    Role
+                                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Mot de passe" formControlName="role">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label for="nom" class="col-form-label">{{ 'Nom ' }} *</label>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput size="69"  id="nom" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button type="submit" class="btn-large btn-submit"  id="btn">S'inscrire</button>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            
+        </td>
+    </tr>
+</table>
+
+
+
+

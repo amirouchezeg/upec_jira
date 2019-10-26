@@ -3,32 +3,29 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router'
 
 import { AppComponent } from './app.component';
-import { UserComponent } from './user/user.component';
-import { SignUpComponent } from './user/sign-up/sign-up.component';
-import { SignInComponent } from './user/sign-in/sign-in.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MatDialogModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ProjectComponent } from './project/project.component'; 
+import { ProjectAddComponent } from './project/project-add/project-add.component';
+import { ProjectListComponent } from './project/project-list/project-list.component';
+import { SharedModule } from './_shared/shared.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UserComponent,
-    SignUpComponent,
-    SignInComponent,
-    HomeComponent,
-    ProjectComponent
+    AppComponent 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatDialogModule,
-    BrowserAnimationsModule
+    SharedModule,
+    
+    BrowserAnimationsModule,
+    
+    MDBBootstrapModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [SignInComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
