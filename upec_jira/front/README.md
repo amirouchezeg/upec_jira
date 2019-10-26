@@ -1,1 +1,0 @@
-# upec_jira
