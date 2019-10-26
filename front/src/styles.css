@@ -1,0 +1,108 @@
+
+  /* You can add global styles to this file, and also import other style files */
+
+
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+html,
+body{
+	height :100%;
+}
+body{
+	margin:0;
+} 
+
+body .ui-listbox {
+    padding: 0;
+    min-width: 30em;
+}
+
+tr {
+  cursor: pointer;
+}
+.mat-dialog-container {
+padding: 0 !important;
+overflow: inherit !important;
+}
+.toolbar{
+	height: 40px;
+	background-color: #d4cfcf;
+}
+.button{
+	height: 10px;
+}
+
+
+.pCard {
+	margin-left: 200px;
+	padding-left: 0px;	
+}    
+
+
+.ui-card-body{
+    padding-right: 30px;
+    padding-bottom: 80px;
+    padding-top: 0px;
+  }
+.table{
+	margin-left: 200px;
+}
+.fa fa-bars{
+    margin-left: 30px;
+}
+.w3-button {
+    color: #000!important;
+    background-color: #f4f4f4!important;
+    margin-left: 30px;
+    height: 30px;
+}
+
+.w3-button:hover {
+    color: #000!important;
+    background-color: #CCC!important;
+}
+
+.red-snackbar {
+  color: #ff4444;
+}
+.green-snackbar {
+  color: #00C851;
+}
+
+.mat-drawer-content {
+  overflow: hidden !important; 
+}
+
+.mat-icon{
+  font-size: 20px;
+}
+
+.mat-drawer.mat-drawer-side {
+  z-index: 2;
+  top: 0px !important;
+}
+
+
+
+.mat-list, .mat-nav-list, .mat-selection-list {
+  padding-top: 0px !important;
+}
+
+.ui-fieldset-legend a {
+  font-size: 1rem !important;
+  font-weight: bold !important;
+  background-color:lightblue !important;
+}
+
+.mat-drawer{
+  width: 12%;
+}
+
+app-header{
+  display: contents;
+}
+
+
+input:focus:not([read-only]) {
+	border-bottom: none!important;
+	box-shadow: none!important;	
+}
