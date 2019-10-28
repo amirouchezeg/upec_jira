@@ -4,7 +4,6 @@ const projectSchema = mongoose.Schema({
 
     title: {
         type: String,
-        required: true,
         min: 2,
         max:255
     },

@@ -21,10 +21,10 @@ exports.index = function (req, res) {
 // Handle create project actions
 exports.new = function (req, res) {
     const schema={
-        title:Joi.string().min(2),
+        title:Joi.string().min(2).required(),
         description:Joi.string(),
         start_date: Joi.date(),
-        end_date: Joi.date().greater(Joi.ref('start_date')),
+        end_date: Joi.date().iso().greater('start_date'),
         users: Joi.array().items(Joi.object({
         user_id: Joi.string(),
         role: Joi.string()
@@ -71,25 +71,21 @@ exports.view = function (req, res) {
     });
 };
 exports.update = function (req, res) {
-    Project.findById(req.params.project_id, function (err, project) {
-        if (err)
-            res.send(err);
-            project.title = req.body.title;
-            project.description = req.body.description;
-            project.start_date = req.body.start_date;
-            project.end_date = req.body.end_date;
-            project.users = req.body.users;
-            project.sprints = req.body.sprints;
-        // save the sprint and check for errors
-        issue.save(function (err) {
-            if (err)
-                res.json(err);
-            res.json({
-                message: 'project Info updated',
-                data: project
-            });
+    Project.findByIdAndUpdate(req.params.project_id,req.body, {
+        new: true
+    },
+        function(err, project) {
+            if (!err) {
+                res.status(201).json({
+                    data: project
+                });
+            } else {
+                res.status(500).json({
+                    message: "not found any relative data"
+                })
+            }
         });
-    });
+  
 };
 // Handle delete issue
 exports.delete = function (req, res) {

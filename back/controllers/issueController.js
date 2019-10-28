@@ -63,6 +63,7 @@ exports.view = function (req, res) {
         });
     });
 };
+/*
 exports.update = function (req, res) {
     Sprint.findById(req.params.issue_id, function (err, issue) {
         if (err)
@@ -79,7 +80,27 @@ exports.update = function (req, res) {
             });
         });
     });
+};*/
+
+exports.update = function (req, res) {
+    Issue.findByIdAndUpdate(req.params.issue_id,req.body, {
+        new: true
+    },
+        function(err, issue) {
+            if (!err) {
+                res.status(201).json({
+                    data: issue
+                });
+            } else {
+                res.status(500).json({
+                    message: "not found any relative data"
+                })
+            }
+        });
+  
 };
+
+
 // Handle delete issue
 exports.delete = function (req, res) {
     Issue.remove({

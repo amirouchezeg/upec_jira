@@ -55,7 +55,6 @@ router.route('/projects')
 .post(projectController.new);
 router.route('/projects/:project_id')
     .get(projectController.view)
-    .patch(projectController.update)
     .put(projectController.update)
     .delete(projectController.delete);  
 // Export API routes
