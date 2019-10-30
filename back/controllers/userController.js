@@ -105,6 +105,8 @@ exports.login = function (req, res) {
 
 // Handle create contact actions
 exports.new = function (req, res) {
+    console.log("adddddddddddddddd");
+    
     const data = req.body;
     // validate the data 
     const schema = Joi.object().keys({

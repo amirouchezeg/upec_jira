@@ -7,31 +7,37 @@ import { User } from 'src/app/_model/user';
 @Component({
   selector: 'app-user-signup',
   templateUrl: './user-signup.component.html',
-  styleUrls: ['./user-signup.component.css']
+  styleUrls: ['../user.component.css']
 })
 export class UserSignupComponent implements OnInit {
+  emailFC: FormControl;
+  firstnameFC: FormControl;
+  lastnameFC: FormControl;
+  passwordFC: FormControl;
+  pathavatarFC: FormControl;
+  createdateFC: FormControl;
+
   userform: FormGroup;
-  nomFC: FormControl;
-  prenomFC: FormControl;
-  roleFC: FormControl;
-//...........
+  
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    // private userService: UserService
-    ) { 
-
-    }
+    private userService: UserService
+    ) { }
 
   ngOnInit() {
-    this.nomFC = new FormControl('');
-    this.prenomFC = new FormControl('');
-    this.roleFC = new FormControl('');
+    this.emailFC = new FormControl('');
+    this.firstnameFC = new FormControl('');
+    this.lastnameFC = new FormControl('');
+    this.passwordFC = new FormControl('');
+    this.createdateFC = new FormControl('');
+
     this.userform = this.fb.group({
-      'nom': this.nomFC,
-      'prenom': this.prenomFC,
-      'role': this.roleFC
-      //...........
+      'email': this.emailFC,
+      'firstname': this.firstnameFC,
+      'lastname': this.lastnameFC,
+      'password': this.passwordFC,
+      'createdate': this.createdateFC    
     }) 
   }
 
@@ -44,11 +50,16 @@ export class UserSignupComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.nomFC.value);    
-    console.log(this.prenomFC.value);
-    console.log(this.roleFC.value);
-    let user: User;
-    // this.userService.signUpUser(user).subscribe()
+    console.log(this.firstnameFC.value);    
+    
+    let user: User = new User();
+    user.first_name = this.firstnameFC.value;
+    user.last_name = this.lastnameFC.value;
+    user.email = this.emailFC.value;
+    user.password = this.passwordFC.value;
+    user.create_date = new Date();
+    console.log(user);
+    this.userService.addUser(user).subscribe();
     
   }
 }

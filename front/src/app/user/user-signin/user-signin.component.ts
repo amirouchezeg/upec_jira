@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-user-signin',
   templateUrl: './user-signin.component.html',
-  styleUrls: ['./user-signin.component.css']
+  styleUrls: ['../user.component.css']
 })
 export class UserSigninComponent implements OnInit {
   userForm: FormGroup;

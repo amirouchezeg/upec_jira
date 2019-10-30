@@ -7,7 +7,11 @@ import { User } from '../_model/user';
 
 @Injectable()
 export class UserService {
-  readonly rootUrl = 'http://localhost:35257'; //port? url service....
+  // readonly rootUrl = 'http://localhost:8080/api/users'; 
+  readonly rootUrl = '/api/users'; //port? url service....
+
+  private httpOptions;
+
   constructor(private http: HttpClient) { }
 
   // registerUser(user: User) {
@@ -32,14 +36,21 @@ export class UserService {
    return  this.http.get(this.rootUrl+'/api/GetUserClaims');
   }
 
-  signUpUser(user: User){
-    let url = "signUp";
-    return this.http.post('${this.rootUrl}' + url, user);
+  addUser(user: User){
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        // 'Authorization': 'Bearer '+this.currentFreelancer.token     
+      })
+    };
+
+    return this.http.post(this.rootUrl, user);
   }
 
-  getUser(user: User){
-    let url = "signUp";
-    return this.http.get('${this.rootUrl}' + url + '/' + user.idUser);
-  }
+  // getUser(user: User){
+  //   let url = "signUp";
+  //   return this.http.get('${this.rootUrl}' + url + '/' + user.idUser);
+  // }
 
 }

@@ -12,6 +12,7 @@ import {SharedModule} from '../_shared/shared.module';
 import {MatInputModule} from '@angular/material/input';
 import { UserScreenComponent } from './user-screen/user-screen.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { UserService } from '../_service/user-service';
 
 @NgModule({
   declarations: [UserSigninComponent, UserSignupComponent, UserScreenComponent],
@@ -25,6 +26,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     MatInputModule,
     MDBBootstrapModule.forRoot()
   ],
+  providers: [ UserService ],
   entryComponents: [UserSigninComponent]
 })
 export class UserModule { }

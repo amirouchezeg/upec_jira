@@ -3,14 +3,10 @@
 <table>
     <tr>
         <td style="text-align: center;">
-            
-                <h1>Outil de développement logiciel pour les équipes Agile</h1>
-                <img src="assets/img/imghome.png" width="600px" id="img-top">
-            
-            
+            <h1>Outil de développement logiciel pour les équipes Agile</h1>
+            <img src="assets/img/imghome.png" width="600px" id="img-top">
         </td>
         <td >
-
             <form [formGroup]="userform" (ngSubmit)="onSubmit()">
                 <div class="card">
                     <div class="card-header" style="background-color:#2d353c; ">
@@ -27,7 +23,7 @@
                                 </div>
                                 <div class="col">
                                     <mat-form-field>
-                                        <input matInput placeholder="Identifiant" formControlName="nom">
+                                        <input matInput placeholder="Nom" formControlName="lastname">
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -37,27 +33,41 @@
                                 </div>
                                 <div class="col">
                                     <mat-form-field>
-                                        <input matInput placeholder="Mot de passe" formControlName="prenom">
+                                        <input matInput placeholder="Prénom" formControlName="firstname">
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-3">
-                                    Role
+                                    Email
                                 </div>
                                 <div class="col">
                                     <mat-form-field>
-                                        <input matInput placeholder="Mot de passe" formControlName="role">
+                                        <input matInput placeholder="Email" formControlName="email">
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-3">
-                                    <label for="nom" class="col-form-label">{{ 'Nom ' }} *</label>
+                                    <!-- <label for="nom" class="col-form-label"> -->
+                                    Mot de passe
+                                <!-- </label> -->
                                 </div>
                                 <div class="col">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput size="69"  id="nom" />
+                                        <input matInput size="69"  id="nom" formControlName="password" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <!-- <label for="nom" class="col-form-label"> -->
+                                    Confirmation mot de passe
+                                <!-- </label> -->
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput size="69"  id="nom" formControlName="password" />
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -68,8 +78,6 @@
                     </div>
                 </div>
             </form>
-
-            
         </td>
     </tr>
 </table>
