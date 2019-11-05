@@ -35,5 +35,42 @@ router.route('/users/:user_id')
     .delete(VerifyToken,userController.delete);
 
 
+// Import sprint controller
+var sprintController = require('./controllers/sprintController');
+// sprint routes
+router.route('/sprints')
+.get(sprintController.index)
+.post(sprintController.new);
+router.route('/sprints/:sprint_id')
+    .get(sprintController.view)
+    .patch(sprintController.update)
+    .put(sprintController.update)
+    .delete(sprintController.delete);
+
+// Import issue controller
+var issueController = require('./controllers/issueController');
+// sprint routes
+router.route('/issues')
+.get(issueController.index)
+.post(issueController.new);
+router.route('/issues/:issue_id')
+    .get(issueController.view)
+    .patch(issueController.update)
+    .put(issueController.update)
+    .delete(issueController.delete);  
+// Export API routes
+module.exports = router;
+
+// Import project controller
+var projectController = require('./controllers/projectController');
+// project routes
+router.route('/projects')
+.get(projectController.index)
+.post(projectController.new);
+router.route('/projects/:project_id')
+    .get(projectController.view)
+    .put(projectController.update)
+    .delete(projectController.delete);  
+
 // Export API routes
 module.exports = router;
