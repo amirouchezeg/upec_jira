@@ -34,8 +34,9 @@ export class UserService {
   }
 
   signUpUser(user: User){
+    console.log('call of signupUser');
     let url = "signUp";
-    return this.http.post( 'http://localhost:8080/api/users', user);
+    return this.http.post( 'http://localhost:8080/api/users',user);
   }
 
   getUser(user: User){
