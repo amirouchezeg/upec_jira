@@ -6,18 +6,18 @@ import { UserScreenComponent } from './user-screen/user-screen.component';
 
 
 const routes: Routes = [
-  { path: '', component: UserScreenComponent,
-  children: [
-    {
-      path: '',
+  { path: '', component: UserScreenComponent, 
       children: [
-        {path: 'signup', component: UserSignupComponent}
+        {
+          path: '',
+          children: [
+            {path: '', redirectTo: 'signup', pathMatch: 'full'},
+            {path: 'signup', component: UserSignupComponent},
+            {path: 'signin', component: UserSigninComponent},
+          ]
+        }
       ]
-    }
-  ]
-
   }
-  
 ];
 
 @NgModule({

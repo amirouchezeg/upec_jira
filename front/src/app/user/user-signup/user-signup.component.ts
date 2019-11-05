@@ -15,13 +15,12 @@ export class UserSignupComponent implements OnInit {
   prenomFC: FormControl;
   roleFC: FormControl;
 //...........
-  constructor(
+  
+constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    // private userService: UserService
-    ) { 
-
-    }
+    private userService: UserService
+    ) {   }
 
   ngOnInit() {
     this.nomFC = new FormControl('');
@@ -44,11 +43,27 @@ export class UserSignupComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.nomFC.value);    
-    console.log(this.prenomFC.value);
-    console.log(this.roleFC.value);
-    let user: User;
-    // this.userService.signUpUser(user).subscribe()
+    // console.log("2",this.nomFC.value);    
+    // console.log(this.prenomFC.value);
+    // console.log(this.roleFC.value);
+    console.log("---------------send post signup");
+    let user: User={
+      Email:"ami@gmail.com",
+      Password:"azerty",
+      FirstName:"ami",
+      LastName:"zeg",
+    };
+    this.userService.signUpUser(user)//getting the currant freelancer to display the price in addPost
+      .subscribe(
+        data => {
+          console.log('data user signup',data);
+          var jsonData=  JSON.parse(JSON.stringify(data));                       
+        },
+        error => {console.log("erors :", JSON.stringify(error.error));});
     
+  }
+
+  onLogin(){
+    console.log("onLogin()");
   }
 }

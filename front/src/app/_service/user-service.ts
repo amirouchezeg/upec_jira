@@ -4,8 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_model/user';
 
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
   readonly rootUrl = 'http://localhost:35257'; //port? url service....
   constructor(private http: HttpClient) { }
@@ -34,7 +35,7 @@ export class UserService {
 
   signUpUser(user: User){
     let url = "signUp";
-    return this.http.post('${this.rootUrl}' + url, user);
+    return this.http.post( 'http://localhost:8080/api/users', user);
   }
 
   getUser(user: User){
