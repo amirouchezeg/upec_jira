@@ -1,0 +1,62 @@
+<mat-dialog-content>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                Intitulé
+            </div>
+            <div class="col-6">
+                <mat-form-field>
+                    <input matInput placeholder="Intitulé">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                Date de début
+            </div>
+            <div class="col-6">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="pickerDeb" placeholder="Choisir une date">
+                    <mat-datepicker-toggle matSuffix [for]="pickerDeb"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerDeb></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                Date de fin
+            </div>
+            <div class="col-6">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="pickerFin" placeholder="Choisir une date">
+                    <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFin></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                Déscription
+            </div>
+            <div class="col-6">
+                <mat-form-field>
+                    <input matInput placeholder="Déscription">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                Equipe
+            </div>
+            <div class="col-6">
+                <mat-form-field>
+                    <input matInput placeholder="Equipe">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onYesClick()" tabindex="1">YES</button>
+    <button mat-button mat-dialog-close tabindex="-1">NO</button>
+</mat-dialog-actions>

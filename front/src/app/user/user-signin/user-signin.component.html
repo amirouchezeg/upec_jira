@@ -1,0 +1,40 @@
+<table>
+    <tr>
+        <td>
+            <h1>Outil de développement <br/> logiciel pour les <br/>équipes Agile</h1><br/>
+            <button (click)="openDialogSignUp()" type="button" class="btn-large btn-submit"  id="btn">Essayez-le gratuitement</button>  
+        </td>
+        <td>
+            <img src="assets/img/imghome.png" width="600px" id="img-top">
+        </td>
+    </tr>
+</table>
+
+
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        Nom
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Nom" formControlName="nom">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                       Prenom
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Prenom" formControlName="prenom">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" [disabled]="!userForm.valid">Submit</button>
+</form>
+

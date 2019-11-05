@@ -12,14 +12,28 @@ router.get('/', function (req, res) {
 // Import user controller
 var userController = require('./controllers/userController');
 // User routes
+
+var VerifyToken = require('./controllers/VerifyToken');
+
+router.route('/users/me').get( VerifyToken, function(req, res, next) {
+    User.findById(req.userId, { password: 0 }, function (err, user) {
+      if (err) return res.status(500).send("There was a problem finding the user.");
+      if (!user) return res.status(404).send("No user found.");
+      res.status(200).send(user);
+    });  
+});
+
 router.route('/users')
-.get(userController.index)
+.get(VerifyToken,userController.index)
 .post(userController.new);
+router.route('/users/login')
+.post(userController.login);
 router.route('/users/:user_id')
-    .get(userController.view)
-    .patch(userController.update)
-    .put(userController.update)
-    .delete(userController.delete);
+    .get(VerifyToken,userController.view)
+    .patch(VerifyToken,userController.update)
+    .put(VerifyToken,userController.update)
+    .delete(VerifyToken,userController.delete);
+
 
 // Import sprint controller
 var sprintController = require('./controllers/sprintController');
@@ -57,5 +71,6 @@ router.route('/projects/:project_id')
     .get(projectController.view)
     .put(projectController.update)
     .delete(projectController.delete);  
+
 // Export API routes
 module.exports = router;
