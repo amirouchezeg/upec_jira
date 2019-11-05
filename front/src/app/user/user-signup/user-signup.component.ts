@@ -48,10 +48,10 @@ constructor(
     // console.log(this.roleFC.value);
     console.log("---------------send post signup");
     let user: User={
-      Email:"ami@gmail.com",
-      Password:"azerty",
-      FirstName:"ami",
-      LastName:"zeg",
+      email:"ami@gmail.com",
+      password:"azerty",
+      first_name:"ami",
+      last_name:"zeg",
     };
     this.userService.signUpUser(user)//getting the currant freelancer to display the price in addPost
       .subscribe(
@@ -59,7 +59,7 @@ constructor(
           console.log('data user signup',data);
           var jsonData=  JSON.parse(JSON.stringify(data));                       
         },
-        error => {console.log("erors :", JSON.stringify(error.error));});
+        error => {console.log("front errors :", JSON.stringify(error.error));});
     
   }
 
