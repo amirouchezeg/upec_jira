@@ -7,8 +7,8 @@ import { ProjectModule } from './project/project.module';
 
 const routes: Routes = [
   // ,canActivate:[AuthGuard]
-  { path: '', redirectTo:'jira', pathMatch:'full' },
-  { path: 'jira', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+  // { path: '', redirectTo:'jira', pathMatch:'full' },
+  { path: '', loadChildren: './dashboard/dashboard.module#DashboardModule' },
 ];
 
 @NgModule({

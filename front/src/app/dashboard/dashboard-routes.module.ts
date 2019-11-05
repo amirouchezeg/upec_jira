@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Route } from '@angular/router';
+import { HomeComponent } from '../home/home.component';
 
 export const MODULE_ROUTES: Route[] = [
   {
@@ -11,8 +12,10 @@ export const MODULE_ROUTES: Route[] = [
       {
         path: '',
         children: [
-            {path: '', redirectTo: '', pathMatch: 'full'},
-            {path: 'User', loadChildren: '../user/user.module#UserModule'}
+            // {path: '', redirectTo: '', pathMatch: 'full'},
+            {path: 'user', loadChildren: '../user/user.module#UserModule'},
+            { path: 'project', loadChildren: '../project/project.module#ProjectModule' },
+            {path: '', component: HomeComponent }
         ]
       }
     ]

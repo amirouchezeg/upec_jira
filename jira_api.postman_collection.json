@@ -1,0 +1,546 @@
+{
+	"id": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+	"name": "jira_api",
+	"description": "",
+	"order": [],
+	"folders": [
+		{
+			"name": "ProjectMiddelwear",
+			"description": "",
+			"collectionId": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+			"order": [
+				"46bdb7b7-14b9-e721-c33d-46cf4c0b8fa1",
+				"c956f49c-d495-63c4-710a-4e5f51e586f0"
+			],
+			"owner": "6436654",
+			"folders_order": [
+				"96e37cef-8a38-0748-dafc-bbf5593b18cb"
+			],
+			"id": "0e196b4c-8a9a-09f1-cd88-7af0efc5a6f3"
+		},
+		{
+			"name": "users",
+			"description": "",
+			"collectionId": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+			"order": [
+				"e24e2174-d23d-b68f-0076-1d3ee1ce39b4",
+				"a9e2f5e4-12f0-dc04-3cfb-4b07ffc15ed6",
+				"320652e8-4c38-466d-de41-eb479904c331",
+				"6a11d21a-ce01-365b-e51c-3dfe984ce21d",
+				"3ad34272-e6c0-e54b-4475-156ad2e8428a",
+				"858f6b16-3128-5772-5b17-4061f1566242",
+				"5dc7fe97-9912-421c-17da-4cc0c1c41a91"
+			],
+			"owner": "6436654",
+			"folder": "0e196b4c-8a9a-09f1-cd88-7af0efc5a6f3",
+			"folders_order": [],
+			"id": "96e37cef-8a38-0748-dafc-bbf5593b18cb"
+		}
+	],
+	"folders_order": [
+		"0e196b4c-8a9a-09f1-cd88-7af0efc5a6f3"
+	],
+	"timestamp": 1572091181109,
+	"owner": "6436654",
+	"public": false,
+	"requests": [
+		{
+			"id": "320652e8-4c38-466d-de41-eb479904c331",
+			"headers": "Content-Type: application/x-www-form-urlencoded\nx-access-token: {{tocken}}\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "x-access-token",
+					"value": "{{tocken}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/api/users/",
+			"folder": "96e37cef-8a38-0748-dafc-bbf5593b18cb",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [
+				{
+					"key": "name",
+					"value": "amirouche",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "jon@gmail.com",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "gender",
+					"value": "Male",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "phone",
+					"value": "043134134",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1571386493198,
+			"name": "find by |email or first_name and last_name |",
+			"description": "",
+			"collectionId": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+			"responses": [],
+			"isFromCollection": true
+		},
+		{
+			"id": "3ad34272-e6c0-e54b-4475-156ad2e8428a",
+			"headers": "Content-Type: application/x-www-form-urlencoded\nx-access-token: \n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "x-access-token",
+					"value": "",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/api/users/5da8978c7b2a1257fe388a22",
+			"folder": "96e37cef-8a38-0748-dafc-bbf5593b18cb",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1571386490949,
+			"name": "delete user",
+			"description": "",
+			"collectionId": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+			"responses": []
+		},
+		{
+			"id": "46bdb7b7-14b9-e721-c33d-46cf4c0b8fa1",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/api/contacts",
+			"folder": "0e196b4c-8a9a-09f1-cd88-7af0efc5a6f3",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "amirouche",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "jon@gmail.com",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "gender",
+					"value": "Male",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "phone",
+					"value": "043134134",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1570649982823,
+			"name": "add course",
+			"description": "",
+			"collectionId": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+			"responses": []
+		},
+		{
+			"id": "5dc7fe97-9912-421c-17da-4cc0c1c41a91",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/api/users/login",
+			"folder": "96e37cef-8a38-0748-dafc-bbf5593b18cb",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "amirouche",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				},
+				{
+					"key": "email",
+					"value": "ami@gmail.com",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "azerty",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "phone",
+					"value": "043134134",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				},
+				{
+					"key": "",
+					"value": "",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1571386496838,
+			"name": "login",
+			"description": "",
+			"collectionId": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+			"responses": []
+		},
+		{
+			"id": "6a11d21a-ce01-365b-e51c-3dfe984ce21d",
+			"headers": "Content-Type: application/x-www-form-urlencoded\nx-access-token: {{tocken}}\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "x-access-token",
+					"value": "{{tocken}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/api/users/5d9e37dca14e3d2f3f8d908b",
+			"folder": "96e37cef-8a38-0748-dafc-bbf5593b18cb",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [
+				{
+					"key": "name",
+					"value": "amirouche",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "jon@gmail.com",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "gender",
+					"value": "Male",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "phone",
+					"value": "043134134",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1571386494659,
+			"name": "get one user",
+			"description": "",
+			"collectionId": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+			"responses": []
+		},
+		{
+			"id": "858f6b16-3128-5772-5b17-4061f1566242",
+			"headers": "Content-Type: application/x-www-form-urlencoded\nx-access-token: {{tocken}}\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "x-access-token",
+					"value": "{{tocken}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/api/users/5da8978c7b2a1257fe388a22",
+			"folder": "96e37cef-8a38-0748-dafc-bbf5593b18cb",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [
+				{
+					"key": "first_name",
+					"value": "zeggagh",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "last_name",
+					"value": "amirrouche",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1571386488777,
+			"name": "edit user",
+			"description": "",
+			"collectionId": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+			"responses": []
+		},
+		{
+			"id": "a9e2f5e4-12f0-dc04-3cfb-4b07ffc15ed6",
+			"headers": "Content-Type: application/x-www-form-urlencoded\nx-access-token: {{tocken}}\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "x-access-token",
+					"value": "{{tocken}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/api/users/",
+			"folder": "96e37cef-8a38-0748-dafc-bbf5593b18cb",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [
+				{
+					"key": "name",
+					"value": "amirouche",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "jon@gmail.com",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "gender",
+					"value": "Male",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "phone",
+					"value": "043134134",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1571386493198,
+			"name": "get all users",
+			"description": "",
+			"collectionId": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+			"responses": []
+		},
+		{
+			"id": "c956f49c-d495-63c4-710a-4e5f51e586f0",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/api/users",
+			"folder": "0e196b4c-8a9a-09f1-cd88-7af0efc5a6f3",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1570649981033,
+			"name": "get course",
+			"description": "",
+			"collectionId": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\":\"tp4\"\n}"
+		},
+		{
+			"id": "e24e2174-d23d-b68f-0076-1d3ee1ce39b4",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/api/users",
+			"folder": "96e37cef-8a38-0748-dafc-bbf5593b18cb",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "email",
+					"value": "ami@gmail.com",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "first_name",
+					"value": "ab",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "last_name",
+					"value": "amir",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "password",
+					"value": "azerty",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1571383510326,
+			"name": "add user",
+			"description": "",
+			"collectionId": "879f62ff-6b3a-8617-63c3-0fcaff04c3f1",
+			"responses": []
+		}
+	]
+}

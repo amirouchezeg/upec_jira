@@ -10,17 +10,18 @@ import { ProjectAddComponent } from './project/project-add/project-add.component
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { SharedModule } from './_shared/shared.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
-    AppComponent 
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    
+    HttpClientModule,
     BrowserAnimationsModule,
     
     MDBBootstrapModule.forRoot()

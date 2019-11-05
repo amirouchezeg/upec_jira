@@ -1,30 +1,37 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ProjectRoutingModule } from './project-routing.module';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectAddComponent } from './project-add/project-add.component';
-
-
+import { ReactiveFormsModule} from '@angular/forms';
 
 //A modifier
 import {SharedModule} from '../_shared/shared.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { ProjectScreenComponent } from './project-screen/project-screen.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
+// import { HeaderComponent } from '../header/header.component';
+// import { FooterComponent } from '../footer/footer.component';
 
 @NgModule({
-  declarations: [ProjectListComponent, ProjectAddComponent],
+  declarations: [
+    // HeaderComponent,
+    // FooterComponent,
+    ProjectListComponent, 
+    ProjectAddComponent, 
+    ProjectScreenComponent],
   imports: [
+    MatProgressBarModule,
+    ReactiveFormsModule,
     CommonModule,
     ProjectRoutingModule,
-
-
-
     SharedModule,
     MatDatepickerModule
   ],
   providers: [
     MatDatepickerModule
   ],
-  entryComponents: [ProjectAddComponent, ProjectListComponent]
+  entryComponents: [ProjectListComponent,ProjectAddComponent]
 })
 export class ProjectModule { }
