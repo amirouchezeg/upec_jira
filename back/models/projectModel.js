@@ -25,6 +25,7 @@ const projectSchema = mongoose.Schema({
     },
     users: [ { 
         user_id: String, 
+        email: String,
         role: String 
       },],
     sprints: [{  
@@ -33,7 +34,7 @@ const projectSchema = mongoose.Schema({
 });
 
 
-// Export sprint model
+// Export project model
 const Project = module.exports = mongoose.model('projet', projectSchema);
 module.exports.get = function (callback, limit) {
     Project.find(callback).limit(limit);
