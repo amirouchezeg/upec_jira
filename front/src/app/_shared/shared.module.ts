@@ -25,6 +25,8 @@ import {
     MatSnackBarModule
 } from '@angular/material';
 import { MDBBootstrapModule, NavbarModule, IconsModule } from 'angular-bootstrap-md';
+import { ButtonModule } from 'primeng/button';
+import {FieldsetModule} from 'primeng/fieldset';
 
 const sharedModules: any[] = [
     MatChipsModule,
@@ -52,6 +54,9 @@ const sharedModules: any[] = [
     MatSnackBarModule,
     NavbarModule,
     IconsModule,
+
+    ButtonModule,
+    FieldsetModule
     ]
 
 @NgModule({

@@ -14,3 +14,28 @@ td{
     padding-left: 100px;
     
 }
+
+.card-header{
+    background-color:#2399e5; 
+    padding-bottom: 0px;
+}
+
+a{
+    margin-right: 7px;
+}
+
+i{
+    color: white;
+}
+
+.card{
+    height: 100%;
+}
+
+form{
+    height: 100%;
+}
+
+.card-footer{
+    text-align: right;
+}
