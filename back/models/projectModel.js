@@ -24,7 +24,7 @@ const projectSchema = mongoose.Schema({
         default: Date.now
     },
     users: [ { 
-        user_id: String, 
+        user_id: String,
         email: String, 
         //todo: status: enumof (waiting,accepted,refused), 
         role: String 
@@ -35,7 +35,7 @@ const projectSchema = mongoose.Schema({
 });
 
 
-// Export sprint model
+// Export project model
 const Project = module.exports = mongoose.model('projet', projectSchema);
 module.exports.get = function (callback, limit) {
     Project.find(callback).limit(limit);
