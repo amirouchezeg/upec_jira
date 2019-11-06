@@ -1,6 +1,23 @@
 // Import sprint model
 const Project = require('../models/projectModel');
-const Joi = require('joi'); 
+const Joi = require('joi');
+var Email = require("../models/email");
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    service: 'GMAIL',
+    auth: {
+      user: 'inmyblog656@gmail.com',
+      pass: 'InmYblOg12341!'
+    }
+});
+  
+var mailOptions = {
+    from: 'notReplay@gmail.com',
+    to: 'amirouchez656@gmail.com',
+    subject: 'Sending Email using Node.js',
+    text: 'That was easy!'
+};
 
 // Handle index actions
 exports.index = function (req, res) {
@@ -19,12 +36,12 @@ exports.index = function (req, res) {
     });
 };
 // Handle create project actions
-exports.new = function (req, res) {
+exports.new =  function (req, res) {
     const schema={
         title:Joi.string().min(2).required(),
         description:Joi.string(),
         start_date: Joi.date(),
-        end_date: Joi.date().iso().greater('start_date'),
+        end_date: Joi.date().greater(Joi.ref('start_date')),
         users: Joi.array().items(Joi.object({
         user_id: Joi.string(),
         role: Joi.string()
@@ -49,13 +66,22 @@ exports.new = function (req, res) {
             project.end_date = req.body.end_date;
             project.users = req.body.users;
             project.sprints = req.body.sprints;
-            project.save(function (err) {
-               res.json({
-                 message: 'New project created!',
-                 data: project
-              });
+            
+            //sending emails
+            var email = new Email("amirouchez656@gmail.com");            
+            email.transporter.sendMail(mailOptions, function(error, info){
+                warrning="";
+                if (error) {
+                    console.log("error Send Email ",error);
+                    warrning="error when sending email to "+ email.email;
+                } 
+                console.log('Email sent:...... ' + info.response);
+                res.json({
+                    message: 'New project created!',
+                    warrning: warrning,
+                    data: project
+                });
             });
-
         }
     })
     

@@ -25,6 +25,8 @@ const projectSchema = mongoose.Schema({
     },
     users: [ { 
         user_id: String, 
+        email: String, 
+        //todo: status: enumof (waiting,accepted,refused), 
         role: String 
       },],
     sprints: [{  
