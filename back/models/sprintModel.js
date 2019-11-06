@@ -39,7 +39,9 @@ const sprintSchema = mongoose.Schema({
     create_date: {
         type: Date,
         default: Date.now
-    }
+    },
+    project_id: String, 
+
 });
 // Export sprint model
 const Sprint = module.exports = mongoose.model('sprint', sprintSchema);
