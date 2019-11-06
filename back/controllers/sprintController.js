@@ -46,13 +46,21 @@ exports.new = function (req, res) {
             sprint.start_date = req.body.start_date;
             sprint.end_date = req.body.end_date;
             Project.findOne({_id: sprint.project_id}, function (err, project) {
-                if (err) console.log('Error on the server.');
+                if (err) console.log('Error on the server.',err.message);
                 else {
                     if(project == null){
                        console.log('Project doesnt exists');
                     } 
                     else{
-                      project.sprints.push(sprint._id);           
+                      project.sprints.push(sprint._id);
+                      m_sprints={sprints: project.sprints};
+                      console.log(m_sprints);
+                      Project.findByIdAndUpdate(sprint.project_id,m_sprints, {
+                            new: true
+                        },function(err, project) {
+                               
+                            }
+                        );           
                     } 
                 } 
             });      
