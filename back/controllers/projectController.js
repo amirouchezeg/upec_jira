@@ -4,20 +4,7 @@ const Joi = require('joi');
 var Email = require("../models/email");
 var nodemailer = require('nodemailer');
 
-var transporter = nodemailer.createTransport({
-    service: 'GMAIL',
-    auth: {
-      user: 'inmyblog656@gmail.com',
-      pass: 'InmYblOg12341!'
-    }
-});
-  
-var mailOptions = {
-    from: 'notReplay@gmail.com',
-    to: 'amirouchez656@gmail.com',
-    subject: 'Sending Email using Node.js',
-    text: 'That was easy!'
-};
+
 User = require('../models/userModel');
 
 
@@ -71,21 +58,7 @@ exports.new =  function (req, res) {
             project.users = req.body.users;
             project.sprints = req.body.sprints;
             
-            //sending emails
-            var email = new Email("amirouchez656@gmail.com");            
-            email.transporter.sendMail(mailOptions, function(error, info){
-                warrning="";
-                if (error) {
-                    console.log("error Send Email ",error);
-                    warrning="error when sending email to "+ email.email;
-                } 
-                console.log('Email sent:...... ' + info.response);
-                res.json({
-                    message: 'New project created!',
-                    warrning: warrning,
-                    data: project
-                });
-            });
+            
             //todo: send email to users
             //todo: get ids of emails from users tables 
             project.users.forEach(utilisateur => {
@@ -102,7 +75,16 @@ exports.new =  function (req, res) {
                         } 
                     } 
                     console.log('userNotExists', userNotExists);
-                });    
+                }); 
+
+                //sending emails
+                var email = new Email(emailofUser);            
+                email.transporter.sendMail(email.mailOptions, function(error, info){
+                    if (error) {
+                        console.log("error Send Email ",error);
+                    } 
+                    console.log('Email sent:...... ' + info.response);
+                }); 
             });
             project.sprints = req.body.sprints;    
             project.save(function (err) {
@@ -128,8 +110,7 @@ exports.view = function (req, res) {
 exports.update = function (req, res) {
     Project.findByIdAndUpdate(req.params.project_id,req.body, {
         new: true
-    },
-        function(err, project) {
+    },function(err, project) {
             if (!err) {
                 res.status(201).json({
                     data: project
@@ -139,7 +120,8 @@ exports.update = function (req, res) {
                     message: "not found any relative data"
                 })
             }
-        });
+        }
+    );
   
 };
 // Handle delete issue
