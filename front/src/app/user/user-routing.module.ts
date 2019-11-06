@@ -7,20 +7,18 @@ import { ProjectListComponent } from '../project/project-list/project-list.compo
 
 
 const routes: Routes = [
-  { path: '', component: UserScreenComponent,
-  children: [
-    {
-      path: '',
+  { path: '', component: UserScreenComponent, 
       children: [
-        {path: 'signup', component: UserSignupComponent},
-        {path: 'signin', component: UserSigninComponent},
-        {path: 'projects', component: ProjectListComponent}
+        {
+          path: '',
+          children: [
+            {path: '', redirectTo: 'signup', pathMatch: 'full'},
+            {path: 'signup', component: UserSignupComponent},
+            {path: 'signin', component: UserSigninComponent},
+          ]
+        }
       ]
-    }
-  ]
-
   }
-  
 ];
 
 @NgModule({

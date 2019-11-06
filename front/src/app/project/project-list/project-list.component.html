@@ -1,21 +1,23 @@
 <div class="container">
     <div class="row">
-        <div class="col-6" >
-            Projets
-        </div>
-        <div class="col-6" id="button-addP">
-            <button class="btn"  (click)="addProject()"><i class="fa fa-plus"></i>Créer un projet</button>
+        <div class="col-12 add-project d-flex justify-content-center">
+            <button class="btn btn-outline-dark btn-lg"  (click)="addProject()">
+                <i class="fa fa-plus"></i>Créer un projet
+            </button>
         </div>
     </div>
+    <h2>Projets</h2>
     <div class="row">
-        <!-- <p-card header="Advanced Card" subheader="Subheader" [style]="{width: '360px'}" styleClass="ui-card-shadow">
-            <div>
-               Nom du projet<br\>
-               description de projet
+        <div  *ngFor="let project of projects" class="div col-4 project-card">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body ">
+                    <h4 class="card-title">Card title</h4>
+                    <p class="card-text">
+                        Some quick example text to build on the card title and 
+                        ...</p>
+                    <a href="#" class="btn btn-outline-secondary btn-lg ">Plus de Detail</a>
+                </div>
             </div>
-            <p-footer>
-                lien vers backlog de produit
-            </p-footer>
-        </p-card> -->
+        </div>
     </div>
 </div>

@@ -47,6 +47,7 @@ export class UserSignupComponent implements OnInit {
     private router: Router
     ) { }
 
+
   ngOnInit() {
     this.emailFC = new FormControl('', EmailValidation);
     this.firstnameFC = new FormControl('');
@@ -81,6 +82,7 @@ export class UserSignupComponent implements OnInit {
   }
 
   onSubmit(){
+
     let user: User = new User();
     user.first_name = this.firstnameFC.value;
     user.last_name = this.lastnameFC.value;
@@ -92,12 +94,9 @@ export class UserSignupComponent implements OnInit {
       data => {
         console.log("data :"+ data);
       }
-    );
-    
+    );    
   }
-
   moveToSignUp(){
     this.router.navigateByUrl('/jira/User/signin');
   }
-
 }

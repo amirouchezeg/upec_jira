@@ -4,8 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_model/user';
 
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
   // readonly rootUrl = 'http://localhost:8080/api/users'; 
   readonly rootUrl = 'http://localhost:8080/api/users'; //port? url service....
@@ -36,6 +37,7 @@ export class UserService {
    return  this.http.get(this.rootUrl+'/api/GetUserClaims');
   }
 
+
   addUser(user: User){
     // this.httpOptions = {
     //   headers: new HttpHeaders({
@@ -44,7 +46,6 @@ export class UserService {
     //     // 'Authorization': 'Bearer '+this.currentFreelancer.token     
     //   })
     // };
-
     return this.http.post(this.rootUrl, user);
   }
 
