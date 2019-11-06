@@ -12,6 +12,8 @@ import {SharedModule} from '../_shared/shared.module';
 import {MatInputModule} from '@angular/material/input';
 import { UserScreenComponent } from './user-screen/user-screen.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { UserService } from '../_service/user-service';
+import { ProjectModule } from '../project/project.module';
 
 @NgModule({
   declarations: [UserSigninComponent, UserSignupComponent, UserScreenComponent],
@@ -23,8 +25,10 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     MatFormFieldModule,
     SharedModule,
     MatInputModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    ProjectModule
   ],
+  providers: [ UserService ],
   entryComponents: [UserSigninComponent]
 })
 export class UserModule { }

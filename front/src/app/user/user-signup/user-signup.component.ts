@@ -1,69 +1,102 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { MatDialog, ErrorStateMatcher } from '@angular/material';
+import { FormControl, FormGroup, FormBuilder, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { UserService } from 'src/app/_service/user-service';
 import { User } from 'src/app/_model/user';
+import { ViewEncapsulation } from '@angular/compiler/src/core';
+import { UserSigninComponent } from '../user-signin/user-signin.component';
+import { Router } from '@angular/router';
+
+export const EmailValidation = [Validators.required, Validators.email];
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
+    const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
+
+    return (invalidCtrl || invalidParent);
+  }
+}
+export const PasswordValidation = [
+  Validators.required,
+  Validators.minLength(6)
+];
 
 @Component({
   selector: 'app-user-signup',
   templateUrl: './user-signup.component.html',
-  styleUrls: ['./user-signup.component.css']
+  styleUrls: ['../user.component.css']
 })
+
 export class UserSignupComponent implements OnInit {
+  emailFC: FormControl;
+  firstnameFC: FormControl;
+  lastnameFC: FormControl;
+  passwordFC: FormControl;
+  confirmPassword: FormControl;
+  pathavatarFC: FormControl;
+  createdateFC: FormControl;
+
   userform: FormGroup;
-  nomFC: FormControl;
-  prenomFC: FormControl;
-  roleFC: FormControl;
-//...........
-  
-constructor(
+  matcher = new MyErrorStateMatcher();
+
+  constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private userService: UserService
-    ) {   }
+    private userService: UserService,
+    private router: Router
+    ) { }
+
 
   ngOnInit() {
-    this.nomFC = new FormControl('');
-    this.prenomFC = new FormControl('');
-    this.roleFC = new FormControl('');
+    this.emailFC = new FormControl('', EmailValidation);
+    this.firstnameFC = new FormControl('');
+    this.lastnameFC = new FormControl('');
+    this.passwordFC = new FormControl('', PasswordValidation);
+    this.createdateFC = new FormControl('');
+    this.confirmPassword = new FormControl('');
+
     this.userform = this.fb.group({
-      'nom': this.nomFC,
-      'prenom': this.prenomFC,
-      'role': this.roleFC
-      //...........
-    }) 
+      'email': this.emailFC,
+      'firstname': this.firstnameFC,
+      'lastname': this.lastnameFC,
+      'password': this.passwordFC,
+      'confirmPass': this.confirmPassword,
+      'createdate': this.createdateFC    
+    }, { validator: this.checkPasswords });
   }
 
-  openDialogSignUp(): void {
-    const dialogRef = this.dialog.open(UserSignupComponent, {
-       width: '250px',
-       height: '550px',
+  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    let pass = group.controls.password.value;
+    let confirmPass = group.controls.confirmPass.value;
+  
+    return pass === confirmPass ? null : { notSame: true }
+  }
+
+  signIn(): void {
+    const dialogRef = this.dialog.open(UserSigninComponent, {
+       width: '500px',
+       height: '300px',
        data: {}
      });
   }
 
   onSubmit(){
-    // console.log("2",this.nomFC.value);    
-    // console.log(this.prenomFC.value);
-    // console.log(this.roleFC.value);
-    console.log("---------------send post signup");
-    let user: User={
-      email:"ami@gmail.com",
-      password:"azerty",
-      first_name:"ami",
-      last_name:"zeg",
-    };
-    this.userService.signUpUser(user)//getting the currant freelancer to display the price in addPost
-      .subscribe(
-        data => {
-          console.log('data user signup',data);
-          var jsonData=  JSON.parse(JSON.stringify(data));                       
-        },
-        error => {console.log("front errors :", JSON.stringify(error.error));});
-    
-  }
 
-  onLogin(){
-    console.log("onLogin()");
+    let user: User = new User();
+    user.first_name = this.firstnameFC.value;
+    user.last_name = this.lastnameFC.value;
+    user.email = this.emailFC.value;
+    user.password = this.passwordFC.value;
+   // user.create_date = new Date();
+    console.log(user);
+    this.userService.addUser(user).subscribe(
+      data => {
+        console.log("data :"+ data);
+      }
+    );    
+  }
+  moveToSignUp(){
+    this.router.navigateByUrl('/jira/User/signin');
   }
 }

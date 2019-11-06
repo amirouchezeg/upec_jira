@@ -1,0 +1,41 @@
+h1{
+    font-size: 1.75rem;
+    line-height: 1.18181818;
+    font-family: Charlie Display;
+}
+
+img{
+    position:center;
+    text-align: center;
+}
+td{
+    width: 50%;
+    height: 100%;
+    padding-left: 100px;
+    
+}
+
+.card-header{
+    background-color:#2399e5; 
+    padding-bottom: 0px;
+}
+
+a{
+    margin-right: 7px;
+}
+
+i{
+    color: white;
+}
+
+.card{
+    height: 100%;
+}
+
+form{
+    height: 100%;
+}
+
+.card-footer{
+    text-align: right;
+}

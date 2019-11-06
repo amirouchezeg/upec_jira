@@ -1,7 +1,8 @@
-export interface User {
-    idUser?: number;
+export class User {
+    email: String;
+    first_name: String;
+    last_name: String;
     password: string;
-    email: string;
-    first_name: string;
-    last_name: string;
+    path_avatar: String;
+    create_date: Date;
 }
