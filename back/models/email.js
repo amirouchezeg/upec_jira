@@ -18,7 +18,7 @@ module.exports = class Email {
     
     this.mailOptions = {
       from: 'notReplay@gmail.com',
-      to: email.email,
+      to: this.email,
       subject: 'Sending Email using Node.js',
       text: 'That was easy!'
     };
