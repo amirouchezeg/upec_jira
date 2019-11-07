@@ -1,17 +1,19 @@
-
-
-<table>
-    <tr>
-        <td style="text-align: center;">
-            <h1>Outil de développement logiciel pour les équipes Agile</h1>
-            <img src="assets/img/imghome.png" width="600px" id="img-top">
-        </td>
-        <td >
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
             <form [formGroup]="userform" (ngSubmit)="onSubmit()">
-                <p-fieldset legend="Inscription">
-                       <div class="container">
-                            <div class="row">
-                                <div class="col-3">
+                <div class="card">
+                    <div class="card-header">
+                        <p style="color:white; font-size:17px; ">
+                            <i  class="fa fa-user fa-1x"></i>
+                            Inscription
+                        </p>
+                    </div>
+                    <div class="card-body" >
+                        <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
+                        <div class="row">
+                                <div class="col-5">
                                     Nom
                                 </div>
                                 <div class="col">
@@ -24,7 +26,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-5">
                                     Prenom
                                 </div>
                                 <div class="col">
@@ -37,7 +39,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-5">
                                     Email
                                 </div>
                                 <div class="col">
@@ -53,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-5">
                                     <!-- <label for="nom" class="col-form-label"> -->
                                     Mot de passe
                                 <!-- </label> -->
@@ -71,7 +73,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-5">
                                     <!-- <label for="nom" class="col-form-label"> -->
                                     Confirmation mot de passe
                                 <!-- </label> -->
@@ -89,13 +91,12 @@
                                 <a  (click)="signIn()" style="text-decoration: underline; color: blue">Vous avez déjà un compte</a>
                                 <button pButton type="submit" class="ui-button-primary" label="{{ 'Sinscrire' }}" [disabled]="!userform.valid" ></button> 
                             </div>
-                        </div>
-                </p-fieldset>
-            </form>
-        </td>
-    </tr>
-</table>
-
-
+                    </div>
+                </div>
+            </form>              
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
 
 
