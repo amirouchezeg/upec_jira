@@ -57,25 +57,22 @@ exports.new =  function (req, res) {
             project.end_date = req.body.end_date;
             project.users = req.body.users;
             project.sprints = req.body.sprints;
-            
-            
-            //todo: send email to users
-            //todo: get ids of emails from users tables 
-            project.users.forEach(utilisateur => {
-                var emailofUser = utilisateur.email;
-                User.findOne({email: emailofUser}, function (err, user) {
-                    if (err) console.log('Error on the server.');
-                    else {
-                        if(user == null){
-                            userNotExists.push(emailofUser);   
+            if(req.body.users)
+                project.users.forEach(utilisateur => {
+                    var emailofUser = utilisateur.email;
+                    User.findOne({email: emailofUser}, function (err, user) {
+                        if (err) console.log('Error on the server.');
+                        else {
+                            if(user == null){
+                                userNotExists.push(emailofUser);   
+                            } 
+                            else{
+                                var userId = utilisateur._id;
+                                utilisateur.user_id = userId;
+                            } 
                         } 
-                        else{
-                            var userId = utilisateur._id;
-                            utilisateur.user_id = userId;
-                        } 
-                    } 
-                    console.log('userNotExists', userNotExists);
-                }); 
+                        console.log('userNotExists', userNotExists);
+                    }); 
 
                 //sending emails
                 var email = new Email(emailofUser);            

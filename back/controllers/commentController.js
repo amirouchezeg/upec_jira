@@ -1,10 +1,10 @@
 // Import sprint model
-Issue = require('../models/issueModel');
+Comment = require('../models/commentsModel');
 const Joi = require('joi'); 
 
 // Handle index actions
 exports.index = function (req, res) {
-    Issue.get(function (err, issues) {
+    Comment.get(function (err, comments) {
         if (err) {
             res.json({
                 status: "error",
@@ -13,22 +13,21 @@ exports.index = function (req, res) {
         }
         res.json({
             status: "success",
-            message: "issues retrieved successfully",
-            data: issues
+            message: "comments retrieved successfully",
+            data: comments
         });
     });
 };
-// Handle create issue actions
+// Handle create comment actions
 exports.new = function (req, res) {
     const schema={
-        title:Joi.string().min(2).required(),
-        start_date: Joi.date(),
-        description: Joi.string(),
-        end_date: Joi.date().greater(Joi.ref('start_date'))
+        utilisateur:Joi.string(),
+        commentaire: Joi.string(),
+        create_date: Joi.date(),
     }
 
      
-    Joi.validate(req.body,schema, (err, issue) =>{
+    Joi.validate(req.body,schema, (err, comment) =>{
         if(err){
             res.status(422).json({
                 status: "error",
@@ -37,16 +36,14 @@ exports.new = function (req, res) {
             });
         }
         else{
-            issue = new Issue();
-            issue.title = req.body.title;
-            issue.description = req.body.description;  
-            issue.start_date = req.body.start_date;
-            issue.end_date = req.body.end_date;   
-            issue.users = req.body.users;
-            issue.save(function (err) {
+            comment = new Comment();
+            comment.commentaire = req.body.commentaire;
+            comment.create_date = req.body.create_date;   
+            comment.utilisateur = req.body.utilisateur;
+            comment.save(function (err) {
                 res.json({
-                  message: 'New issue created!',
-                  data: issue
+                  message: 'New  created!',
+                  data: comment
                });
            });
 
@@ -54,46 +51,45 @@ exports.new = function (req, res) {
     })
 };
 exports.view = function (req, res) {
-    Sprint.findById(req.params.issue_id, function (err, issue) {
+    Comment.findById(req.params.comment_id, function (err, comment) {
         if (err)
             res.send(err);
         res.json({
-            message: 'issue details loading..',
-            data: issue
+            message: 'comment details loading..',
+            data: comment
         });
     });
 };
 
 
 exports.update = function (req, res) {
-    Issue.findByIdAndUpdate(req.params.issue_id,req.body, {
+    Comment.findByIdAndUpdate(req.params.comment_id,req.body, {
         new: true
     },
-        function(err, issue) {
+        function(err, comment) {
             if (!err) {
                 res.status(201).json({
-                    data: issue
+                    data: comment
                 });
             } else {
                 res.status(500).json({
                     message: "not found any relative data"
                 })
             }
-        });
-  
+        }); 
 };
 
 
-// Handle delete issue
+// Handle delete comment
 exports.delete = function (req, res) {
-    Issue.remove({
-        _id: req.params.issue_id
-    }, function (err, issue) {
+    Comment.remove({
+        _id: req.params.comment_id
+    }, function (err, comment) {
         if (err)
             res.send(err);
         res.json({
             status: "success",
-            message: 'issue deleted'
+            message: 'comment deleted'
         });
     });
 };

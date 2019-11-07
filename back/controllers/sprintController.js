@@ -57,9 +57,7 @@ exports.new = function (req, res) {
                       console.log(m_sprints);
                       Project.findByIdAndUpdate(sprint.project_id,m_sprints, {
                             new: true
-                        },function(err, project) {
-                               
-                            }
+                        },function(err, project) {}
                         );           
                     } 
                 } 
@@ -86,27 +84,7 @@ exports.view = function (req, res) {
         });
     });
 };
-/*
-exports.update = function (req, res) {
-    Sprint.findById(req.params.sprint_id, function (err, user) {
-        if (err)
-            res.send(err);
-        sprint.title = req.body.title;
-        sprint.start_date = req.body.start_date;
-        sprint.end_date = req.body.end_date;
-        sprint.description = req.body.description;
-        print.ordre = req.body.ordre;
-        // save the sprint and check for errors
-        sprint.save(function (err) {
-            if (err)
-                res.json(err);
-            res.json({
-                message: 'sprint Info updated',
-                data: sprint
-            });
-        });
-    });
-};*/
+
 exports.update = function (req, res) {
     Project.findByIdAndUpdate(req.params.sprint_id,req.body, {
         new: true
