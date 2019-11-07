@@ -10,6 +10,7 @@ import {SharedModule} from '../_shared/shared.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ProjectScreenComponent } from './project-screen/project-screen.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ProjectService } from '../_service/project-service';
 
 // import { HeaderComponent } from '../header/header.component';
 // import { FooterComponent } from '../footer/footer.component';
@@ -30,7 +31,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatDatepickerModule
   ],
   providers: [
-    MatDatepickerModule
+    MatDatepickerModule,
+    ProjectService
   ],
   entryComponents: [ProjectListComponent,ProjectAddComponent]
 })

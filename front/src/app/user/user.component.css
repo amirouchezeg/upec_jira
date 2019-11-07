@@ -8,15 +8,10 @@ img{
     position:center;
     text-align: center;
 }
-td{
-    width: 50%;
-    height: 100%;
-    padding-left: 100px;
-    
-}
+
 
 .card-header{
-    background-color:#2399e5; 
+    background-color:#6351ce; 
     padding-bottom: 0px;
 }
 
@@ -39,3 +34,4 @@ form{
 .card-footer{
     text-align: right;
 }
+

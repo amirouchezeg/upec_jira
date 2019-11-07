@@ -37,7 +37,7 @@ export class UserSigninComponent implements OnInit {
       
       localStorage.setItem('token', data.toString())
       console.log(data.valueOf());
-      this.router.navigateByUrl('/jira/User/projects');
+      this.router.navigateByUrl('user/project_list');
     })
     
   }

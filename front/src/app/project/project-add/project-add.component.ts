@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Project } from 'src/app/_model/project';
+import { ProjectService } from 'src/app/_service/project-service';
 
 
 @Component({
@@ -15,16 +16,31 @@ export class ProjectAddComponent implements OnInit {
   @Output() submitClicked = new EventEmitter<any>();
   isProgressVisible = false;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  title = new FormControl('',[Validators.minLength(2),Validators.required]);
-  startDate = new FormControl('');
-  endDate = new FormControl('');
-  description = new FormControl('');
-  teamEmails: string[] = [];
-  
 
-  constructor(private dialogRef:MatDialogRef<ProjectAddComponent>) { }
+  titleFC : FormControl;
+  startDateFC : FormControl;
+  endDateFC : FormControl;
+  descriptionFC : FormControl;
+
+  teamEmails: string[] = [];
+  projectform: FormGroup;  
+
+  teamEmailsTab : Array<{email: string, role: string}> = [];
+
+  constructor(private dialogRef:MatDialogRef<ProjectAddComponent>, private projectService: ProjectService) { }
 
   ngOnInit() {
+    this.titleFC = new FormControl('');
+    this.startDateFC = new FormControl('');
+    this.endDateFC = new FormControl('');
+    this.descriptionFC = new FormControl('');
+
+    this.projectform = new FormGroup({
+      'title': this.titleFC,
+      'startDate': this.startDateFC,
+      'endDate': this.endDateFC,
+      'description': this.descriptionFC
+    });
   }
 
   /* add remove user from team */
@@ -52,22 +68,39 @@ export class ProjectAddComponent implements OnInit {
   }
 
   /*on Click*/
-  onSaveProject(){
+  onSubmit(){
     this.isProgressVisible=true;
-    let project:Project = new Project(this.title.value,this.description.value,this.startDate.value,this.endDate.value,this.teamEmails);
+    
+    this.teamEmails.forEach(element => {
+      this.teamEmailsTab.push({email: element, role: "test"})
+    });
+
+    let project : Project = new Project;
+    
+    project.title = this.titleFC.value;
+    project.end_date = this.endDateFC.value;
+    project.start_date = this.startDateFC.value;
+    project.description = this.descriptionFC.value;
+    project.users = this.teamEmailsTab;
+    
+    this.projectService.addProject(project).subscribe(data => {
+      console.log(data);
+      //execute those to instructions after response of server 
+    this.isProgressVisible=false;    
+    
+    this.submitClicked.emit(project);
+    this.dialogRef.close();
+    })
+    // console.log(project);
     //checkValidation
-    if (!project.isValide()) {      
-      console.log('not Valide: ',project);
-      return;
-    }
+    // if (!project.isValide()) {      
+    //   console.log('not Valide: ',project);
+    //   return;
+    // }
     console.log('project: ',project);
 
     
-    //execute those to instructions after response of server 
-    this.isProgressVisible=false;    
-    const data = 'Your data';
-    this.submitClicked.emit(project);
-    this.dialogRef.close();
+    
     
   }
 }
