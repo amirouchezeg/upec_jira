@@ -5,12 +5,16 @@ const commentSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    commentaire:{
+    message:{
         type: String
     },
-    utilisateur: { 
+    user_id: { 
         type: String, 
-      }
+    },
+    issue_id: { 
+        type: String, 
+    }
+
 });
 
 

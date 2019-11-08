@@ -24,6 +24,12 @@ exports.new = function (req, res) {
         title:Joi.string().min(2).required(),
         start_date: Joi.date(),
         description: Joi.string(),
+        comments: Joi.array().items(Joi.object({
+            commentaire: Joi.string(),
+            })),
+        users: Joi.array().items(Joi.object({
+            user_id: Joi.string(),
+            })),
         end_date: Joi.date().greater(Joi.ref('start_date'))
     }
 
@@ -43,6 +49,7 @@ exports.new = function (req, res) {
             issue.start_date = req.body.start_date;
             issue.end_date = req.body.end_date;   
             issue.users = req.body.users;
+            issue.comments = req.body.comments;
             issue.save(function (err) {
                 res.json({
                   message: 'New issue created!',
@@ -54,7 +61,7 @@ exports.new = function (req, res) {
     })
 };
 exports.view = function (req, res) {
-    Sprint.findById(req.params.issue_id, function (err, issue) {
+    Issue.findById(req.params.issue_id, function (err, issue) {
         if (err)
             res.send(err);
         res.json({

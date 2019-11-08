@@ -1,5 +1,6 @@
 // Import sprint model
 Comment = require('../models/commentsModel');
+Issue = require('../models/issueModel');
 const Joi = require('joi'); 
 
 // Handle index actions
@@ -21,12 +22,12 @@ exports.index = function (req, res) {
 // Handle create comment actions
 exports.new = function (req, res) {
     const schema={
-        utilisateur:Joi.string(),
-        commentaire: Joi.string(),
+        user_id:Joi.string().required(),
+        message: Joi.string(),
         create_date: Joi.date(),
+        issue_id: Joi.string().required(),
     }
-
-     
+   
     Joi.validate(req.body,schema, (err, comment) =>{
         if(err){
             res.status(422).json({
@@ -37,12 +38,34 @@ exports.new = function (req, res) {
         }
         else{
             comment = new Comment();
-            comment.commentaire = req.body.commentaire;
+            comment.message = req.body.message;
             comment.create_date = req.body.create_date;   
-            comment.utilisateur = req.body.utilisateur;
+            comment.user_id = req.body.user_id;
+            comment.issue_id = req.body.issue_id;
+            if(req.body.issue_id)
+                Issue.findOne({_id: comment.issue_id}, function (err, issue) {
+                    if (err) console.log('Error on the server.');
+                    else {
+                        if(issue == null){
+                            console.log("issue doesn't exist...!")
+                        } 
+                        else{
+                            console.log('_____id du commentaire', comment._id)
+                            issue.comments.push(comment._id);
+                            m_issue={comments: issue.comments};
+                            console.log('m_issue',m_issue);
+                            Issue.findByIdAndUpdate(comment.issue_id,m_issue, {
+                                  new: true
+                              },function(err, project) {}
+                              );           
+                          }  
+                    } 
+                
+                }); 
+
             comment.save(function (err) {
                 res.json({
-                  message: 'New  created!',
+                  message: 'New comment created!',
                   data: comment
                });
            });

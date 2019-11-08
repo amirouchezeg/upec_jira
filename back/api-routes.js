@@ -48,6 +48,16 @@ router.route('/sprints/:sprint_id')
     .delete(sprintController.delete);
 
 
+// Import issue controller
+var issueController = require('./controllers/issueController');
+// issue routes
+router.route('/issues')
+.get(issueController.index)
+.post(issueController.new);
+router.route('/issues/:issue_id')
+    .get(issueController.view)
+    .put(issueController.update)
+    .delete(issueController.delete);  
 
 
 // Import project controller
@@ -63,7 +73,7 @@ router.route('/projects/:project_id')
 
     // Import comment controller
 var commentController = require('./controllers/commentController');
-// sprint routes
+// comments routes
 router.route('/comments')
 .get(commentController.index)
 .post(commentController.new);
