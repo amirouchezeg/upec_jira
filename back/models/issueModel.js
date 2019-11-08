@@ -20,6 +20,9 @@ const issueSchema = mongoose.Schema({
         type: Date,
         default: null,
     },
+    sprint_id: {
+        type: String,
+    },
     end_date: {
         type: Date,
         default: null,
@@ -37,7 +40,10 @@ const issueSchema = mongoose.Schema({
     create_date: {
         type: Date,
         default: Date.now
-    }
+    },
+    users: [ { 
+        user_id: String
+      },],
 });
 // Export sprint model
 const Issue = module.exports = mongoose.model('issue', issueSchema);

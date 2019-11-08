@@ -24,6 +24,7 @@ exports.index = function (req, res) {
         });
     });
 };
+
 // Handle create project actions
 exports.new =  function (req, res) {
 
@@ -94,6 +95,7 @@ exports.new =  function (req, res) {
         }
     })
 };
+
 exports.view = function (req, res) {
     Project.findById(req.params.project_id, function (err, project) {
         if (err)
@@ -104,7 +106,22 @@ exports.view = function (req, res) {
         });
     });
 };
+
 exports.update = function (req, res) {
+    console.log("req.body.users",req.body.users);
+    if (req.body.users) {
+        req.body.users.forEach(user=>{
+            console.log("user.email",user.email);
+            //sending emails
+            var email = new Email(user.email);            
+            email.transporter.sendMail(email.mailOptions, function(error, info){
+                if (error) {
+                    console.log("error Send Email ",error);
+                } 
+                console.log('Email sent:...... ' + info.response);
+            }); 
+        });
+    }
     Project.findByIdAndUpdate(req.params.project_id,req.body, {
         new: true
     },function(err, project) {
@@ -121,6 +138,7 @@ exports.update = function (req, res) {
     );
   
 };
+
 // Handle delete issue
 exports.delete = function (req, res) {
     Project.remove({

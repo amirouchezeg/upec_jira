@@ -39,13 +39,6 @@ export class UserService {
 
 
   addUser(user: User){
-    // this.httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'Access-Control-Allow-Origin': '*',
-    //     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-    //     // 'Authorization': 'Bearer '+this.currentFreelancer.token     
-    //   })
-    // };
     return this.http.post(this.rootUrl, user);
   }
 

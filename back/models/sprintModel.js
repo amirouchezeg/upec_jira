@@ -40,6 +40,9 @@ const sprintSchema = mongoose.Schema({
         default: Date.now
     },
     project_id: String, 
+    issues: [ { 
+        issue_id: String
+      },],
 
 });
 // Export sprint model

@@ -22,11 +22,14 @@ import {
     MatCardModule,
     MatAutocompleteModule,
     MatStepperModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressBarModule
 } from '@angular/material';
+
 import { MDBBootstrapModule, NavbarModule, IconsModule } from 'angular-bootstrap-md';
 import { ButtonModule } from 'primeng/button';
 import {FieldsetModule} from 'primeng/fieldset';
+import {CardModule} from 'primeng/card'
 
 const sharedModules: any[] = [
     MatChipsModule,
@@ -54,9 +57,10 @@ const sharedModules: any[] = [
     MatSnackBarModule,
     NavbarModule,
     IconsModule,
-
+    MatProgressBarModule,
     ButtonModule,
-    FieldsetModule
+    FieldsetModule,
+    CardModule
     ]
 
 @NgModule({
