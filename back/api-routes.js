@@ -47,19 +47,18 @@ router.route('/sprints/:sprint_id')
     .put(sprintController.update)
     .delete(sprintController.delete);
 
+
 // Import issue controller
 var issueController = require('./controllers/issueController');
-// sprint routes
+// issue routes
 router.route('/issues')
 .get(issueController.index)
 .post(issueController.new);
 router.route('/issues/:issue_id')
     .get(issueController.view)
-    .patch(issueController.update)
     .put(issueController.update)
     .delete(issueController.delete);  
-// Export API routes
-module.exports = router;
+
 
 // Import project controller
 var projectController = require('./controllers/projectController');
@@ -72,5 +71,16 @@ router.route('/projects/:project_id')
     .put(projectController.update)
     .delete(projectController.delete);  
 
+    // Import comment controller
+var commentController = require('./controllers/commentController');
+// comments routes
+router.route('/comments')
+.get(commentController.index)
+.post(commentController.new);
+router.route('/comments/:comment_id')
+    .get(commentController.view)
+    .patch(commentController.update)
+    .put(commentController.update)
+    .delete(commentController.delete);  
 // Export API routes
 module.exports = router;
