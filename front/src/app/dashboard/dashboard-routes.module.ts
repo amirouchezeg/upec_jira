@@ -15,7 +15,9 @@ export const MODULE_ROUTES: Route[] = [
             // {path: '', redirectTo: '', pathMatch: 'full'},
             {path: 'user', loadChildren: '../user/user.module#UserModule'},
             { path: 'project', loadChildren: '../project/project.module#ProjectModule' },
-            {path: '', component: HomeComponent }
+            {path: '', component: HomeComponent },
+            { path: 'issue', loadChildren: '../issue/issue.module#IssueModule' },
+
         ]
       }
     ]

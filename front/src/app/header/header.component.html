@@ -7,9 +7,11 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a *ngIf="!isConnected" class="nav-link nav-link active" routerLink="/user/signup">Se connecter</a>
-      <a *ngIf="!isConnected"class="nav-link nav-link active" routerLink="/user/signin">S'enregistrer</a>
+      <a *ngIf="!isConnected" class="nav-link nav-link active" routerLink="/user/signup"> S'enregistrer</a>
+      <a *ngIf="!isConnected"class="nav-link nav-link active" routerLink="/user/signin">Se connecter</a>
       <a *ngIf="isConnected" class="nav-link nav-link active" routerLink="/project/project_list">Projects</a>
+      <a *ngIf="isConnected" class="nav-link nav-link active" (click)="onDisconect()" routerLink="">Déconnecter</a>
+      <!-- <a  class="nav-link nav-link active" (click)="toTest()">toTest()</a> -->
     </div>
   </div>
 </nav>

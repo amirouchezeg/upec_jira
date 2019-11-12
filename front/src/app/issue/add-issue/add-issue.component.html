@@ -1,0 +1,58 @@
+<div class="container">
+    <h2>{{titleOfDailogBox}} </h2>
+</div>
+<form [formGroup]="projectform" (ngSubmit)="onSubmit()">
+        <mat-dialog-content>
+            <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
+            <div class="container field-container ">
+                <mat-form-field>
+                    <input matInput placeholder="Intitulé" formControlName="title" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea matInput placeholder="Déscription" formControlName="description"></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="pickerDeb" formControlName="start_date" placeholder="Date Début">
+                    <mat-datepicker-toggle matSuffix [for]="pickerDeb"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerDeb></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="pickerFin" formControlName="end_date" placeholder="Date de Fin" >
+                    <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFin></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Etas" formControlName="status" required>
+                </mat-form-field>
+                <mat-chip-list #chipList aria-label="Fruit selection">
+                    <mat-chip *ngFor="let email of teamEmails" [selectable]="true"
+                        [removable]="true" (removed)="remove(email)">
+                        {{email}}
+                        <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Equipe..."
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+                <label class="small text-muted">Entrée les e-mails de votre équipe</label>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions>    
+            <div class="container btn-container">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-secondary" mat-button mat-dialog-close tabindex="-1">
+                            Anuler
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success" mat-button  tabindex="1">
+                            Sauvgarder
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-dialog-actions>
+</form>

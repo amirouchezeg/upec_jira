@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { Response } from "@angular/http";
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../_model/user';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,15 @@ export class UserService {
   readonly rootUrl = 'http://localhost:8080/api/users'; //port? url service....
 
   private httpOptions;
+   private messageSource = new BehaviorSubject('default');
+   currentMessage = this.messageSource.asObservable();
 
   constructor(private http: HttpClient) { }
+
+  //it the user conneced send message 'true'
+  changeMessage(message: string) {
+    this.messageSource.next(message)
+  }
 
   // registerUser(user: User) {
   //   const body: User = {

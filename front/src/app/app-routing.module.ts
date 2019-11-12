@@ -9,6 +9,7 @@ const routes: Routes = [
   // ,canActivate:[AuthGuard]
   // { path: '', redirectTo:'jira', pathMatch:'full' },
   { path: '', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+  // { path: 'issue', loadChildren: './issue/issue.module#IssueModule' },
 ];
 
 @NgModule({

@@ -1,0 +1,17 @@
+----front
+    --navar
+        --switch between navbars when user is connecte or no
+    --login page
+        --when connecte send notification to navbar to change isConncte to false
+    --sprint page  
+        --line it with back
+    --home
+        --write texts for the web site 
+----back
+    -- send chack email
+    -- change the paths 
+        -- ex for sprint is: api/projects/:id/sprints/:id
+    -- add token for the importante information 
+    --get members of project
+--------------documentation
+    --complite the swager

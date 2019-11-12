@@ -43,7 +43,7 @@ export class ProjectAddComponent implements OnInit {
     });
   }
 
-  /* add remove user from team */
+  /* add remove email from inpute in html */
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;

@@ -11,6 +11,7 @@ import { ProjectListComponent } from './project/project-list/project-list.compon
 import { SharedModule } from './_shared/shared.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { HttpClientModule } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
   ],
   imports: [
+    
     BrowserModule,
     AppRoutingModule,
     SharedModule,

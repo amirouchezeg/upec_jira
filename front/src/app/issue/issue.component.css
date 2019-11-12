@@ -1,0 +1,52 @@
+
+
+/********************
+*sprint component
+*********************/
+.min-60v{
+    min-height: 60vh;
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+}
+
+.main-row{
+    min-height: 60vh; 
+    /* background-color: rgba(255,0,0,0.1); */
+}
+.actions{
+    min-height: 100%; 
+    /* background-color: rgba(0,0,255,0.1); */
+}
+.card-issue{
+    margin-bottom: 1em;
+}
+.card-issue .badge{
+    margin-left: 0.4em;
+}
+.card-header-todo{
+    background-color: #ffb0b0;
+}
+.card-header-in-progress{
+    background-color: #9fd688;
+}
+.card-header-done{
+    background-color: #a2a2a2;
+}
+
+/********************
+*issu-add component
+*********************/
+.field-container {
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+}
+
+.example-container > * , .btn-container button{
+    width: 100%;
+}
+
+.btn-container{
+    padding: 5%;
+    padding-top: 1%;
+}
