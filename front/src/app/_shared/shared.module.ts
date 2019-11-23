@@ -29,7 +29,7 @@ import {
 import { MDBBootstrapModule, NavbarModule, IconsModule } from 'angular-bootstrap-md';
 import { ButtonModule } from 'primeng/button';
 import {FieldsetModule} from 'primeng/fieldset';
-import {CardModule} from 'primeng/card'
+import {CardModule} from 'primeng/card';
 import { ReactiveFormsModule } from '@angular/forms';
 
 const sharedModules: any[] = [

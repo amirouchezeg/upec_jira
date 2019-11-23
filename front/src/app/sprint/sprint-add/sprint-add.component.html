@@ -1,12 +1,21 @@
-<form [formGroup]="projectform" (ngSubmit)="onSubmit()">
+<form [formGroup]="sprintform" (ngSubmit)="onSubmit()">
     <mat-dialog-content>
         <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
         <div class="container field-container ">
             <mat-form-field>
-                <input matInput placeholder="Intitulé" formControlName="title" required>
-                <mat-error *ngIf="projectform.get('title').hasError('required')">
-                        Veuillez entrer l'intitulé du projet
+                <input matInput type="number" placeholder="Ordre" formControlName="ordre"  required>
+                <mat-error *ngIf="sprintform.get('ordre').hasError('required')">
+                        Veuillez entrer l'ordre du sprint
                     </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Titre" formControlName="title" required>
+                <mat-error *ngIf="sprintform.get('title').hasError('required')">
+                    Veuillez entrer le titre du sprint
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <textarea matInput placeholder="Déscription" formControlName="description"></textarea>
             </mat-form-field>
             <mat-form-field>
                 <input matInput [matDatepicker]="pickerDeb" formControlName="startDate" placeholder="Date Début">
@@ -18,23 +27,7 @@
                 <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
                 <mat-datepicker #pickerFin></mat-datepicker>
             </mat-form-field>
-            <mat-form-field>
-                <textarea matInput placeholder="Déscription" formControlName="description"></textarea>
-            </mat-form-field>
-            <mat-chip-list #chipList aria-label="Fruit selection">
-                <mat-chip *ngFor="let email of teamEmails" [selectable]="true"
-                    [removable]="true" (removed)="remove(email)">
-                    {{email}}
-                    <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
-                </mat-chip>
-                <input placeholder="Equipe..."
-                [matChipInputFor]="chipList"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="add($event)">
-            </mat-chip-list>
-            <label class="small text-muted">Entrée les e-mails de votre équipe</label>
-        </div>
+         </div>  
     </mat-dialog-content>
     <mat-dialog-actions>    
         <div class="container btn-container">

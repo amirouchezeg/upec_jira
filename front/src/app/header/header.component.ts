@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  constructor() { }
   isConnected:boolean=false;
   message: any ="ToTest";
 

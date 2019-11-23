@@ -24,13 +24,12 @@ export class ProjectAddComponent implements OnInit {
 
   teamEmails: string[] = [];
   projectform: FormGroup;  
-
   teamEmailsTab : Array<{email: string, role: string}> = [];
 
   constructor(private dialogRef:MatDialogRef<ProjectAddComponent>, private projectService: ProjectService) { }
 
   ngOnInit() {
-    this.titleFC = new FormControl('');
+    this.titleFC = new FormControl('',Validators.required);
     this.startDateFC = new FormControl('');
     this.endDateFC = new FormControl('');
     this.descriptionFC = new FormControl('');
@@ -76,7 +75,7 @@ export class ProjectAddComponent implements OnInit {
     });
 
     let project : Project = new Project;
-    
+
     project.title = this.titleFC.value;
     project.end_date = this.endDateFC.value;
     project.start_date = this.startDateFC.value;
@@ -98,9 +97,6 @@ export class ProjectAddComponent implements OnInit {
     //   return;
     // }
     console.log('project: ',project);
-
-    
-    
     
   }
 }

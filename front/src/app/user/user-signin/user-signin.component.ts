@@ -41,7 +41,7 @@ export class UserSigninComponent implements OnInit {
     this.email = this.emailFC.value;
     this.password = this.passwordFC.value;
     this.userService.login(this.email, this.password).subscribe(data => {
-      localStorage.setItem('token', data.toString())
+      localStorage.setItem('token', data.toString());
       console.log("data:",data.valueOf());
       this.router.navigate(['user/project_list'])
       .then(() => {
