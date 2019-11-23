@@ -1,0 +1,50 @@
+/********************
+*sprint-list component
+*********************/
+.add-sprint{
+    margin-top: 3em;
+}
+.add-sprint i{
+    margin-right: .4em;
+}
+.sprint-card{
+    padding: 10px;
+}
+
+/********************
+*sprint-add component
+*********************/
+.field-container {
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+}
+
+.example-container > * , .btn-container button{
+    width: 100%;
+}
+
+.btn-container{
+    padding: 5%;
+    padding-top: 1%;
+}
+
+.h-10{
+    min-height: 25rem;
+}
+
+.mat-dialog-content{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.green-card{
+    background-color: red !important
+}
+
+.margin0-row{
+    margin-left: 0px;
+    margin-right: 0px;
+}

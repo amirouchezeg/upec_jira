@@ -11,6 +11,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ProjectScreenComponent } from './project-screen/project-screen.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ProjectService } from '../_service/project-service';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { SprintModule } from '../sprint/sprint.module';
 
 // import { HeaderComponent } from '../header/header.component';
 // import { FooterComponent } from '../footer/footer.component';
@@ -21,14 +23,16 @@ import { ProjectService } from '../_service/project-service';
     // FooterComponent,
     ProjectListComponent, 
     ProjectAddComponent, 
-    ProjectScreenComponent],
+    ProjectScreenComponent, 
+    ProjectDetailComponent],
   imports: [
     MatProgressBarModule,
     ReactiveFormsModule,
     CommonModule,
     ProjectRoutingModule,
     SharedModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    SprintModule
   ],
   providers: [
     MatDatepickerModule,

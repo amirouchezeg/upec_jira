@@ -30,7 +30,7 @@ export class ProjectAddComponent implements OnInit {
   constructor(private dialogRef:MatDialogRef<ProjectAddComponent>, private projectService: ProjectService) { }
 
   ngOnInit() {
-    this.titleFC = new FormControl('');
+    this.titleFC = new FormControl('',Validators.required);
     this.startDateFC = new FormControl('');
     this.endDateFC = new FormControl('');
     this.descriptionFC = new FormControl('');
@@ -98,9 +98,6 @@ export class ProjectAddComponent implements OnInit {
     //   return;
     // }
     console.log('project: ',project);
-
-    
-    
     
   }
 }

@@ -14,4 +14,8 @@ export class ProjectService {
     return this.http.post(this.rootUrl, project);
   }
 
+  getAllProject(){
+    return this.http.get(this.rootUrl);
+  }
+
 }

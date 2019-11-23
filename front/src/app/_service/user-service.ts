@@ -33,9 +33,9 @@ export class UserService {
     return this.http.post(this.rootUrl + '/token', data, { headers: reqHeader });
   }
 
-  getUserClaims(){
-   return  this.http.get(this.rootUrl+'/api/GetUserClaims');
-  }
+  // getUserClaims(){
+  //  return  this.http.get(this.rootUrl+'/api/GetUserClaims');
+  // }
 
 
   addUser(user: User){
