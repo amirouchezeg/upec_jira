@@ -24,7 +24,6 @@ export class ProjectAddComponent implements OnInit {
 
   teamEmails: string[] = [];
   projectform: FormGroup;  
-
   teamEmailsTab : Array<{email: string, role: string}> = [];
 
   constructor(private dialogRef:MatDialogRef<ProjectAddComponent>, private projectService: ProjectService) { }
@@ -43,7 +42,7 @@ export class ProjectAddComponent implements OnInit {
     });
   }
 
-  /* add remove user from team */
+  /* add remove email from inpute in html */
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
@@ -76,7 +75,7 @@ export class ProjectAddComponent implements OnInit {
     });
 
     let project : Project = new Project;
-    
+
     project.title = this.titleFC.value;
     project.end_date = this.endDateFC.value;
     project.start_date = this.startDateFC.value;

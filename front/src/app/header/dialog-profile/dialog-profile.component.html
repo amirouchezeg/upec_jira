@@ -1,0 +1,29 @@
+<form [formGroup]="profileform" (ngSubmit)="onSubmit()">
+        <mat-dialog-content>
+            <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
+            <div class="container field-container ">
+                <mat-form-field>
+                    <input matInput placeholder="Nome" formControlName="lastName" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Prénom" formControlName="firstName" required>
+                </mat-form-field>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions>    
+            <div class="container btn-container">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-secondary" mat-button mat-dialog-close tabindex="-1">
+                            Anuler
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success" mat-button  tabindex="1">
+                            Sauvgarder
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-dialog-actions>
+    </form>
