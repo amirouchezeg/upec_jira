@@ -79,13 +79,15 @@ exports.index = function (req, res) {
 exports.login = function (req, res) {
     User.findOne({ email: req.body.email }, function (err, user) {
         if (err) return res.status(500).send('Error on the server.');
-        if (!user) return res.status(404).send('No user found.');
-        
+        if (!user) 
+            return res.status(401).send({ 
+                message: "L'email ou le mot de passe est incorrect"
+            });
         // check if the password is valid
         var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-        if (!passwordIsValid) return res.status(401).send({ 
-                message: 'loged failed',
-                token: null 
+        if (!passwordIsValid) 
+            return res.status(401).send({ 
+                message: "L'email ou le mot de passe est incorrect"
             }
         );  
         // if user is found and password is valid
@@ -104,9 +106,7 @@ exports.login = function (req, res) {
 };
 
 // Handle create contact actions
-exports.new = function (req, res) {
-    console.log("adddddddddddddddd");
-    
+exports.new = function (req, res) {    
     const data = req.body;
     // validate the data 
     const schema = Joi.object().keys({

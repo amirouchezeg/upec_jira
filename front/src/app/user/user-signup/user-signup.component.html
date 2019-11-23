@@ -1,24 +1,24 @@
-<div class="container">
-    <div class="row">
+<div class="container main-contente">
+    <div class="row main-row">
         <div class="col-2"></div>
-        <div class="col-8">
+        <div class="col-8 vertical-center main-col">
             <form [formGroup]="userform" (ngSubmit)="onSubmit()">
                 <div class="card">
                     <div class="card-header">
-                        <p style="color:white; font-size:17px; ">
+                        <h2 class="title-card">
                             <i  class="fa fa-user fa-1x"></i>
                             Inscription
-                        </p>
+                        </h2>
                     </div>
                     <div class="card-body" >
                         <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
                         <div class="row">
-                                <div class="col-5">
+                                <div class="col-5 display-text-1">
                                     Nom
                                 </div>
                                 <div class="col">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nom" formControlName="lastname" required>
+                                        <input class="display-text-1" matInput placeholder="Nom" formControlName="lastname" required>
                                         <mat-error *ngIf="userform.get('lastname').hasError('required')">
                                             Veuillez entrer votre nom
                                         </mat-error>
@@ -26,12 +26,12 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-5">
+                                <div class="col-5 display-text-1">
                                     Prenom
                                 </div>
                                 <div class="col">
                                     <mat-form-field>
-                                        <input matInput placeholder="Prénom" formControlName="firstname" required>
+                                        <input class="display-text-1" matInput placeholder="Prénom" formControlName="firstname" required>
                                         <mat-error *ngIf="userform.get('firstname').hasError('required')">
                                             Veuillez entrer votre prenom
                                         </mat-error>
@@ -39,12 +39,12 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-5">
+                                <div class="col-5 display-text-1">
                                     Email
                                 </div>
                                 <div class="col">
                                     <mat-form-field>
-                                        <input matInput placeholder="Email" formControlName="email" required>
+                                        <input class="display-text-1" matInput placeholder="Email" formControlName="email" required>
                                         <mat-error *ngIf="userform.get('email').hasError('required')">
                                             Veuillez entrer votre e-mail
                                         </mat-error>
@@ -55,14 +55,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-5">
+                                <div class="col-5 display-text-1">
                                     <!-- <label for="nom" class="col-form-label"> -->
                                     Mot de passe
                                 <!-- </label> -->
                                 </div>
                                 <div class="col">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput size="69" placeholder="Mot de passe" id="password" formControlName="password" required/>
+                                        <input class="display-text-1" matInput size="69" placeholder="Mot de passe" id="password" formControlName="password" required/>
                                         <mat-error *ngIf="userform.hasError('required', 'password')">
                                             Veuillez entrer votre mot de passe
                                         </mat-error>
@@ -73,14 +73,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-5">
+                                <div class="col-5 display-text-1">
                                     <!-- <label for="nom" class="col-form-label"> -->
                                     Confirmation mot de passe
                                 <!-- </label> -->
                                 </div>
                                 <div class="col">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput size="69"  placeholder="Confirmation" id="confirmPass" formControlName="confirmPass" [errorStateMatcher]="matcher"/>
+                                        <input class="display-text-1" matInput size="69"  placeholder="Confirmation" id="confirmPass" formControlName="confirmPass" [errorStateMatcher]="matcher"/>
                                         <mat-error *ngIf="userform.hasError('notSame')">
                                             Confirmation mot de passe incorrect
                                         </mat-error>
@@ -88,8 +88,8 @@
                                 </div>
                             </div>
                             <div style="text-align: right">
-                                <a  (click)="signIn()" style="text-decoration: underline; color: blue">Vous avez déjà un compte</a>
-                                <button pButton type="submit" class="ui-button-primary" label="{{ 'Sinscrire' }}" [disabled]="!userform.valid" ></button> 
+                                <a routerLink="/user/signin" style="text-decoration: underline; color: blue">Vous avez déjà un compte</a>
+                                <button pButton type="submit" class="ui-button-primary btn-lg" label="{{ 'Sinscrire' }}" [disabled]="!userform.valid" ></button> 
                             </div>
                     </div>
                 </div>

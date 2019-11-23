@@ -73,14 +73,6 @@ export class UserSignupComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true }
   }
 
-  signIn(): void {
-    const dialogRef = this.dialog.open(UserSigninComponent, {
-       width: '500px',
-       height: '300px',
-       data: {}
-     });
-  }
-
   onSubmit(){
 
     let user: User = new User();
@@ -96,7 +88,5 @@ export class UserSignupComponent implements OnInit {
       }
     );    
   }
-  moveToSignUp(){
-    this.router.navigateByUrl('/jira/User/signin');
-  }
+  
 }

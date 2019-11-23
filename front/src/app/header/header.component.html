@@ -6,10 +6,22 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a *ngIf="!isConnected" class="nav-link nav-link active" routerLink="/user/signup">Se connecter</a>
-      <a *ngIf="!isConnected"class="nav-link nav-link active" routerLink="/user/signin">S'enregistrer</a>
+    <div class="navbar-nav mr-auto">
+      <a *ngIf="!isConnected" class="nav-link nav-link active" routerLink="/user/signup"> S'enregistrer</a>
+      <a *ngIf="!isConnected"class="nav-link nav-link active" routerLink="/user/signin">Se connecter</a>
       <a *ngIf="isConnected" class="nav-link nav-link active" routerLink="/project/project_list">Projects</a>
+      <a *ngIf="isConnected" class="nav-link nav-link active" (click)="onDisconect()" routerLink="">Déconnecter</a>
+      <!-- <a  class="nav-link nav-link active" (click)="toTest()">toTest()</a> -->
     </div>
+    <a *ngIf="isConnected" class="nav-item dropdown" >
+      <a class="nav-link nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-user"></i> compte
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <button class="dropdown-item pointer" (click)="onDialogProfile()">Profile</button>
+        <button class="dropdown-item pointer" (click)="onDialogPassword()">Chage mot de passe</button>
+        <button class="dropdown-item pointer" routerLink="" (click)="onDisconect()">Déconnecter</button>
+      </div>
+    </a>
   </div>
 </nav>

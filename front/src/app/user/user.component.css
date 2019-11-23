@@ -1,15 +1,41 @@
-h1{
-    font-size: 1.75rem;
-    line-height: 1.18181818;
-    font-family: Charlie Display;
+
+.main-contente{
+    min-height: 80vh;
 }
 
-img{
-    position:center;
-    text-align: center;
+.main-contente .main-col{
+    padding:9%;
 }
 
+.mat-form-field{
+    width: 100%;
+}
 
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+/*================
+ size of texts 
+ =================*/
+
+ .title-card{
+    color:white; 
+}
+.display-text-1{
+    font-size: 1.5rem;
+}
+.display-text-2{
+    font-size: 1rem;
+}
+
+/*================
+ END size of texts 
+ =================*/
 .card-header{
     background-color:#6351ce; 
     padding-bottom: 0px;

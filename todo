@@ -1,0 +1,30 @@
+----front
+    --navar
+        -- switch between navbars when user is connecte or no
+        </> add avatar with profil,chage password,disconect
+        </> show snackBar when is disconected
+    --login page
+        --when connecte send notification to navbar to change isConncte to false
+    --sprint page  
+        --line it with back
+            --get and show all issues
+    --home
+        --write texts for the web site
+    -- when user go to any url check it is authoriazed
+    -- when connect refrech page 
+----back
+    -- email
+        -- send chack email (check email)
+        -- create project or adding personne to project send in email the link of project 
+    -- edit password (send : old_password, and new_password)
+    -- change the paths 
+        -- ex for sprint is: api/projects/:id/sprints/:id
+    -- add token for the importante information
+    --projects
+        -- get members of project
+        -- get all projects of one user
+    --spring 
+        get all sprints of one project 
+    --check if it is authoriazed to get this paths 
+--------------documentation
+    --complite the swager
