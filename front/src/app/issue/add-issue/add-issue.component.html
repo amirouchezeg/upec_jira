@@ -1,7 +1,7 @@
 <div class="container">
     <h2>{{titleOfDailogBox}} </h2>
 </div>
-<form [formGroup]="projectform" (ngSubmit)="onSubmit()">
+<form [formGroup]="issueform" (ngSubmit)="onSubmit()">
         <mat-dialog-content>
             <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
             <div class="container field-container ">

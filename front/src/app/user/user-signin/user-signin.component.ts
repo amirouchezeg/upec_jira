@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/_service/user-service';
 import { Router } from '@angular/router';
 import { MyAlert } from '../../_model/myAlert'
+import { HeaderComponent } from 'src/app/header/header.component';
 
 
 export const EmailValidation = [Validators.required, Validators.email];
@@ -18,6 +19,7 @@ export class UserSigninComponent implements OnInit {
   myAlert: MyAlert;
   email: string;
   password: string;
+  header:HeaderComponent;
 
   constructor(private userService : UserService,  private router: Router) {
     this.myAlert=new MyAlert("","");
@@ -32,21 +34,19 @@ export class UserSigninComponent implements OnInit {
       'password': this.passwordFC
     });
 
-    this.userService.currentMessage.subscribe(message => {
-      console.log("login page ", message)
-      } 
-    );
-
   }
 
   onSubmit(){
+
     this.email = this.emailFC.value;
     this.password = this.passwordFC.value;
     this.userService.login(this.email, this.password).subscribe(data => {
       localStorage.setItem('token', data.toString())
       console.log("data:",data.valueOf());
-      this.router.navigateByUrl('user/project_list');
-      this.userService.changeMessage("true");
+      this.router.navigate(['user/project_list'])
+      .then(() => {
+        window.location.reload();
+      });
     },error=>{
       this.myAlert.message=error.error.message;
       this.myAlert.showAlert();

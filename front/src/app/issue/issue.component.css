@@ -9,6 +9,13 @@
     margin-top: 3rem;
 }
 
+.btn-add-issue{
+    margin-bottom: .4em;
+}
+
+.btn-add-issue i{
+    margin-right: .4em;
+}
 .main-row{
     min-height: 60vh; 
     /* background-color: rgba(255,0,0,0.1); */
@@ -22,6 +29,9 @@
 }
 .card-issue .badge{
     margin-left: 0.4em;
+}
+.card-header{
+    cursor: pointer;
 }
 .card-header-todo{
     background-color: #ffb0b0;
@@ -49,4 +59,23 @@
 .btn-container{
     padding: 5%;
     padding-top: 1%;
+}
+
+/********************
+*dialog signe to component
+*********************/
+.titleBox{
+    margin-top: 1rem;
+}
+.signeto-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+.signeto-form input{
+    font-size: 1.7em;
+}
+  
+.signeto-full-width {
+    width: 100%;
 }

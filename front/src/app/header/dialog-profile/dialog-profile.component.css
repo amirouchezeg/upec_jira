@@ -1,0 +1,30 @@
+/********************
+*project-list component
+*********************/
+.add-project{
+    margin-top: 3em;
+}
+.add-project i{
+    margin-right: .4em;
+}
+.project-card{
+    padding: 10px;
+}
+
+/********************
+*project-add component
+*********************/
+.field-container {
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+}
+
+.example-container > * , .btn-container button{
+    width: 100%;
+}
+
+.btn-container{
+    padding: 5%;
+    padding-top: 1%;
+}

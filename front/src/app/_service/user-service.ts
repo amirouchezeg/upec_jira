@@ -13,15 +13,22 @@ export class UserService {
   readonly rootUrl = 'http://localhost:8080/api/users'; //port? url service....
 
   private httpOptions;
-   private messageSource = new BehaviorSubject('default');
-   currentMessage = this.messageSource.asObservable();
-
+  private subject = new Subject<any>();
   constructor(private http: HttpClient) { }
 
-  //it the user conneced send message 'true'
-  changeMessage(message: string) {
-    this.messageSource.next(message)
+  sendProfilList(profilList: string) {
+    this.subject.next(profilList);
   }
+
+  clearProfilList() {
+      this.subject.next();
+  }
+
+  getProfilList(): Observable<any> {
+      return this.subject.asObservable();
+  }
+  //it the user conneced send message 'true'
+  
 
   // registerUser(user: User) {
   //   const body: User = {

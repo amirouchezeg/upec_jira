@@ -6,15 +6,19 @@ import { IssueScreenComponent } from './issue-screen/issue-screen.component';
 //A modifier
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {SharedModule} from '../_shared/shared.module';
+import {MatDialogModule} from '@angular/material/dialog';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatInputModule} from '@angular/material/input';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IssueRoutingModule } from './issue-routing.module';
-import { OneSprintComponent } from './one-sprint/one-sprint.component';
+import { OneSprintComponent, DialogOverviewSigneTo } from './one-sprint/one-sprint.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
     AddIssueComponent, 
+    DialogOverviewSigneTo,
     IssueScreenComponent, 
     OneSprintComponent],
   imports: [
@@ -23,11 +27,14 @@ import { OneSprintComponent } from './one-sprint/one-sprint.component';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    DragDropModule,
     SharedModule,
+    MatAutocompleteModule,
+    MatDialogModule,
     MatInputModule,
     MDBBootstrapModule.forRoot(),
   ],
   providers: [  ],
-  entryComponents: [AddIssueComponent]
+  entryComponents: [AddIssueComponent,DialogOverviewSigneTo]
 })
 export class IssueModule { }
