@@ -1,0 +1,28 @@
+
+<div class="container h-10">
+    <div class="row">
+        <div class="col-12 add-sprint d-flex justify-content-center">
+            <button class="btn btn-outline-dark btn-lg"  (click)="addSprint()">
+                <i class="fa fa-plus"></i>Créer un sprint
+            </button>
+        </div>
+    </div>
+    <!-- <h2>Sprints</h2> -->
+    <div class="row ">
+        <div class="col-12 ">
+            <p-card class="green-card" header="Sprint en cours" >
+                <div class="row margin0-row">
+                    <div  *ngFor="let sprint of sprints" value="sprint" class="div col-4 sprint-card">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body ">
+                                <h4 class="card-title">{{sprint.title}}</h4>
+                                <p class="card-text">{{sprint.description}}</p>
+                                <button class="btn btn-outline-secondary btn-lg" (click)="detailSprint()">Plus de détails</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+    </div>
+</div>

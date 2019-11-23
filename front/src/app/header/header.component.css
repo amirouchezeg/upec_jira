@@ -2,68 +2,76 @@
     background: rgb(0, 0, 0);
     border: 0;
     height: 60px;
-  }
+}
+#header .header-left {
+  /* float: left; */
+  margin-left: 10px;
+  background: rgb(0, 0, 0);
+  border: 0;
+}
   
-  #header .header-left {
-    /* float: left; */
-    margin-left: 10px;
-    background: rgb(0, 0, 0);
-    border: 0;
-  }
+#header .header-left a img {
+  float: left;
+  padding: 5px 10px 10px 0;
+}
+#header .header-left h1 {
+  font-family: "Helvetica Neue";
+  color: #fff;
+  font-size: 30px; /* 34px */
+  line-height: 1;
+  float: left;
+  padding-top: 15px;
+}
+.dropdown-menu{
+  right:0;
+  left: unset;
+}
 
+#header .header-right h1 {
+  font-family: "Helvetica Neue";
+  color: #fff;
+  font-size: 30px; /* 34px */
+  line-height: 1;
+  float: left;
+  padding-top: 15px;
+}  
 
-  
-  #header .header-left a img {
-    float: left;
-    padding: 5px 10px 10px 0;
-  }
-  #header .header-left h1 {
-    font-family: "Helvetica Neue";
-    color: #fff;
-    font-size: 30px; /* 34px */
-    line-height: 1;
-    float: left;
-    padding-top: 15px;
-  }
-  
-  #header .header-right h1 {
-    font-family: "Helvetica Neue";
-    color: #fff;
-    font-size: 30px; /* 34px */
-    line-height: 1;
-    float: left;
-    padding-top: 15px;
-  }  
+#header .header-right button{
+  float: right;
+  padding: 10px 10px 10px 0;
+  font-family: "Helvetica Neue";
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  padding-top: 15px;
 
-  #header .header-right button{
-    float: right;
-    padding: 10px 10px 10px 0;
-    font-family: "Helvetica Neue";
-    color: #fff;
-    font-size: 24px;
-    line-height: 1;
-    padding-top: 15px;
+}
 
-  }
-  
-  #header .header-right {
-    float: right; 
-    /*margin-right: 10px;*/
-  }
-  
-  #header .header-right a i {
-    float: left;
-    padding: 5px 40px 10px 0;
-  }
+#header .header-right {
+  float: right; 
+  /*margin-right: 10px;*/
+}
 
-  #header .header-right p-dropdown {
-    float: right;
-    padding: 10px 10px 10px 0;
-  }  
+#header .header-right a i {
+  float: left;
+  padding: 5px 40px 10px 0;
+}
+
+#header .header-right p-dropdown {
+  float: right;
+  padding: 10px 10px 10px 0;
+}  
 
 
 :host ::ng-deep .ui-dropdown label.ui-dropdown-label {
 	color:white;
 	background-color: black;
+}
+
+#navbarDropdownMenuLink{
+  color: #fff;
+}
+.pointer{
+  cursor: pointer;
 }
 

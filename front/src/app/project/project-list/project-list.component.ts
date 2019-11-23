@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ProjectAddComponent } from '../project-add/project-add.component';
 import { Project } from 'src/app/_model/project';
+import { ProjectService } from 'src/app/_service/project-service';
+import { Router } from '@angular/router';
+import { SprintListComponent } from 'src/app/sprint/sprint-list/sprint-list.component';
+import { SprintModule } from 'src/app/sprint/sprint.module';
 
 @Component({
   selector: 'app-project-list',
@@ -9,11 +13,27 @@ import { Project } from 'src/app/_model/project';
   styleUrls: ['../project.component.css']
 })
 export class ProjectListComponent implements OnInit {
-
-  constructor(private dialog: MatDialog) { }
-  projects = [1, 5, 7, 8];
-
+  projects : Project[] = [];
+  constructor(private route: Router, private dialog: MatDialog, private projectService: ProjectService) { 
+    this.projects = [];
+  }
+ 
+  
   ngOnInit() {
+    this.getAllProject();
+  }
+
+  getAllProject(){
+    this.projectService.getAllProject().subscribe( data => {
+        let dataList = (Object.values(data)[2]) as Project[];
+        dataList.forEach(element => {
+          if((element.description).length>30){
+            element.description = (element.description).substr(0,30) + "..."
+          }
+        });
+        this.projects = dataList;
+
+      })
   }
 
   addProject(){
@@ -21,10 +41,15 @@ export class ProjectListComponent implements OnInit {
       // height: '40%',
       width: '60%',
     }).componentInstance.submitClicked.subscribe((project:Project)=>{
-      console.log("from parent ",project);
-      this.projects.push(6);
+      this.getAllProject();
     });
 
+  }
+
+  detailProject(idProject: string){
+    console.log(idProject);
+
+    this.route.navigateByUrl("/project/project_detail/"+idProject);
   }
 
 }

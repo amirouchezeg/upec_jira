@@ -8,14 +8,12 @@
     </div>
     <h2>Projets</h2>
     <div class="row">
-        <div  *ngFor="let project of projects" class="div col-4 project-card">
+        <div  *ngFor="let project of projects" value="project" class="div col-4 project-card">
             <div class="card" style="width: 18rem;">
                 <div class="card-body ">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and 
-                        ...</p>
-                    <a href="#" class="btn btn-outline-secondary btn-lg ">Plus de Detail</a>
+                    <h4 class="card-title">{{project.title}}</h4>
+                    <p class="card-text">{{project.description}}</p>
+                    <button class="btn btn-outline-secondary btn-lg" (click)="detailProject(project._id)">Plus de détails</button>
                 </div>
             </div>
         </div>

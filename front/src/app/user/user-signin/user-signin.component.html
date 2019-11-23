@@ -1,49 +1,56 @@
-
-
-<form [formGroup]="userform" (ngSubmit)="onSubmit()">
-    <div class="card">
-        <div class="card-header">
-            <p style="color:white; font-size:17px; ">
-                <i  class="fa fa-user fa-1x"></i>
-                Authentification
-            </p>
-        </div>
-        <div class="card-body" >
-           <div class="container">
-                <div class="row">
-                    <div class="col-3">
-                        Login
+<div class="container main-contente ">
+    <div class="row main-row">
+        <div class="col-2"></div>
+        <div class="col-8 vertical-center main-col">
+            <form [formGroup]="userform" (ngSubmit)="onSubmit()" class="main-form">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="title-card">
+                            <i  class="fa fa-user fa-1x"></i>
+                            Authentification
+                        </h2 >
                     </div>
-                    <div class="col">
-                        <mat-form-field>
-                            <input matInput placeholder="Email" formControlName="email" required>
-                            <mat-error *ngIf="userform.get('email').hasError('required')">
-                                Veuillez entrer votre e-mail
-                            </mat-error>
-                            <mat-error *ngIf="userform.get('email').hasError('email')">
-                                E-mail incorrect
-                            </mat-error>
-                        </mat-form-field>
+                    <div class="card-body" >
+                            <div *ngIf="myAlert.isDisplayed" class="alert alert-danger" role="alert">
+                                {{myAlert.message}}
+                            </div>
+                            <div class="row">
+                                <div class="col-3 display-text-1">
+                                    Login
+                                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input (keyup)="onKey($event)" class="display-text-1" matInput placeholder="Email" formControlName="email" required>
+                                        <mat-error *ngIf="userform.get('email').hasError('required')">
+                                            Veuillez entrer votre e-mail
+                                        </mat-error>
+                                        <mat-error *ngIf="userform.get('email').hasError('email')">
+                                            E-mail incorrect
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3 display-text-1">
+                                    Mot de passe
+                                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input (keyup)="onKey($event)" class="display-text-1" matInput type="password" placeholder="Mot de passe" formControlName="password" required>
+                                        <mat-error *ngIf="userform.get('password').hasError('required')">
+                                            Veuillez entrer votre mot de passe
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="card-footer">
+                        <a routerLink="/user/signup" style="text-decoration: underline; color: blue">Crée un compte</a>
+                        <button pButton type="submit" class="ui-button-primary btn-lg" label="S'authentifier" [disabled]="!userform.valid" ></button> 
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-3">
-                        Mot de passe
-                    </div>
-                    <div class="col">
-                        <mat-form-field>
-                            <input matInput type="password" placeholder="Mot de passe" formControlName="password" required>
-                            <mat-error *ngIf="userform.get('password').hasError('required')">
-                                Veuillez entrer votre mot de passe
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
-        <div class="card-footer">
-            <button pButton type="submit" class="ui-button-primary" label="S'authentifier" [disabled]="!userform.valid" ></button> 
-        </div>
+        <div class="col-2"></div>
     </div>
-</form>
-
+</div>

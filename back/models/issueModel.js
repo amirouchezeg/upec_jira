@@ -33,6 +33,10 @@ const issueSchema = mongoose.Schema({
         default: 'toDo',
         required: true
       },
+    comments: [{ 
+            commentaire: String,
+            user_id: String,
+     },],
     create_date: {
         type: Date,
         default: Date.now

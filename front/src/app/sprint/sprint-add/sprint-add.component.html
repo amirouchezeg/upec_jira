@@ -1,0 +1,48 @@
+<form [formGroup]="sprintform" (ngSubmit)="onSubmit()">
+    <mat-dialog-content>
+        <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
+        <div class="container field-container ">
+            <mat-form-field>
+                <input matInput type="number" placeholder="Ordre" formControlName="ordre"  required>
+                <mat-error *ngIf="sprintform.get('ordre').hasError('required')">
+                        Veuillez entrer l'ordre du sprint
+                    </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Titre" formControlName="title" required>
+                <mat-error *ngIf="sprintform.get('title').hasError('required')">
+                    Veuillez entrer le titre du sprint
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <textarea matInput placeholder="Déscription" formControlName="description"></textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [matDatepicker]="pickerDeb" formControlName="startDate" placeholder="Date Début">
+                <mat-datepicker-toggle matSuffix [for]="pickerDeb"></mat-datepicker-toggle>
+                <mat-datepicker #pickerDeb></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [matDatepicker]="pickerFin" formControlName="endDate" placeholder="Date de Fin" >
+                <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFin></mat-datepicker>
+            </mat-form-field>
+         </div>  
+    </mat-dialog-content>
+    <mat-dialog-actions>    
+        <div class="container btn-container">
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-secondary" mat-button mat-dialog-close tabindex="-1">
+                        Anuler
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-success" mat-button  tabindex="1">
+                        Sauvgarder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-actions>
+</form>

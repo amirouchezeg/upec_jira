@@ -4,6 +4,9 @@
         <div class="container field-container ">
             <mat-form-field>
                 <input matInput placeholder="Intitulé" formControlName="title" required>
+                <mat-error *ngIf="projectform.get('title').hasError('required')">
+                        Veuillez entrer l'intitulé du projet
+                    </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput [matDatepicker]="pickerDeb" formControlName="startDate" placeholder="Date Début">
