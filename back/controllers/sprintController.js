@@ -85,6 +85,17 @@ exports.view = function (req, res) {
     });
 };
 
+exports.getIssues = function (req, res) {
+    Sprint.findById(req.params.sprint_id, function (err, sprint) {
+        if (err)
+            res.send(err);
+        res.json({
+            message: 'issues of a this sprint loading...',
+            data: sprint.issues
+        });
+    });
+};
+
 exports.update = function (req, res) {
     Project.findByIdAndUpdate(req.params.sprint_id,req.body, {
         new: true

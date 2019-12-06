@@ -47,6 +47,10 @@ router.route('/sprints/:sprint_id')
     .put(sprintController.update)
     .delete(sprintController.delete);
 
+router.route('/sprints/:sprint_id/issues')
+    .get(sprintController.getIssues)
+
+
 
 // Import issue controller
 var issueController = require('./controllers/issueController');
