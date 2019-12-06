@@ -4,6 +4,7 @@ const status = Object.freeze({
     Todo: 'toDo',
     InProgress: 'inProgress',
     Finished: 'finished',
+    preview: 'preview',
   });
 const issueSchema = mongoose.Schema({
 
