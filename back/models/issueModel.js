@@ -31,7 +31,7 @@ const issueSchema = mongoose.Schema({
     status: {
         type: String,
         enum: Object.values(status),
-        default: 'toDo',
+        default: 'preview',
         required: true
       },
     comments: [{ 
@@ -42,9 +42,10 @@ const issueSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    users: [ { 
-        user_id: String
-      },],
+    users: { 
+        user_id: String,
+        email: String,
+      },
 });
 // Export sprint model
 const Issue = module.exports = mongoose.model('issue', issueSchema);

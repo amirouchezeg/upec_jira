@@ -2,6 +2,7 @@
 Sprint = require('../models/sprintModel');
 const Joi = require('joi'); 
 Project = require('../models/projectModel');
+Issue = require('../models/issueModel');
 
 // Handle index actions
 exports.index = function (req, res) {
@@ -89,11 +90,20 @@ exports.getIssues = function (req, res) {
     Sprint.findById(req.params.sprint_id, function (err, sprint) {
         if (err)
             res.send(err);
-        res.json({
-            message: 'issues of a this sprint loading...',
-            data: sprint.issues
-        });
-    });
+            else{
+                issues = sprint.issues;
+                var ids = [];
+                issues.forEach(element => {
+                    ids.push(element._id);
+                });
+
+                Issue.find({_id: {  $in: ids}} ,function(err, issues) {
+                    res.json({
+                        data: issues
+                    });                 
+                });
+                }        
+            });
 };
 
 exports.update = function (req, res) {
