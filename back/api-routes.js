@@ -50,6 +50,8 @@ router.route('/sprints/:sprint_id')
 router.route('/sprints/:sprint_id/issues')
     .get(sprintController.getIssues)
 
+router.route('/users/:user_id/projects')
+    .get(sprintController.getIssues)
 
 
 // Import issue controller
