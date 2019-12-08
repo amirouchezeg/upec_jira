@@ -145,6 +145,8 @@ exports.view = function (req, res) {
         });
     });
 };
+
+
 // Handle update user info
 exports.update = function (req, res) {
     User.findById(req.params.user_id, function (err, user) {

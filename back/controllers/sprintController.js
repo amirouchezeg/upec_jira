@@ -44,8 +44,8 @@ exports.new = function (req, res) {
             sprint.ordre = req.body.ordre;
             sprint.project_id = req.body.project_id;
             sprint.description = req.body.description;
-            sprint.start_date = req.body.start_date.allow('');
-            sprint.end_date = req.body.end_date.allow('');
+            sprint.start_date = req.body.start_date;
+            sprint.end_date = req.body.end_date;
             Project.findOne({_id: sprint.project_id}, function (err, project) {
                 if (err) console.log('Error on the server.',err.message);
                 else {

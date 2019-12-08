@@ -75,9 +75,18 @@ router.route('/projects')
 router.route('/projects/:project_id')
     .get(projectController.view)
     .put(projectController.update)
-    .delete(projectController.delete);  
+    .delete(projectController.delete); 
+    
 
-    // Import comment controller
+router.route('/projects/users/:email')
+    .get(projectController.getProjects);
+router.route('/projects/:project_id/sprints')
+    .get(projectController.getSprints);
+
+
+    
+
+// Import comment controller
 var commentController = require('./controllers/commentController');
 // comments routes
 router.route('/comments')

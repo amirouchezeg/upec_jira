@@ -52,10 +52,11 @@ exports.new = function (req, res) {
             issue.comments = req.body.comments;
             issue.sprint_id= req.body.sprint_id;
             Sprint.findOne({_id: issue.sprint_id}, function (err, sprint) {
-                if (err) console.log('Error on the server.',err.message);
+                if (err) res.send(err);
                 else {
                     if(!sprint){
                        console.log('sprint doesnt exists');
+                      //res.send('sprint doesnt exists');
                     } 
                     else{
                         sprint.issues.push(issue._id);
