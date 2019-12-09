@@ -32,7 +32,7 @@ exports.new = function (req, res) {
         description : Joi.string(),
         userEmail: Joi.string(),
         sprint_id:Joi.string(),
-        status: Joi.string(),
+        status: Joi.string().allow(''),
     }
      
     Joi.validate(req.body,schema, (err, issue) =>{

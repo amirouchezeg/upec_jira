@@ -21,22 +21,19 @@
                     <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
                     <mat-datepicker #pickerFin></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field *ngIf="!isAddAction">
                     <input matInput placeholder="Etas" formControlName="status" required>
                 </mat-form-field>
-                <mat-chip-list #chipList aria-label="Fruit selection">
-                    <mat-chip *ngFor="let email of teamEmails" [selectable]="true"
-                        [removable]="true" (removed)="remove(email)">
-                        {{email}}
-                        <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
-                    </mat-chip>
-                    <input placeholder="Equipe..."
-                    [matChipInputFor]="chipList"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    [matChipInputAddOnBlur]="addOnBlur"
-                    (matChipInputTokenEnd)="add($event)">
-                </mat-chip-list>
-                <label class="small text-muted">Entrée les e-mails de votre équipe</label>
+                <mat-form-field class="signeto-full-width">
+                    <input type="text" placeholder="Choisir un" aria-label="Number" matInput 
+                        [matAutocomplete]="auto" formControlName="userEmail">
+                    <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of emails" [value]="option">
+                        {{option}}
+                    </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <label class="small text-muted">Entrée l'e-mails de la personne</label>
             </div>
         </mat-dialog-content>
         <mat-dialog-actions>    

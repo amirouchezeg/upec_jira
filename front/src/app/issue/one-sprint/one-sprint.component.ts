@@ -4,9 +4,10 @@ import { MatDialog } from '@angular/material';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { MatChipInputEvent } from '@angular/material';
-import { FormGroup, FormControl } from '@angular/forms';
-
+import {  FormControl } from '@angular/forms';
+import { IssuesService } from 'src/app/_service/issues-service';
+import { Issues } from 'src/app/_model/issues';
+import { ActivatedRoute } from '@angular/router';
 
 export interface DialogData {
   animal: string;
@@ -21,31 +22,18 @@ export interface DialogData {
 export class OneSprintComponent implements OnInit {
 
   currantIssue="currantIssue";
-  issues_todo = [1, 5, 7, 8];
-  preview= [
-    'Preview 1',
-    'Preview 2',
-    'Preview 3',
-  ];
+  idSprint:string;
+  preview:Issues[]=[];
+  todo:Issues[]=[];
+  in_progress:Issues[]=[];
+  done:Issues[]=[];
 
-  todo = [
-    'todo 1',
-    'todo 2',
-  ];
-
-  in_progress = [
-    'in_progress 1',
-    'in_progress 2',
-  ];
-  
-  done = [
-    'done 1',
-    'done 2',
-  ];
-
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private issueService: IssuesService, private route: ActivatedRoute) {
+    this.idSprint =this.route.snapshot.paramMap.get('idSprint');
+  }
 
   ngOnInit() {
+    this.getAllIssue();
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -85,17 +73,60 @@ export class OneSprintComponent implements OnInit {
     });
   }
 
-  onDailoIssue(){
-    console.log("onDialog");
+  onDailoIssue(typeOfDialog:string , issue:Issues){
+    let data={};
+    if (typeOfDialog=='edit') {
+      data={
+        type: "edit",
+        issue: issue};
+    } else if(typeOfDialog=='add') {
+      data={
+        type:"add",
+        idSprint: this.idSprint};
+    }
     const dialogRef = this.dialog.open(AddIssueComponent,{
       // height: '40%',
       width: '60%',
+      data: {data: data}
     })
     // .componentInstance.submitClicked.subscribe((project:Project)=>{
     //   console.log("from parent ",project);
     //   this.projects.push(6);
     // });
   }
+
+  getAllIssue(){
+    this.issueService.getIssue("").subscribe( data => {
+      // console.log("data",data);
+        var jsonData=  JSON.parse(JSON.stringify(data));                       
+        let issues =JSON.parse(JSON.stringify(jsonData.data)); 
+        issues.forEach(issue => {
+          // console.log("issues",issue.status);
+          switch(issue.status) { 
+            case "toDo": { 
+              this.todo.push(issue);
+              break;
+            } 
+            case "inProgress": { 
+              this.preview.push(issue);                
+              break;
+            } 
+            case "finished": { 
+              this.done.push(issue);                                
+              break;
+            }
+            case "preview": { 
+              this.in_progress.push(issue);
+              break; 
+            }
+          } 
+          
+          // this.preview.push(issue);
+          // console.log("issues",issue);
+        });
+      });
+  }
+  // http://localhost:8080/api/issues
 
 }
 
@@ -109,11 +140,9 @@ export class DialogOverviewSigneTo {
   options: string[] = ['One', 'Two', 'Three'];
 
 
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewSigneTo>,
-    @Inject(MAT_DIALOG_DATA) public data: string) {
-
-    }
+  constructor(public dialogRef: MatDialogRef<DialogOverviewSigneTo>,@Inject(MAT_DIALOG_DATA) public idSprint: string) {
+    console.log("idSprintidSprint",idSprint);
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

@@ -1,30 +1,44 @@
 ----front
+    -- admin dashboard
+    --projects
+        -- disable button save
+        -- edit project
+        -- delete project
+        -- show the projects per page
     --navar
         -- switch between navbars when user is connecte or no
         </> add avatar with profil,chage password,disconect
         </> show snackBar when is disconected
-    --login page
-        --when connecte send notification to navbar to change isConncte to false
-    --sprint page  
+    --sprint details page  
         --line it with back
-            --get and show all issues
-    --home
-        --write texts for the web site
-    -- when user go to any url check it is authoriazed
+            -- get and show all issues
+            -- get issue of curant sprint
+            -- edit issue
+            -- delete issue
+    -- issues
+        -- edit sprint
+        -- delete sprint
+    </> when user go to any url check it is authoriazed
     -- when connect refrech page 
 ----back
-    -- email
-        -- send chack email (check email)
-        -- create project or adding personne to project send in email the link of project 
-    -- edit password (send : old_password, and new_password)
+    -- edit password (send : email, old_password, and new_password)
     -- change the paths 
         -- ex for sprint is: api/projects/:id/sprints/:id
     -- add token for the importante information
     --projects
         -- get members of project
         -- get all projects of one user
+        --// show by pages (by 20) todo only if it is easy
     --spring 
-        get all sprints of one project 
-    --check if it is authoriazed to get this paths 
+        -- check when chage stat to in_progresse that thier not auther in same status
+        -- get all sprints of one project 
+    --issues 
+        --get all isssues of one sprint
+    --// check if it is authoriazed to get this paths 
+    -- email
+        -- designe the page of mail sended
+        -- send chack email (check email)
+        -- create project or adding personne to project send in email the link of project 
 --------------documentation
     --complite the swager
+    --write texts for the web site
