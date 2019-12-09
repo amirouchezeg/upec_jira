@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material'; 
+import { MatChipInputEvent, MAT_DIALOG_DATA } from '@angular/material'; 
+import { IssuesService } from 'src/app/_service/issues-service';
+import { Issues } from 'src/app/_model/issues';
 
 @Component({
   selector: 'app-add-issue',
@@ -8,32 +10,44 @@ import { MatChipInputEvent } from '@angular/material';
   styleUrls: ['../issue.component.css']
 })
 export class AddIssueComponent implements OnInit {
-  isProgressVisible:boolean=false;
+  emails=["email1@gmail.com","email2@gmail.com"];
 
-// todo :sprint_id: 
-// create_date
-// users
-  titleOfDailogBox :string
+  isProgressVisible:boolean=false;
+  sprintId :string;
+  titleOfDailogBox :string;
   teamEmails: string[] = [];
   titleFC : FormControl;
   descriptionFC : FormControl;
   start_dateFC : FormControl;
   end_dateFC : FormControl;
   statusFC : FormControl;
-  create_dateFC : FormControl;
-  issueform: FormGroup;  
-  
-  constructor() {
-    this.titleOfDailogBox="Ajouter Une Tâche";
+  emailUserFC : FormControl;
+  sprint_idFC : FormControl;
+  issueform: FormGroup;
+  issue:Issues;
+  isAddAction:boolean;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string, private issuesService:IssuesService) {
+    var jsonData= JSON.parse(JSON.stringify(data));
+    this.isAddAction=jsonData.data.type=='add'?true:false;                       
+    if (this.isAddAction) {
+      this.titleOfDailogBox="Ajouter Une Tâche";
+      this.sprintId =JSON.parse(JSON.stringify(jsonData.data.type));
+    } else {
+      this.titleOfDailogBox="Modifie La Tâche";
+      this.issue=jsonData.data.issue;
+    }
+    //get the sprint id sended from page of sprint
   }
   
   ngOnInit() {
-    this.titleFC = new FormControl('');
-    this.descriptionFC = new FormControl('');
-    this.start_dateFC = new FormControl('');
-    this.end_dateFC = new FormControl('');
-    this.statusFC = new FormControl('');
-    this.create_dateFC = new FormControl('');
+    this.titleFC = new FormControl(this.issue? this.issue.title: '');
+    this.descriptionFC = new FormControl(this.issue? this.issue.description: '');
+    this.start_dateFC = new FormControl(this.issue? this.issue.start_date: '');
+    this.end_dateFC = new FormControl(this.issue? this.issue.end_date: '');
+    this.statusFC = new FormControl(this.issue? this.issue.status: '');
+    this.emailUserFC = new FormControl(this.issue? this.issue.users/*.email*/: '');
+    this.sprint_idFC = new FormControl(this.issue? this.issue.sprint_id: this.sprintId);
 
     this.issueform = new FormGroup({
       'title': this.titleFC,
@@ -41,7 +55,9 @@ export class AddIssueComponent implements OnInit {
       'start_date': this.start_dateFC,
       'end_date': this.end_dateFC,
       'status': this.statusFC,
-      'create_date': this.create_dateFC,
+      'userEmail': this.emailUserFC,
+      'sprint_id': this.sprint_idFC,
+      // 'create_date': this.create_dateFC,
     });
   }
 
@@ -72,6 +88,11 @@ export class AddIssueComponent implements OnInit {
   /*on Click*/
   onSubmit(){
     console.log("onSubmit",this.issueform.value);
-
+    this.issuesService.addIssue(this.issueform.value).subscribe( data => {
+      console.log("add issue",data);
+      var jsonData=  JSON.parse(JSON.stringify(data));                       
+      let issue =JSON.parse(JSON.stringify(jsonData.data)); 
+    });
   }
+
 }

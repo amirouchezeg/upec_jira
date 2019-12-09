@@ -11,8 +11,8 @@ const routes: Routes = [
         {
           path: '',
           children: [ 
-            {path: '', redirectTo: 'one_sprint', pathMatch: 'full'},
-            {path: 'one_sprint', component: OneSprintComponent},
+            // {path: '', redirectTo: 'one_sprint', pathMatch: 'full'},
+            {path: '', component: OneSprintComponent},
             // {path: 'add_issue', component: AddIssueComponent},
           ]
         }
