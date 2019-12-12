@@ -19,4 +19,8 @@ export class SprintService {
     return this.http.get(this.rootUrl);
   }
 
+  deleteSprint(id: number){
+    return this.http.delete(this.rootUrl + "/" + id);
+  }
+
 }

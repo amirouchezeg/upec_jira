@@ -2,7 +2,7 @@
 *sprint-list component
 *********************/
 .add-sprint{
-    margin-top: 3em;
+    margin-top: 1em;
 }
 .add-sprint i{
     margin-right: .4em;
@@ -41,10 +41,45 @@
 }
 
 .green-card{
-    background-color: red !important
+    background-color: #cce5cc !important
+}
+
+.red-card{
+    background-color: #ffb2b2 !important
+}
+
+.gray-card{
+    background-color: #d8d8d8 !important
 }
 
 .margin0-row{
     margin-left: 0px;
     margin-right: 0px;
 }
+
+.ui-card-header {
+    background-color: red !important;
+  }
+
+.margin{
+    margin-top: 0.5rem;
+}
+
+.margin-bottom{
+    margin-bottom: 1rem;
+}
+
+.mr-btn{
+    margin-left: .7rem;
+}
+
+
+p {
+    font-family: Lato;
+  }
+  
+  :host ::ng-deep .custom-toast .ui-toast-message {
+      display: flex;
+      width: 400px;
+      margin-left: 10px;
+  }

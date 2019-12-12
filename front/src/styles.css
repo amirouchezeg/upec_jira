@@ -102,3 +102,22 @@ input:focus:not([read-only]) {
 	border-bottom: none!important;
 	box-shadow: none!important;	
 }
+
+.ui-card-header{
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+  margin-left: 1rem !important;
+}
+
+.custom-toast .ui-toast {
+  display: block;
+ position: absolute; /* postulat de départ */
+  top: 5%; left: 70%; /* à 50%/50% du parent référent */
+  margin-left: 10px;
+  width: 80%;
+}
+
+.custom-toast .ui-toast-message {
+  background: #b7d8b7;
+  margin-left: 10px;
+}

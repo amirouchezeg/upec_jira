@@ -1,15 +1,21 @@
 ----front
+    --projects
+        -- disable button save
+        -- edit project
+        -- delete project
     --navar
         -- switch between navbars when user is connecte or no
         </> add avatar with profil,chage password,disconect
         </> show snackBar when is disconected
-    --login page
-        --when connecte send notification to navbar to change isConncte to false
-    --sprint page  
+    --sprint details page  
         --line it with back
-            --get and show all issues
-    --home
-        --write texts for the web site
+            -- get and show all issues
+            -- get issue of curant sprint
+            -- edit issue
+            -- delete issue
+    -- issues
+        -- edit sprint
+        -- delete sprint
     -- when user go to any url check it is authoriazed
     -- when connect refrech page 
 ----back
@@ -25,6 +31,10 @@
         -- get all projects of one user
     --spring 
         get all sprints of one project 
+    --issues 
+        --get all isssues of one sprint
+
     --check if it is authoriazed to get this paths 
 --------------documentation
     --complite the swager
+    --write texts for the web site

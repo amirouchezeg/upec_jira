@@ -1,4 +1,6 @@
+<p-toast position="top-center" class="custom-toast" background-color="#FFD07B" key="tc"></p-toast>
 
+<button type="button" pButton (click)="updateSprint()" label="Top Center" class="ui-button-info"></button>
 <div class="container h-10">
     <div class="row">
         <div class="col-12 add-sprint d-flex justify-content-center">
@@ -8,16 +10,65 @@
         </div>
     </div>
     <!-- <h2>Sprints</h2> -->
-    <div class="row ">
-        <div class="col-12 ">
-            <p-card class="green-card" header="Sprint en cours" >
-                <div class="row margin0-row">
-                    <div  *ngFor="let sprint of sprints" value="sprint" class="div col-4 sprint-card">
+    <div class="row margin">
+        <div class="col-12">
+            <p-card>
+                <p-header class="font-weight-bold">
+                    En cours
+                </p-header>
+                <div class="row margin0-row green-card">
+                    <div  *ngFor="let sprint of sprintsInProgress" value="sprint" class="div col-4 sprint-card">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body ">
                                 <h4 class="card-title">{{sprint.title}}</h4>
                                 <p class="card-text">{{sprint.description}}</p>
-                                <button class="btn btn-outline-secondary btn-lg" (click)="detailSprint()">Plus de détails</button>
+                                <a href="#" class="btn btn-outline-secondary btn-sm" (click)="detailSprint()">Details <i class="fa fa-arrow-right"></i> </a> 
+                                <button class=" float-right mr-btn btn btn-outline-danger btn-sm" (click)="deleteSprint(sprint._id)"> <i class="fa fa-trash"></i> </button>                          
+                                <button class=" float-right btn btn-outline-secondary btn-sm" (click)="updateSprint(sprint.id)"> <i class="fa fa-edit"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+    </div>
+    <div class="row margin">
+        <div class="col-12">
+            <p-card>
+                <p-header class="font-weight-bold">
+                   A faire
+                </p-header>
+                <div class="row margin0-row gray-card">
+                    <div  *ngFor="let sprint of sprintsInProgress" value="sprint" class="div col-4 sprint-card">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body ">
+                                <h4 class="card-title">{{sprint.title}}</h4>
+                                <p class="card-text">{{sprint.description}}</p>
+                                <a href="#" class="btn btn-outline-secondary btn-sm" (click)="detailSprint()">Details <i class="fa fa-arrow-right"></i> </a> 
+                                <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
+                                <button class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+    </div>
+    <div class="row margin margin-bottom">
+        <div class="col-12">
+            <p-card>
+                <p-header class="font-weight-bold">
+                    Faits
+                </p-header>
+                <div class="row margin0-row red-card">
+                    <div  *ngFor="let sprint of sprintsInProgress" value="sprint" class="div col-4 sprint-card">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body ">
+                                <h4 class="card-title">{{sprint.title}}</h4>
+                                <p class="card-text">{{sprint.description}}</p>
+                                <a href="#" class="btn btn-outline-secondary btn-sm" (click)="detailSprint()">Details <i class="fa fa-arrow-right"></i> </a> 
+                                <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
+                                <button class=" float-right btn btn-outline-secondary btn-sm"  > <i class="fa fa-edit"></i> </button>
                             </div>
                         </div>
                     </div>
@@ -26,3 +77,28 @@
         </div>
     </div>
 </div>
+
+
+<ng-template #callAPIDialog>
+        <mat-dialog-content>
+                <div class="container field-container ">
+            Voulez-vous vraiment supprimer le sprint
+            </div>
+            </mat-dialog-content>
+            <mat-dialog-actions>    
+                <div class="container btn-container">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-secondary" mat-button matDialogClose="no" tabindex="-1">
+                                Non
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success" mat-button matDialogClose="yes" tabindex="1">
+                                Oui
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </mat-dialog-actions>
+</ng-template>
