@@ -49,7 +49,7 @@ export class UserSigninComponent implements OnInit {
       });
     },error=>{
       this.myAlert.message=error.error.message;
-      this.myAlert.showAlert();
+      this.myAlert.showAlert("alert-danger");
       console.log('error:',this.myAlert.message);
     }); 
   }

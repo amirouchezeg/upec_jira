@@ -1,8 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { MatChipInputEvent, MAT_DIALOG_DATA } from '@angular/material'; 
+import { MatChipInputEvent, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material'; 
 import { IssuesService } from 'src/app/_service/issues-service';
 import { Issues } from 'src/app/_model/issues';
+import { MyAlert } from 'src/app/_model/myAlert';
+
+export interface Status {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-add-issue',
@@ -10,12 +16,19 @@ import { Issues } from 'src/app/_model/issues';
   styleUrls: ['../issue.component.css']
 })
 export class AddIssueComponent implements OnInit {
-  emails=["email1@gmail.com","email2@gmail.com"];
+
+  emailsMember=[];
+  status: Status[] = [
+    {value: 'preview', viewValue: 'À FAIRE'},
+    {value: 'toDo', viewValue: 'OUVERT'},
+    {value: 'inProgress', viewValue: 'EN COURS'},
+    {value: 'finished', viewValue: 'TERMINÉ'},
+  ];
+  alert:MyAlert;
 
   isProgressVisible:boolean=false;
   sprintId :string;
   titleOfDailogBox :string;
-  teamEmails: string[] = [];
   titleFC : FormControl;
   descriptionFC : FormControl;
   start_dateFC : FormControl;
@@ -27,26 +40,30 @@ export class AddIssueComponent implements OnInit {
   issue:Issues;
   isAddAction:boolean;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: string, private issuesService:IssuesService) {
+  constructor(private dialogRef:MatDialogRef<AddIssueComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: string, private issuesService:IssuesService ) {
+    //get the sprint id sended from page of sprint
     var jsonData= JSON.parse(JSON.stringify(data));
     this.isAddAction=jsonData.data.type=='add'?true:false;                       
     if (this.isAddAction) {
       this.titleOfDailogBox="Ajouter Une Tâche";
-      this.sprintId =JSON.parse(JSON.stringify(jsonData.data.type));
+      this.sprintId =JSON.parse(JSON.stringify(jsonData.data.idSprint));
+      this.emailsMember=jsonData.data.emailsMember;
     } else {
       this.titleOfDailogBox="Modifie La Tâche";
       this.issue=jsonData.data.issue;
+      this.emailsMember=jsonData.data.emailsMember;
     }
-    //get the sprint id sended from page of sprint
   }
   
   ngOnInit() {
+    this.alert=new MyAlert();
     this.titleFC = new FormControl(this.issue? this.issue.title: '');
     this.descriptionFC = new FormControl(this.issue? this.issue.description: '');
     this.start_dateFC = new FormControl(this.issue? this.issue.start_date: '');
     this.end_dateFC = new FormControl(this.issue? this.issue.end_date: '');
     this.statusFC = new FormControl(this.issue? this.issue.status: '');
-    this.emailUserFC = new FormControl(this.issue? this.issue.users/*.email*/: '');
+    this.emailUserFC = new FormControl(this.issue.users? this.issue.users.email: '');
     this.sprint_idFC = new FormControl(this.issue? this.issue.sprint_id: this.sprintId);
 
     this.issueform = new FormGroup({
@@ -61,38 +78,56 @@ export class AddIssueComponent implements OnInit {
     });
   }
 
-  /* add remove email from inpute in html */
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.teamEmails.push( value.trim());
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  remove(fruit: string): void {
-    const index = this.teamEmails.indexOf(fruit);
-
-    if (index >= 0) {
-      this.teamEmails.splice(index, 1);
-    }
-  }
-
   /*on Click*/
   onSubmit(){
-    console.log("onSubmit",this.issueform.value);
-    this.issuesService.addIssue(this.issueform.value).subscribe( data => {
-      console.log("add issue",data);
-      var jsonData=  JSON.parse(JSON.stringify(data));                       
-      let issue =JSON.parse(JSON.stringify(jsonData.data)); 
+    if (this.isAddAction) {
+      console.log("onSubmit add",this.issueform.value);
+      this.addIssue();
+    } else {
+      console.log("onSubmit edit",this.issueform.value);
+      this.editIssue();     
+    }
+  }
+
+  editIssue() {
+    this.issuesService.editIssue(this.issue._id,this.issueform.value).subscribe( data => {
+      console.log("edit issue",data);
+      this.dialogRef.close();
+      // var jsonData=  JSON.parse(JSON.stringify(data));                       
+      // let issue =JSON.parse(JSON.stringify(jsonData.data)); 
     });
+  }
+
+  addIssue() {
+    this.issuesService.addIssue(this.issueform.value).subscribe( 
+      data => {
+        console.log("add issue",data);
+        this.dialogRef.close();
+        // var jsonData=  JSON.parse(JSON.stringify(data));                       
+        // let issue =JSON.parse(JSON.stringify(jsonData.data)); 
+      },
+      error => { 
+        console.log("error",error);
+        var jsonData=  JSON.parse(JSON.stringify(error));                       
+        let data =JSON.parse(JSON.stringify(jsonData.error)); 
+        this.alert.isDisplayed=true;
+        this.alert.message=data.message;
+      });
+  }
+
+  onResendInvitation(){
+    //todo : test this request
+    this.issuesService.resendInvetation(this.issueform.value).subscribe( 
+      data => {
+        console.log("resend invetation",data);
+        this.dialogRef.close();
+         
+      },
+      error => { 
+        console.log("error",error);
+        this.dialogRef.close();
+      }
+    );
   }
 
 }
