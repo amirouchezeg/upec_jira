@@ -24,8 +24,8 @@
         -- edit profile
         -- show email in profile and disable to edit it
         -- add link to edit the password
-----back
     -- edit password (send : email, old_password, and new_password)
+-------------------------------------------------------back
     -- change the paths 
         -- ex for sprint is: api/projects/:id/sprints/:id
     -- add token for the importante information
@@ -36,6 +36,8 @@
         -- check when chage stat to in_progresse that thier not auther in same status
     --issues 
         -- **edit  the user email of this issue (asigne to auther user)
+        --// show by pages (by 20) todo only if it is easy
+    --issues 
     --// check if it is authoriazed to get this paths 
     -- email
         -- designe the page of mail sended

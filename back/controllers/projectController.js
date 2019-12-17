@@ -117,7 +117,6 @@ exports.new =  function (req, res) {
                     if (error) {
                         console.log("error Send Email ",error);
                     } 
-                    console.log('Email sent:...... ' + info.response);
                 }); 
             });
             project.sprints = req.body.sprints;    
@@ -154,7 +153,7 @@ exports.update = function (req, res) {
                 if (error) {
                     console.log("error Send Email ",error);
                 } 
-                // console.log('Email sent:...... ' + info.response);
+                console.log('Email sent:...... ');
             }); 
         });
     }

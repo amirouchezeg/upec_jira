@@ -9,7 +9,8 @@ module.exports = class Email {
     this.isSend=false;
     this.isWait=true;
     this.transporter = nodemailer.createTransport({
-      service: 'GMAIL',
+      host: 'smtp.gmail.com',
+      port: 465,
       auth: {
         user: 'inmyblog656@gmail.com',
         pass: 'InmYblOg12341!'
