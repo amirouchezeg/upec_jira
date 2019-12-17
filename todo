@@ -21,15 +21,11 @@
     </> when user go to any url check it is authoriazed
     -- when connect refrech page 
 ------------------------------------------back-------------------------------------------------------
-    -- edit password (send : email, old_password, and new_password)
     -- change the paths 
         -- ex for sprint is: api/projects/:id/sprints/:id
     -- add token for the importante information
     --projects
-        -- get members of project
         --// show by pages (by 20) todo only if it is easy
-    --spring 
-        -- check when chage stat to in_progresse that thier not auther in same status
     --issues 
     --// check if it is authoriazed to get this paths 
     -- email
