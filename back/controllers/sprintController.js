@@ -47,10 +47,14 @@ exports.new = function (req, res) {
             sprint.start_date = req.body.start_date;
             sprint.end_date = req.body.end_date;
             Project.findOne({_id: sprint.project_id}, function (err, project) {
-                if (err) console.log('Error on the server.',err.message);
+                if (err) return res.status(401).send({ 
+                    message: "Error on the server..."
+                });
                 else {
                     if(project == null){
-                       console.log('Project doesnt exists');
+                        return res.status(401).send({ 
+                            message: "il n'y a aucun projet avec ces critères"
+                        });
                     } 
                     else{
                       project.sprints.push(sprint._id);
@@ -107,21 +111,60 @@ exports.getIssues = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    Project.findByIdAndUpdate(req.params.sprint_id,req.body, {
-        new: true
-    },
-        function(err, sprint) {
+    if(req.body.status == 'inProgress'){
+        Sprint.findById(req.params.sprint_id, function (err, sprint) {  
+            Project.findById(sprint.project_id, function (err, project) {
+                if (err)
+                    res.send(err);
+                    else{
+                        sprints = project.sprints;
+                        var ids = [];
+                        sprints.forEach(element => {
+                            ids.push(element._id);
+                        });
+                        var bool = false;
+                        Sprint.find({_id: {  $in: ids}} ,function(err, sprints) {
+                            sprints.forEach(s => {
+                                if(s._id != req.params.sprint_id && s.status === 'inProgress'){
+                                    bool = true;
+                                    return;
+                                }
+                            });
+                            console.log('bool', bool);
+                            if(bool){
+                                  res.status(500).json({
+                                  message: "Ce projet contient déja un sprint en cours..."
+                                 })
+                            }else{
+                                Sprint.findByIdAndUpdate(req.params.sprint_id,req.body, {new: true},function(err, sprint) {
+                                    if (!err) {
+                                        res.status(201).json({
+                                        data: sprint
+                                        });
+                                    } else {
+                                        res.status(500).json({
+                                        message: "Aucun sprint trouvé avec ces critères"
+                                        })
+                                    }
+                                });
+                            }
+                        });
+                    }        
+                });
+            });  
+    }else{
+        Sprint.findByIdAndUpdate(req.params.sprint_id,req.body, {new: true},function(err, sprint) {
             if (!err) {
                 res.status(201).json({
-                    data: sprint
+                data: sprint
                 });
             } else {
                 res.status(500).json({
-                    message: "not found any relative data"
+                message: "Aucun sprint trouvé avec ces critères"
                 })
             }
         });
-  
+    }
 };
 // Handle delete sprint
 exports.delete = function (req, res) {
