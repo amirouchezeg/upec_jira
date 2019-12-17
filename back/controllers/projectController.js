@@ -4,7 +4,6 @@ const Joi = require('joi');
 var Email = require("../models/email");
 var nodemailer = require('nodemailer');
 
-
 User = require('../models/userModel');
 
 
@@ -23,6 +22,43 @@ exports.index = function (req, res) {
             data: projects
         });
     });
+};
+
+//get projects of a user
+exports.getProjects = function (req, res) {
+        Project.find({},function (err, projects) {
+            var projectsMap ={};
+            if (err)
+               res.send(err);
+                projects.forEach(function(project){
+                    project.users.forEach(dev =>{
+                            if(dev.email == req.params.email)
+                            projectsMap[project._id] = project;              
+                   }) ;
+                });
+                res.send(projectsMap);         
+      }); 
+};
+
+//get projects of a user
+exports.getSprints = function (req, res) {
+    Project.findById(req.params.project_id, function (err, project) {
+        if (err)
+            res.send(err);
+            else{
+                sprints = project.sprints;
+                var ids = [];
+                sprints.forEach(element => {
+                    ids.push(element._id);
+                });
+
+                Sprint.find({_id: {  $in: ids}} ,function(err, sprints) {
+                    res.json({
+                        data: sprints
+                    });                 
+                });
+                }        
+            });
 };
 
 // Handle create project actions
@@ -81,7 +117,6 @@ exports.new =  function (req, res) {
                     if (error) {
                         console.log("error Send Email ",error);
                     } 
-                    console.log('Email sent:...... ' + info.response);
                 }); 
             });
             project.sprints = req.body.sprints;    
@@ -118,7 +153,7 @@ exports.update = function (req, res) {
                 if (error) {
                     console.log("error Send Email ",error);
                 } 
-                console.log('Email sent:...... ' + info.response);
+                console.log('Email sent:...... ');
             }); 
         });
     }

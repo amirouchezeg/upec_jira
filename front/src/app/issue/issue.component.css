@@ -43,6 +43,10 @@
     background-color: #a2a2a2;
 }
 
+.mr-btn{
+    margin-left: .7rem;
+}
+
 /********************
 *issu-add component
 *********************/

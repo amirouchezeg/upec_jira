@@ -7,6 +7,8 @@ User = require('../models/userModel');
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var bcrypt = require('bcryptjs');
 var config = require('../config'); // get config file
+var Email = require("../models/email");
+var nodemailer = require('nodemailer');
 
 //VALIDATION
 
@@ -43,7 +45,7 @@ exports.index = function (req, res) {
         }
         User.find(params, function (err, users) {
             if (err) return res.status(500).send('Error on the server.');
-            if (!users) return res.status(404).send('No user found.');
+            if (!users) return res.status(404).send('Aucun utilisateur trouvé avec ces critères.');
 
             users.forEach(function(user) {
                 user.password=null;
@@ -81,7 +83,7 @@ exports.login = function (req, res) {
         if (err) return res.status(500).send('Error on the server.');
         if (!user) 
             return res.status(401).send({ 
-                message: "L'email ou le mot de passe est incorrect"
+                message: "L'email ou le mot de passe est incorrect."
             });
         // check if the password is valid
         var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
@@ -145,6 +147,8 @@ exports.view = function (req, res) {
         });
     });
 };
+
+
 // Handle update user info
 exports.update = function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
@@ -210,3 +214,52 @@ function addUser(data, schema, res, req) {
         }
     });
 }
+
+exports.changePassword = function (req, res) {
+    User.findOne({ email: req.body.email }, function (err, user) {
+        if (err) return res.status(500).send('Error on the server.');
+        if (!user) 
+            return res.status(401).send({ 
+                message: "L'email ou le mot de passe est incorrect."
+            });
+        // check if the password is valid
+        var passwordIsValid = bcrypt.compareSync(req.body.oldPassword, user.password);
+        if (!passwordIsValid) 
+            return res.status(401).send({ 
+                message: "Le mot de passe est incorrect.."
+            }
+        );  
+        //check if the new password and the confirmed one is the same
+       if(req.body.newPassword == req.body.confirmed){
+              user.password = bcrypt.hashSync(req.body.newPassword, 8)
+       }
+       else{
+        return res.status(401).send({ 
+            message: "Le mot de passe de confirmation n'est pas correct.."
+        }
+    );  
+    }  
+      // return the information
+        res.status(200).json({
+            message: 'votre mot de passe a été modifié avec succés',
+
+        });
+    });
+};
+
+exports.sendemail = function (req, res) {
+        var email = new Email(req.body.email);          
+        email.transporter.sendMail(email.mailOptions, function(error, info){
+            if (error) {
+                return res.status(401).send({ 
+                    message: "l'email est incorrect...",
+                    data: error
+                });
+             } 
+             res.status(200).json({
+                message: 'le message a été envoyé avec succès',      
+                });
+            });        
+};
+
+

@@ -13,7 +13,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ProjectService } from '../_service/project-service';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { SprintModule } from '../sprint/sprint.module';
-
+import { AuthGuardService } from '../_service/auth-guard.service';
 
 // import { HeaderComponent } from '../header/header.component';
 // import { FooterComponent } from '../footer/footer.component';
@@ -25,7 +25,8 @@ import { SprintModule } from '../sprint/sprint.module';
     ProjectListComponent, 
     ProjectAddComponent, 
     ProjectScreenComponent, 
-    ProjectDetailComponent],
+    ProjectDetailComponent,
+  ],
   imports: [
     MatProgressBarModule,
     ReactiveFormsModule,
@@ -36,6 +37,7 @@ import { SprintModule } from '../sprint/sprint.module';
     SprintModule
   ],
   providers: [
+    AuthGuardService,
     MatDatepickerModule,
     ProjectService
   ],

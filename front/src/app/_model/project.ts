@@ -8,7 +8,7 @@ export class Project {
     //     this.dateEnd = dateEnd; 
     //     this.teamEmails = teamEmails; 
     // }
-
+    _id : string;
     title:string;
     description:string;
     start_date:Date;

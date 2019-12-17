@@ -1,4 +1,5 @@
 export class Sprint {
+    _id : string;
     ordre: number;
     title: string;
     description: string;

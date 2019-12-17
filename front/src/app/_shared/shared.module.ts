@@ -31,6 +31,7 @@ import { ButtonModule } from 'primeng/button';
 import {FieldsetModule} from 'primeng/fieldset';
 import {CardModule} from 'primeng/card';
 import { ReactiveFormsModule } from '@angular/forms';
+import {ToastModule} from 'primeng/toast';
 
 const sharedModules: any[] = [
     MatChipsModule,
@@ -62,7 +63,8 @@ const sharedModules: any[] = [
     ButtonModule,
     FieldsetModule,
     CardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastModule
     ]
 
 @NgModule({

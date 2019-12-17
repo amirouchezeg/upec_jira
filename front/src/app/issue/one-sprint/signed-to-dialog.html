@@ -6,15 +6,15 @@
     </div>
     <div class="row">
         <div class="col">
-            <form class="signeto-form">
+            <form [formGroup]="issueform" class="signeto-form" (ngSubmit)="onSubmit()">
                 <mat-form-field class="signeto-full-width">
-                    <input type="text" placeholder="Choisir un" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let option of options" [value]="option">
-                    {{option}}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
+                    <input type="text" placeholder="Choisir un" formControlName="email" aria-label="Number" matInput [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of options" [value]="option">
+                        {{option}}
+                    </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
               <div class="row">
                     <div class="col-6">
                         <button class="btn btn-secondary" mat-button mat-dialog-close tabindex="-1">

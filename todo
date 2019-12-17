@@ -1,30 +1,50 @@
 ----front
+    --// admin dashboard
+    --projects
+        -- disable button save
+        -- edit project
+        -- delete project
+        -- show the projects per page
     --navar
         -- switch between navbars when user is connecte or no
         </> add avatar with profil,chage password,disconect
         </> show snackBar when is disconected
-    --login page
-        --when connecte send notification to navbar to change isConncte to false
-    --sprint page  
+    --sprint details page  
         --line it with back
-            --get and show all issues
-    --home
-        --write texts for the web site
-    -- when user go to any url check it is authoriazed
+            -- get and show all issues
+            -- get issue of curant sprint
+            -- edit issue
+            -- delete issue
+    -- issues
+        -- edit sprint
+        -- delete sprint
+    </> when user go to any url check it is authoriazed
+
     -- when connect refrech page 
-----back
-    -- email
-        -- send chack email (check email)
-        -- create project or adding personne to project send in email the link of project 
-    -- edit password (send : old_password, and new_password)
+    -- profile
+        -- edit profile
+        -- show email in profile and disable to edit it
+        -- add link to edit the password
+    -- edit password (send : email, old_password, and new_password)
+-------------------------------------------------------back
     -- change the paths 
         -- ex for sprint is: api/projects/:id/sprints/:id
     -- add token for the importante information
     --projects
-        -- get members of project
-        -- get all projects of one user
+        </> add or delete memebers of projects (to make it now it shold to send all old and the new one in edit project )
+        --// show by pages (by 20) todo only if it is easy
     --spring 
-        get all sprints of one project 
     --check if it is authoriazed to get this paths 
 --------------documentation
     --complite the swager
+    --write texts for the web site
+        -- check when chage stat to in_progresse that thier not auther in same status
+    --issues 
+        -- **edit  the user email of this issue (asigne to auther user)
+        --// show by pages (by 20) todo only if it is easy
+    --issues 
+    --// check if it is authoriazed to get this paths 
+    -- email
+        -- designe the page of mail sended
+        -- send chack email (check email)
+        -- create project or adding personne to project send in email the link of project 

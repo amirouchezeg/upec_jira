@@ -18,4 +18,15 @@ export class ProjectService {
     return this.http.get(this.rootUrl);
   }
 
+  deleteProject(id : number){
+    return this.http.delete(this.rootUrl + "/" + id);
+  }
+
+  findById(id: string){
+    return this.http.get(this.rootUrl + "/" + id);
+  }
+
+  update(project : Project, id:string){
+    return this.http.put(this.rootUrl + "/" + id, project)
+  }
 }
