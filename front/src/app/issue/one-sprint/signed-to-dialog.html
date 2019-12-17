@@ -6,9 +6,9 @@
     </div>
     <div class="row">
         <div class="col">
-            <form class="signeto-form">
+            <form [formGroup]="issueform" class="signeto-form" (ngSubmit)="onSubmit()">
                 <mat-form-field class="signeto-full-width">
-                    <input type="text" placeholder="Choisir un" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                    <input type="text" placeholder="Choisir un" formControlName="email" aria-label="Number" matInput [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let option of options" [value]="option">
                         {{option}}

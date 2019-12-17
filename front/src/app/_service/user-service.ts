@@ -62,4 +62,9 @@ export class UserService {
     return this.http.post(this.rootUrl+url, {email: email, password : password});
   }
 
+  //todo :make this in project service and rename the method to get project
+  getMembersOfProject(idProject: string) {
+    return this.http.get("http://localhost:8080/api/projects/"+idProject);    
+  }
+
 }

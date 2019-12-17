@@ -6,19 +6,10 @@
                     </button>
                 </div>
         <!-- <button class="btn btn-lg" (click)="onDailoIssue()"> </button> -->
-        <div class="col-12">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Library</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data</li>
-                </ol>
-            </nav>
-        </div>
         <div class="col-3">
             <div class="card actions" >
                 <div class="card-header card-header-in-preview">
-                    <h3 class="text-uppercase  d-flex justify-content-center">En Aperçu</h3>
+                    <h3 class="text-uppercase  d-flex justify-content-center">À FAIRE</h3>
                 </div>
                 <div
                 cdkDropList
@@ -32,8 +23,8 @@
                             <h6 class="text-uppercase  d-flex justify-content-center">{{issue.title}}</h6>
                         </div>
                         <div class="card-body">
-                            <span class="badge badge-secondary">New@gmai.net</span>
-                            <p class="card-text">{{issue.description}}</p>
+                            <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>
+                            <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
                             <a href="#" class="btn btn-outline-secondary btn-sm">Details <i class="fa fa-arrow-right"></i> </a> 
                             <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>                          
@@ -45,7 +36,7 @@
         <div class="col-3 mh-100 actions">
             <div class="card actions" >
                 <div class="card-header card-header-todo">
-                    <h3 class="text-uppercase  d-flex justify-content-center">à faire</h3>
+                    <h3 class="text-uppercase  d-flex justify-content-center">Ouvert</h3>
                 </div>
                 <div
                 cdkDropList
@@ -59,9 +50,8 @@
                             <h6 class="text-uppercase  d-flex justify-content-center">{{issue.title}}</h6>
                         </div>
                         <div class="card-body">
-                            <span class="badge badge-secondary">New@gmai.com</span>
-                            <span class="badge badge-secondary">auth@emai.fr</span>
-                            <p class="card-text">{{issue.description}}</p>
+                            <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>
+                            <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
                             <a href="#" class="btn btn-outline-secondary btn-sm">Details <i class="fa fa-arrow-right"></i> </a> 
                             <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>
@@ -88,8 +78,8 @@
                             <h6 class="text-uppercase  d-flex justify-content-center">{{issue.title}}</h6>
                         </div>
                         <div class="card-body">
-                            <span class="badge badge-secondary">New@gmai.com</span>
-                            <p class="card-text">{{issue.description}}</p>
+                            <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>
+                            <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
                             <a href="#" class="btn btn-outline-secondary btn-sm">Details <i class="fa fa-arrow-right"></i> </a> 
                             <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>
@@ -116,9 +106,8 @@
                             <h6 class="text-uppercase  d-flex justify-content-center">{{issue.title}}</h6>
                         </div>
                         <div class="card-body">
-                            <span class="badge badge-secondary">New@gmai.com</span>
-                            <span class="badge badge-secondary">auth@emai.fr</span>
-                            <p class="card-text">{{issue.description}}</p>
+                            <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>                            
+                            <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
                             <a href="#" class="btn btn-outline-secondary btn-sm">Details <i class="fa fa-arrow-right"></i> </a> 
                             <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>

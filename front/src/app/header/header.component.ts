@@ -38,14 +38,13 @@ export class HeaderComponent implements OnInit {
     
   }
   
-
   onDisconect(){
-      this._snackBar.open("Vous vous êtes déconnecté","Se connecter", {
-        verticalPosition: 'top',
-        duration: 2500,
-      }).onAction().subscribe(() => {
-        this.router.navigateByUrl("/user/signin");
-      });
+    this._snackBar.open("Vous vous êtes déconnecté","Se connecter", {
+      verticalPosition: 'top',
+      duration: 2500,
+    }).onAction().subscribe(() => {
+      this.router.navigateByUrl("/user/signin");
+    });
     localStorage.removeItem('token');
     this.isConnected=false;
   }

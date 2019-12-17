@@ -29,8 +29,8 @@ exports.new = function (req, res) {
             commentaire: Joi.string(),
             })),
         end_date: Joi.date().greater(Joi.ref('start_date')).allow(''),
-        description : Joi.string(),
-        userEmail: Joi.string(),
+        description : Joi.string().allow(''),
+        userEmail: Joi.string().allow(''),
         sprint_id:Joi.string(),
         status: Joi.string().allow(''),
     }
@@ -51,6 +51,7 @@ exports.new = function (req, res) {
             issue.end_date = req.body.end_date;   
             issue.comments = req.body.comments;
             issue.sprint_id= req.body.sprint_id;
+            console.log(issue.sprint_id)
             Sprint.findOne({_id: issue.sprint_id}, function (err, sprint) {
                 if (err) res.send(err);
                 else {
@@ -64,28 +65,32 @@ exports.new = function (req, res) {
                         Sprint.findByIdAndUpdate(issue.sprint_id,m_sprints, {new: true
                         },function(err, sprint) {}
                         );           
-                    } 
+                    }
                 } 
             });
             User.findOne({email: req.body.userEmail}, function (err, user) {
                 if (err) console.log('Error on the server.',err.message);
                   else {
                     if(!user){
-                       console.log('user doesnt exist');
+                        console.log('user doesnt exist');
+                        res.status(406).json({
+                            message:  req.body.userEmail +": Cette personne n'a pas encour inscrir sur le site!",
+                            error: "L'email n'exite pas"
+                        });
                     } 
                     else{
                         console.log('user', user)  
                         var mUser = {
                             user_id:user._id,
                             email: req.body.userEmail
-                         }  
-                         issue.users = mUser;  
-                         issue.save(function (err) {
+                        }  
+                        issue.users = mUser;  
+                        issue.save(function (err) {
                             res.json({
-                              message: 'New issue created!',
-                              data: issue
-                           });
-                       });   
+                                message: 'New issue created!',
+                                data: issue
+                            });
+                        });   
                     } 
                 
                 } 
@@ -107,12 +112,56 @@ exports.view = function (req, res) {
 
 
 exports.update = function (req, res) {
-    Issue.findByIdAndUpdate(req.params.issue_id,req.body, {
-        new: true
-    },
-        function(err, issue) {
+    if (req.body.userEmail){
+        User.findOne({email: req.body.userEmail}, function (err, user) {
+            if (err){
+                console.log('Error on the server.',err.message);
+                res.status(400).json({
+                    error: "Error on the server"
+                });
+            } 
+            else {
+                if(!user){
+                    console.log('user doesnt exist');
+                    res.status(406).json({
+                        message:  req.body.userEmail +": Cette personne n'a pas encour inscrir sur le site!",
+                        error: "L'email n'exite pas"
+                    });
+                } 
+                else{
+                    console.log('user', user)  
+                    var mUser = {
+                        user_id:user._id,
+                        email: req.body.userEmail
+                    }  
+                    req.body.users=mUser;
+                    //update the issue
+                    Issue.findByIdAndUpdate(req.params.issue_id,req.body, {
+                        new: true
+                    },function(err, issue) {
+                        if (!err) {
+                            res.status(201).json({
+                                message: "the issue is edited",
+                                data: issue
+                            });
+                        } else {
+                            res.status(500).json({
+                                message: "not found any relative data"
+                            })
+                        }
+                    });
+                } 
+            
+            } 
+        });    
+    }else{
+      //update the issue
+      Issue.findByIdAndUpdate(req.params.issue_id,req.body, {
+            new: true
+        },function(err, issue) {
             if (!err) {
                 res.status(201).json({
+                    message: "the issue is edited",
                     data: issue
                 });
             } else {
@@ -120,8 +169,8 @@ exports.update = function (req, res) {
                     message: "not found any relative data"
                 })
             }
-        });
-  
+        });  
+    }
 };
 
 

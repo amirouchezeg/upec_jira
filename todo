@@ -1,5 +1,5 @@
 ----front
-    -- admin dashboard
+    --// admin dashboard
     --projects
         -- disable button save
         -- edit project
@@ -20,11 +20,22 @@
         -- delete sprint
     </> when user go to any url check it is authoriazed
     -- when connect refrech page 
-------------------------------------------back-------------------------------------------------------
+    -- profile
+        -- edit profile
+        -- show email in profile and disable to edit it
+        -- add link to edit the password
+    -- edit password (send : email, old_password, and new_password)
+-------------------------------------------------------back
     -- change the paths 
         -- ex for sprint is: api/projects/:id/sprints/:id
     -- add token for the importante information
     --projects
+        </> add or delete memebers of projects (to make it now it shold to send all old and the new one in edit project )
+        --// show by pages (by 20) todo only if it is easy
+    --spring 
+        -- check when chage stat to in_progresse that thier not auther in same status
+    --issues 
+        -- **edit  the user email of this issue (asigne to auther user)
         --// show by pages (by 20) todo only if it is easy
     --issues 
     --// check if it is authoriazed to get this paths 

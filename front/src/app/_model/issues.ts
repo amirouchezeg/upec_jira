@@ -3,6 +3,7 @@ import { Comments } from './comments';
 
 export class Issues {
 
+    _id:string;
     title:string;
     description:string;
     start_date:Date;
@@ -12,5 +13,6 @@ export class Issues {
     comments:Comments;
     create_date:String;
     users:User;
+    userEmail:string;
 
 }

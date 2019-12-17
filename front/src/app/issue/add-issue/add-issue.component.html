@@ -1,6 +1,10 @@
 <div class="container">
     <h2>{{titleOfDailogBox}} </h2>
 </div>
+<div *ngIf="alert.isDisplayed"  class="d-flex justify-content-between alert alert-danger ml-3 mr-3" role="alert">
+    {{alert.message}} 
+    <button type="button" (click)="onResendInvitation()" class="btn btn-sm btn-warning">Renvoyer l'invitation</button>
+</div>
 <form [formGroup]="issueform" (ngSubmit)="onSubmit()">
         <mat-dialog-content>
             <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
@@ -21,14 +25,22 @@
                     <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
                     <mat-datepicker #pickerFin></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field *ngIf="!isAddAction">
+                <!-- <mat-form-field >
                     <input matInput placeholder="Etas" formControlName="status" required>
+                </mat-form-field> -->
+                <mat-form-field *ngIf="!isAddAction">
+                    <mat-label>Etas</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let food of status" [value]="food.value">
+                        {{food.viewValue}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <mat-form-field class="signeto-full-width">
                     <input type="text" placeholder="Choisir un" aria-label="Number" matInput 
                         [matAutocomplete]="auto" formControlName="userEmail">
                     <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of emails" [value]="option">
+                    <mat-option *ngFor="let option of emailsMember" [value]="option">
                         {{option}}
                     </mat-option>
                     </mat-autocomplete>
@@ -45,8 +57,11 @@
                         </button>
                     </div>
                     <div class="col-6">
-                        <button type="submit" class="btn btn-success" mat-button  tabindex="1">
+                        <button *ngIf="isAddAction" type="submit" class="btn btn-success" mat-button  tabindex="1">
                             Sauvgarder
+                        </button>
+                        <button *ngIf="!isAddAction" type="submit" class="btn btn-info" mat-button  tabindex="1">
+                            Modifie
                         </button>
                     </div>
                 </div>
