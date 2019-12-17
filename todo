@@ -20,20 +20,18 @@
         -- delete sprint
     </> when user go to any url check it is authoriazed
     -- when connect refrech page 
-----back
+------------------------------------------back-------------------------------------------------------
     -- edit password (send : email, old_password, and new_password)
     -- change the paths 
         -- ex for sprint is: api/projects/:id/sprints/:id
     -- add token for the importante information
     --projects
         -- get members of project
-        -- get all projects of one user
         --// show by pages (by 20) todo only if it is easy
     --spring 
         -- check when chage stat to in_progresse that thier not auther in same status
         -- get all sprints of one project 
     --issues 
-        --get all isssues of one sprint
     --// check if it is authoriazed to get this paths 
     -- email
         -- designe the page of mail sended
