@@ -30,7 +30,6 @@
         --// show by pages (by 20) todo only if it is easy
     --spring 
         -- check when chage stat to in_progresse that thier not auther in same status
-        -- get all sprints of one project 
     --issues 
     --// check if it is authoriazed to get this paths 
     -- email
