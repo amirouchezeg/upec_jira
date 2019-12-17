@@ -1,6 +1,6 @@
-<p-toast position="top-center" class="custom-toast" background-color="#FFD07B" key="tc"></p-toast>
+<!-- <p-toast position="top-center" class="custom-toast" background-color="#FFD07B" key="tc"></p-toast> -->
+<!-- <button type="button" pButton (click)="updateSprint()" label="Top Center" class="ui-button-info"></button> -->
 
-<button type="button" pButton (click)="updateSprint()" label="Top Center" class="ui-button-info"></button>
 <div class="container h-10">
     <div class="row">
         <div class="col-12 add-sprint d-flex justify-content-center">
@@ -9,7 +9,6 @@
             </button>
         </div>
     </div>
-    <!-- <h2>Sprints</h2> -->
     <div class="row margin">
         <div class="col-12">
             <p-card>
@@ -17,6 +16,9 @@
                     En cours
                 </p-header>
                 <div class="row margin0-row green-card">
+                    <div  *ngIf="sizeInProgress===0" value="sprint" class="div col-4 sprint-card">
+                        Aucun sprint n'est en cours ...   
+                    </div>
                     <div  *ngFor="let sprint of sprintsInProgress" value="sprint" class="div col-4 sprint-card">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body ">
@@ -24,7 +26,7 @@
                                 <p class="card-text">{{sprint.description}}</p>
                                 <a href="#" class="btn btn-outline-secondary btn-sm" (click)="detailSprint()">Details <i class="fa fa-arrow-right"></i> </a> 
                                 <button class=" float-right mr-btn btn btn-outline-danger btn-sm" (click)="deleteSprint(sprint._id)"> <i class="fa fa-trash"></i> </button>                          
-                                <button class=" float-right btn btn-outline-secondary btn-sm" (click)="updateSprint(sprint.id)"> <i class="fa fa-edit"></i> </button>
+                                <button class=" float-right btn btn-outline-secondary btn-sm" (click)="updateSprint(sprint._id)"> <i class="fa fa-edit"></i> </button>
                             </div>
                         </div>
                     </div>
@@ -39,14 +41,17 @@
                    A faire
                 </p-header>
                 <div class="row margin0-row gray-card">
-                    <div  *ngFor="let sprint of sprintsInProgress" value="sprint" class="div col-4 sprint-card">
+                    <div  *ngIf="sizeToDo===0" value="sprint" class="div col-4 sprint-card">
+                        Aucun sprint n'est à faire ...   
+                    </div>
+                    <div  *ngFor="let sprint of sprintsToDo" value="sprint" class="div col-4 sprint-card">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body ">
                                 <h4 class="card-title">{{sprint.title}}</h4>
                                 <p class="card-text">{{sprint.description}}</p>
                                 <a href="#" class="btn btn-outline-secondary btn-sm" (click)="detailSprint()">Details <i class="fa fa-arrow-right"></i> </a> 
-                                <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
-                                <button class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>
+                                <button class=" float-right mr-btn btn btn-outline-danger btn-sm"  (click)="deleteSprint(sprint._id)"> <i class="fa fa-trash"></i> </button>                          
+                                <button class=" float-right btn btn-outline-secondary btn-sm" (click)="updateSprint(sprint._id)"> <i class="fa fa-edit"></i> </button>
                             </div>
                         </div>
                     </div>
@@ -61,14 +66,17 @@
                     Faits
                 </p-header>
                 <div class="row margin0-row red-card">
-                    <div  *ngFor="let sprint of sprintsInProgress" value="sprint" class="div col-4 sprint-card">
+                    <div  *ngIf="sizeDone===0" value="sprint" class="div col-4 sprint-card">
+                        Aucun sprint n'est encore fini ...   
+                    </div>
+                    <div  *ngFor="let sprint of sprintsDone" value="sprint" class="div col-4 sprint-card">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body ">
                                 <h4 class="card-title">{{sprint.title}}</h4>
                                 <p class="card-text">{{sprint.description}}</p>
                                 <a href="#" class="btn btn-outline-secondary btn-sm" (click)="detailSprint()">Details <i class="fa fa-arrow-right"></i> </a> 
-                                <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
-                                <button class=" float-right btn btn-outline-secondary btn-sm"  > <i class="fa fa-edit"></i> </button>
+                                <button class=" float-right mr-btn btn btn-outline-danger btn-sm"  (click)="deleteSprint(sprint._id)"> <i class="fa fa-trash"></i> </button>                          
+                                <button class=" float-right btn btn-outline-secondary btn-sm" (click)="updateSprint(sprint._id)" > <i class="fa fa-edit"></i> </button>
                             </div>
                         </div>
                     </div>
@@ -79,26 +87,82 @@
 </div>
 
 
-<ng-template #callAPIDialog>
-        <mat-dialog-content>
-                <div class="container field-container ">
-            Voulez-vous vraiment supprimer le sprint
+<ng-template #callAPIDialogDelete>
+    <mat-dialog-content>
+        <div class="container field-container ">
+            <div class="text-danger">
+               <h6> Avertissement : la suppression de ce sprint entrainera la suppression de toutes ses tâches </h6>
+            </div><br>
+            <div>
+                <h6><strong>Voulez-vous vraiment supprimer ce sprint.</strong></h6>
             </div>
-            </mat-dialog-content>
-            <mat-dialog-actions>    
-                <div class="container btn-container">
-                    <div class="row">
-                        <div class="col-6">
-                            <button class="btn btn-secondary" mat-button matDialogClose="no" tabindex="-1">
-                                Non
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-success" mat-button matDialogClose="yes" tabindex="1">
-                                Oui
-                            </button>
-                        </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>    
+        <div class="container btn-container">
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-secondary" mat-button matDialogClose="no" tabindex="-1">
+                        Non
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-success" mat-button matDialogClose="yes" tabindex="1">
+                        Oui
+                    </button>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-actions>
+</ng-template>
+
+<ng-template #callAPIDialogUpdate>
+    <form [formGroup]="sprintform">
+        <mat-dialog-content>
+            <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
+            <div class="container field-container ">
+                <mat-form-field>
+                    <input matInput type="number" placeholder="Ordre" value={{sprint.ordre}} formControlName="ordre"  required>
+                    <mat-error *ngIf="sprintform.get('ordre').hasError('required')">
+                            Veuillez entrer l'ordre du sprint
+                        </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Titre" value={{sprint.title}} formControlName="title" required>
+                    <mat-error *ngIf="sprintform.get('title').hasError('required')">
+                        Veuillez entrer le titre du sprint
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea matInput placeholder="Déscription" value={{sprint.description}} formControlName="description"></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="pickerDeb" value={{sprint.start_date}} formControlName="startDate" placeholder="Date Début">
+                    <mat-datepicker-toggle matSuffix [for]="pickerDeb"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerDeb></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="pickerFin" value={{sprint.end_date}} formControlName="endDate" placeholder="Date de Fin" >
+                    <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFin></mat-datepicker>
+                </mat-form-field>
+             </div>  
+        </mat-dialog-content>
+        <mat-dialog-actions>    
+            <div class="container btn-container">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-secondary" mat-button mat-dialog-close="no" tabindex="-1">
+                            Anuler
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success" mat-button matDialogClose="yes" tabindex="1">
+                            Sauvgarder
+                        </button>
                     </div>
                 </div>
-            </mat-dialog-actions>
+            </div>
+        </mat-dialog-actions>
+    </form>
 </ng-template>

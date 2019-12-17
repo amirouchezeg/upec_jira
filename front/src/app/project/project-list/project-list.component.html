@@ -11,11 +11,103 @@
         <div  *ngFor="let project of projects" value="project" class="div col-4 project-card">
             <div class="card" style="width: 18rem;">
                 <div class="card-body ">
-                    <h4 class="card-title">{{project.title}}</h4>
+                    <h4 class="card-title">
+                        {{project.title}}
+                        <button class=" mr-btn btn btn-outline-danger btn-sm" (click)="deleteProject(project._id)"> <i class="fa fa-trash"></i> </button>                          
+                        <button class=" mr-btn btn btn-outline-secondary btn-sm" (click)="updateProject(project._id)"> <i class="fa fa-edit"></i> </button>
+                    </h4>
                     <p class="card-text">{{project.description}}</p>
                     <button class="btn btn-outline-secondary btn-lg" (click)="detailProject(project._id)">Plus de détails</button>
+                    
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #callAPIDialogDelete>
+    <mat-dialog-content>
+        <div class="container field-container ">
+            <div class="text-danger">
+                <h6> Avertissement : la suppression de ce projet entrainera la suppression de tout ses sprints </h6>
+            </div><br>
+            <div>
+                <h6><strong>Voulez-vous vraiment supprimer ce projet.</strong></h6>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>    
+        <div class="container btn-container">
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-secondary" mat-button matDialogClose="no" tabindex="-1">
+                        Non
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-success" mat-button matDialogClose="yes" tabindex="1">
+                        Oui
+                    </button>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-actions>
+</ng-template>
+
+<ng-template #callAPIDialogUpdate>
+    <form [formGroup]="projectform">
+        <mat-dialog-content>
+            <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
+            <div class="container field-container ">
+                <mat-form-field>
+                    <input matInput placeholder="Intitulé" formControlName="title" required>
+                    <mat-error *ngIf="projectform.get('title').hasError('required')">
+                            Veuillez entrer l'intitulé du projet
+                        </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="pickerDeb" formControlName="startDate" placeholder="Date Début">
+                    <mat-datepicker-toggle matSuffix [for]="pickerDeb"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerDeb></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="pickerFin" formControlName="endDate" placeholder="Date de Fin" >
+                    <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFin></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea matInput placeholder="Déscription" formControlName="description"></textarea>
+                </mat-form-field>
+                <mat-chip-list #chipList aria-label="Fruit selection">
+                    <mat-chip *ngFor="let email of teamEmails" [selectable]="true"
+                        [removable]="true" (removed)="remove(email)">
+                        {{email}}
+                        <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Equipe..."
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+                <label class="small text-muted">Entrée les e-mails de votre équipe</label>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions>    
+            <div class="container btn-container">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-secondary" mat-button mat-dialog-close tabindex="-1">
+                            Anuler
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success" mat-button  [disabled]="!projectform.valid" tabindex="1">
+                            Sauvgarder
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-dialog-actions>
+    </form>    
+</ng-template>

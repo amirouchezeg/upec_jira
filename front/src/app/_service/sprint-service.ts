@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { Response } from "@angular/http";
 import { Observable } from 'rxjs';
 import { Sprint } from '../_model/sprint';
+import { identifierModuleUrl } from '@angular/compiler';
 
 
 @Injectable()
@@ -23,4 +24,11 @@ export class SprintService {
     return this.http.delete(this.rootUrl + "/" + id);
   }
 
+  findById(id: string){
+    return this.http.get(this.rootUrl + "/" + id);
+  }
+
+  update(sprint : Sprint, id:string){
+    return this.http.put(this.rootUrl + "/" + id, sprint)
+  }
 }
