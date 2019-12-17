@@ -3,15 +3,15 @@ export class MyAlert {
     message:string;
     type:string;
     isDisplayed:boolean;
-    /*whe shold to use the 'new' key when create instance */
-    constructor(message:string, type:string) { 
+    /*we shold to use the 'new' key when create instance */
+    constructor(message:string="", type:string="alert-danger") { 
         this.message=message;
         this.type=type;
         this.isDisplayed=false;
     }
-    
-    showAlert(){
-        this.type="alert-danger";
+
+    showAlert(type:string){
+        this.type=type;
         this.isDisplayed=true;
     }
 

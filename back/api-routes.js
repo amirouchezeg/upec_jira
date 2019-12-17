@@ -28,11 +28,15 @@ router.route('/users')
 .post(userController.new);
 router.route('/users/login')
 .post(userController.login);
+router.route('/users/editPassword')
+.post(userController.changePassword);
 router.route('/users/:user_id')
     .get(VerifyToken,userController.view)
     .patch(VerifyToken,userController.update)
     .put(VerifyToken,userController.update)
     .delete(VerifyToken,userController.delete);
+router.route('/users/resend_email')
+.post(userController.sendemail);
 
 
 // Import sprint controller
@@ -46,6 +50,13 @@ router.route('/sprints/:sprint_id')
     .patch(sprintController.update)
     .put(sprintController.update)
     .delete(sprintController.delete);
+
+
+router.route('/sprints/:sprint_id/issues')
+    .get(sprintController.getIssues)
+
+router.route('/users/:user_id/projects')
+    .get(sprintController.getIssues)
 
 
 // Import issue controller
@@ -69,9 +80,18 @@ router.route('/projects')
 router.route('/projects/:project_id')
     .get(projectController.view)
     .put(projectController.update)
-    .delete(projectController.delete);  
+    .delete(projectController.delete); 
+    
 
-    // Import comment controller
+router.route('/projects/users/:email')
+    .get(projectController.getProjects);
+router.route('/projects/:project_id/sprints')
+    .get(projectController.getSprints);
+
+
+    
+
+// Import comment controller
 var commentController = require('./controllers/commentController');
 // comments routes
 router.route('/comments')

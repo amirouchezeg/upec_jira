@@ -2,6 +2,7 @@
 Issue = require('../models/issueModel');
 const Joi = require('joi'); 
 Sprint = require('../models/sprintModel');
+User = require('../models/userModel');
 
 // Handle index actions
 exports.index = function (req, res) {
@@ -23,17 +24,15 @@ exports.index = function (req, res) {
 exports.new = function (req, res) {
     const schema={
         title:Joi.string().min(2).required(),
-        start_date: Joi.date(),
+        start_date: Joi.date().allow(''),
         comments: Joi.array().items(Joi.object({
             commentaire: Joi.string(),
             })),
-        end_date: Joi.date().greater(Joi.ref('start_date')),
-        description : Joi.string(),
-        users: Joi.array().items(Joi.object({
-            user_id: Joi.string().required()
-        })),
+        end_date: Joi.date().greater(Joi.ref('start_date')).allow(''),
+        description : Joi.string().allow(''),
+        userEmail: Joi.string().allow(''),
         sprint_id:Joi.string(),
-        status: Joi.string(),
+        status: Joi.string().allow(''),
     }
      
     Joi.validate(req.body,schema, (err, issue) =>{
@@ -50,32 +49,52 @@ exports.new = function (req, res) {
             issue.description = req.body.description;  
             issue.start_date = req.body.start_date;
             issue.end_date = req.body.end_date;   
-            issue.users = req.body.users;
             issue.comments = req.body.comments;
             issue.sprint_id= req.body.sprint_id;
-            
+            console.log(issue.sprint_id)
             Sprint.findOne({_id: issue.sprint_id}, function (err, sprint) {
-                if (err) console.log('Error on the server.',err.message);
+                if (err) res.send(err);
                 else {
                     if(!sprint){
                        console.log('sprint doesnt exists');
+                      //res.send('sprint doesnt exists');
                     } 
                     else{
                         sprint.issues.push(issue._id);
                         m_sprints={issues: sprint.issues};
-                        console.log(m_sprints);
                         Sprint.findByIdAndUpdate(issue.sprint_id,m_sprints, {new: true
                         },function(err, sprint) {}
                         );           
-                    } 
+                    }
                 } 
             });
-            issue.save(function (err) {
-                res.json({
-                  message: 'New issue created!',
-                  data: issue
-               });
-           });
+            User.findOne({email: req.body.userEmail}, function (err, user) {
+                if (err) console.log('Error on the server.',err.message);
+                  else {
+                    if(!user){
+                        console.log('user doesnt exist');
+                        res.status(406).json({
+                            message:  req.body.userEmail +": Cette personne n'a pas encour inscrir sur le site!",
+                            error: "L'email n'exite pas"
+                        });
+                    } 
+                    else{
+                        console.log('user', user)  
+                        var mUser = {
+                            user_id:user._id,
+                            email: req.body.userEmail
+                        }  
+                        issue.users = mUser;  
+                        issue.save(function (err) {
+                            res.json({
+                                message: 'New issue created!',
+                                data: issue
+                            });
+                        });   
+                    } 
+                
+                } 
+            });
 
         }
     })
@@ -93,12 +112,56 @@ exports.view = function (req, res) {
 
 
 exports.update = function (req, res) {
-    Issue.findByIdAndUpdate(req.params.issue_id,req.body, {
-        new: true
-    },
-        function(err, issue) {
+    if (req.body.userEmail){
+        User.findOne({email: req.body.userEmail}, function (err, user) {
+            if (err){
+                console.log('Error on the server.',err.message);
+                res.status(400).json({
+                    error: "Error on the server"
+                });
+            } 
+            else {
+                if(!user){
+                    console.log('user doesnt exist');
+                    res.status(406).json({
+                        message:  req.body.userEmail +": Cette personne n'a pas encour inscrir sur le site!",
+                        error: "L'email n'exite pas"
+                    });
+                } 
+                else{
+                    console.log('user', user)  
+                    var mUser = {
+                        user_id:user._id,
+                        email: req.body.userEmail
+                    }  
+                    req.body.users=mUser;
+                    //update the issue
+                    Issue.findByIdAndUpdate(req.params.issue_id,req.body, {
+                        new: true
+                    },function(err, issue) {
+                        if (!err) {
+                            res.status(201).json({
+                                message: "the issue is edited",
+                                data: issue
+                            });
+                        } else {
+                            res.status(500).json({
+                                message: "not found any relative data"
+                            })
+                        }
+                    });
+                } 
+            
+            } 
+        });    
+    }else{
+      //update the issue
+      Issue.findByIdAndUpdate(req.params.issue_id,req.body, {
+            new: true
+        },function(err, issue) {
             if (!err) {
                 res.status(201).json({
+                    message: "the issue is edited",
                     data: issue
                 });
             } else {
@@ -106,8 +169,8 @@ exports.update = function (req, res) {
                     message: "not found any relative data"
                 })
             }
-        });
-  
+        });  
+    }
 };
 
 
