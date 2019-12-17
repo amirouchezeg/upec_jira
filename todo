@@ -19,6 +19,7 @@
         -- edit sprint
         -- delete sprint
     </> when user go to any url check it is authoriazed
+
     -- when connect refrech page 
     -- profile
         -- edit profile
@@ -33,6 +34,10 @@
         </> add or delete memebers of projects (to make it now it shold to send all old and the new one in edit project )
         --// show by pages (by 20) todo only if it is easy
     --spring 
+    --check if it is authoriazed to get this paths 
+--------------documentation
+    --complite the swager
+    --write texts for the web site
         -- check when chage stat to in_progresse that thier not auther in same status
     --issues 
         -- **edit  the user email of this issue (asigne to auther user)
@@ -43,6 +48,3 @@
         -- designe the page of mail sended
         -- send chack email (check email)
         -- create project or adding personne to project send in email the link of project 
---------------documentation
-    --complite the swager
-    --write texts for the web site

@@ -24,10 +24,10 @@ exports.index = function (req, res) {
 exports.new = function (req, res) {
     const schema={
         title:Joi.string().min(2).required(),
-        start_date: Joi.date(),
-        description: Joi.string(),
+        start_date: Joi.date().allow(''),
+        description: Joi.string().allow(''),
         project_id: Joi.string().required(),
-        end_date: Joi.date().greater(Joi.ref("start_date")),
+        end_date: Joi.date().greater(Joi.ref("start_date")).allow(''),
         ordre: Joi.number().required(),
     }
     Joi.validate(req.body,schema, (err, value) =>{
