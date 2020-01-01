@@ -36,7 +36,7 @@ const issueSchema = mongoose.Schema({
       },
     comments: [{ 
             commentaire: String,
-            user_id: String,
+            email: String,
      },],
     create_date: {
         type: Date,
