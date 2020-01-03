@@ -13,6 +13,7 @@ import { Injectable } from '@angular/core';
 import { DialogProfileComponent } from './header/dialog-profile/dialog-profile.component';
 import { DialogPasswordComponent } from './header/dialog-password/dialog-password.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     DialogProfileComponent,
     DialogPasswordComponent,
     NotFoundComponent,
+    
   ],
   imports: [
     

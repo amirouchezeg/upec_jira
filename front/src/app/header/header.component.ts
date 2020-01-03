@@ -31,11 +31,6 @@ export class HeaderComponent implements OnInit {
     if (localStorage.getItem('token')) {
       this.isConnected=true;      
     }
-    
-  }
-
-  onFct(){
-    
   }
   
   onDisconect(){
@@ -50,9 +45,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toTest(){
-    
-    // this.userService.changeMessage("true");
-
+    // this.userService.changeMessage("true")
   }
 
   onDialogProfile(){

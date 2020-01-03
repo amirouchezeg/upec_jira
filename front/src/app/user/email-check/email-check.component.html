@@ -1,0 +1,26 @@
+<div class="container " style="height: 70vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>
+                    Vérification!</h1>
+                <div *ngIf="stateChecking=='checking'" class="alert alert-dark" role="alert">
+                    Vérification de compte
+                </div>
+                <div *ngIf="stateChecking=='checked'" class="alert alert-success" role="alert">
+                    Merci! Votre email est vérifié.
+                </div>
+                <div *ngIf="stateChecking=='error_checking'" class="alert alert-danger" role="alert">
+                    Erreur! une erreur s'est produite lors de la vérification de l'e-mail.
+                </div>
+                <div class="error-details">
+                    merci pour votre confiance
+                </div>
+                <div class="error-actions">
+                    <a routerLink="/user/signin" class="btn btn-primary btn-lg">Se connecter </a>
+                    <a routerLink="/" class="btn btn-default btn-lg"> Page d'Accueil </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,15 +28,19 @@ router.route('/users')
 .post(userController.new);
 router.route('/users/login')
 .post(userController.login);
-router.route('/users/editPassword')
+router.route('/users/:_id/edit_password')
 .post(userController.changePassword);
 router.route('/users/:user_id')
-    .get(VerifyToken,userController.view)
-    .patch(VerifyToken,userController.update)
-    .put(VerifyToken,userController.update)
-    .delete(VerifyToken,userController.delete);
+    .get(/*VerifyToken,*/userController.view)
+    .patch(/*VerifyToken,*/userController.update)
+    .put(/*VerifyToken,*/userController.update)
+    .delete(/*VerifyToken,*/userController.delete);
 router.route('/users/resend_email')
 .post(userController.sendemail);
+router.route('/users/check_email/:token')
+.get(userController.checkemail);
+router.route('/users/send_email_check/:id')
+.get(userController.send_email_check);
 
 
 // Import sprint controller

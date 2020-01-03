@@ -7,4 +7,5 @@ export class User {
     password: string;
     path_avatar: String;
     create_date: Date;
+    email_confirme:boolean;
 }

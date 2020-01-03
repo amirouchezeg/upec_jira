@@ -14,13 +14,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IssueRoutingModule } from './issue-routing.module';
 import { OneSprintComponent, DialogOverviewSigneTo } from './one-sprint/one-sprint.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { IssueDetailComponent } from './issue-detail/issue-detail.component';
 
 @NgModule({
   declarations: [
     AddIssueComponent, 
     DialogOverviewSigneTo,
     IssueScreenComponent, 
-    OneSprintComponent],
+    OneSprintComponent, IssueDetailComponent],
   imports: [
     IssueRoutingModule,
     CommonModule,
@@ -35,6 +36,6 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MDBBootstrapModule.forRoot(),
   ],
   providers: [  ],
-  entryComponents: [AddIssueComponent,DialogOverviewSigneTo]
+  entryComponents: [AddIssueComponent,DialogOverviewSigneTo,IssueDetailComponent]
 })
 export class IssueModule { }
