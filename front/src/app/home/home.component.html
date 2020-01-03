@@ -10,14 +10,14 @@
               freelance et portage salari
             </p>
             <div class="buttons">
-                <a class="btn btn-primary btn-lg  "> 
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    Postuler            
-                </a>
-                <a class="btn btn-info btn-lg ">  
+                <a *ngIf="!isConnected" routerLink="/user/signup" class="btn btn-info btn-lg ">  
                     <i class="fas fa-user-tie"></i>
-                    Recruter             
+                    Commencer             
                 </a>
+                <a *ngIf="isConnected" routerLink="/project/project_list" class="btn btn-info btn-lg ">  
+                  <i class="fas fa-user-tie"></i>
+                  Mes Projets             
+              </a>
             </div>          
         </div>        
       </div>

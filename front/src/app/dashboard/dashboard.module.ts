@@ -6,13 +6,16 @@ import { MODULE_ROUTES } from './dashboard-routes.module';
 import { SharedModule } from '../_shared/shared.module';
 import { HomeComponent } from '../home/home.component';
 import { FooterComponent } from '../footer/footer.component';
+import { AboutComponent } from '../about/about.component';
+
 
 @NgModule({
   declarations: [
     DashboardComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    AboutComponent
   ],
   imports: [
     // FooterComponent,

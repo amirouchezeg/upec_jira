@@ -1,0 +1,107 @@
+<div class="container mt-3 mb-4">
+    <div class="row">
+        <div class="col-8 main-side">
+            <div class="row">
+                <div class="col-1 icons">
+                </div>
+                <div class="col-11 contente">
+                    <h1><i class="fa fa-stop-circle"></i> Title issue</h1>
+                    <p>dans la list <b><i>A faire</i></b> </p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-1 icons">
+                    <i class="fa fa-align-right"></i>
+                </div>
+                <div class="col-11 contente">
+                    <h3>Description</h3>
+                    <p>En poursuivant votre navigation sur ce site, vous acceptez l'installation et l'utilisation de cookies sur votre poste qui permettent l'actualisation de votre panier.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1 icons">
+                    <i class="fa fa-indent"></i>
+                </div>
+                <div class="col-11 contente">
+                    <h3>Commentairs</h3>
+                </div>
+            </div>  
+            <!-- les Commentairs   -->
+            <div class="row">
+                <div class="col-1 icons"></div>
+                <div class="col-11 contente">
+                    <p class="text-uppercase"> <b>Frst Last name</b></p>
+                    <p style="margin-top: -1.2rem;"> Commentaire en poursuivant votre navigation sur ce site. </p>
+                    <div class="h-divider"></div>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="col-1 icons"></div>
+                <div class="col-11 contente">
+                    <p class="text-uppercase"> <b>Omar Dido</b></p>
+                    <p style="margin-top: -1.2rem;"> Commentaire en poursuivant votre navigation sur ce site. </p>
+                    <div class="h-divider"></div>
+                </div>
+            </div>    
+            <!-- les Commentairs -INPUTE-  --> 
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-11">
+                    <div class="widget-area no-padding blank">
+                        <div class="status-upload">
+                            <form>
+                                <textarea  #comment placeholder="Ecrit votre commentaire ici" ></textarea>                                
+                                <button (click)="onSebmitComment(comment.value);comment.value=''" type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Envoyer</button>
+                            </form>
+                        </div><!-- Status Upload  -->
+                    </div><!-- Widget Area -->
+                </div>        
+            </div>      
+        </div>
+
+        <div class="col-4 right-side">
+            <h5> Signé à : <span class="badge badge-secondary mr-1">Amirouche Zeggagh</span>  </h5>
+            <h3 class="mt-5">
+                <span class="badge badge-primary mr-1">Bug</span>
+                <span class="badge badge-secondary mr-1">Info</span>
+                <span class="badge badge-danger ">New</span><br>
+            </h3>
+            <form [formGroup]="lableform" (ngSubmit)="onAddLable()">
+                <mat-dialog-content>
+                    <div class="row">
+                        <div class="col-6">
+                            <mat-form-field >
+                                <mat-label>Label</mat-label>
+                                <mat-select formControlName="lable">
+                                    <mat-option *ngFor="let food of lables" [value]="food.value">
+                                    {{food.viewValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-2">
+                            <h3><span class="btn btn-success"><i class="fa fa-plus-square"></i></span></h3>
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        
+                    </div>
+                </mat-dialog-content>
+            </form>
+            
+            <div class="mb-5"></div>
+
+            <h5 class="text-secondary d-flex justify-content-between">
+                Date debut : <i class="fa fa-stopwatch"></i>
+                <button type="button" class="btn btn-secondary " disabled>12/12/2019</button>
+            </h5>
+            <h5 class="text-secondary d-flex justify-content-between">
+                Date fin : <i class="fa fa-stopwatch"></i>
+                <button type="button" class="btn btn-secondary " disabled>Vide</button>
+            </h5>
+                        
+        </div>
+    </div>
+</div>

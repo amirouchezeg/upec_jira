@@ -53,7 +53,7 @@ router.route('/users/login')
  * 
  */
 .post(userController.login);
-router.route('/users/editPassword')
+router.route('/users/:_id/edit_password')
     /**
  * @swagger
  * /users:
@@ -122,6 +122,10 @@ router.route('/users/resend_email')
  * 
  */
 .post(userController.sendemail);
+router.route('/users/check_email/:token')
+.get(userController.checkemail);
+router.route('/users/send_email_check/:id')
+.get(userController.send_email_check);
 
 var sprintController = require('./controllers/sprintController');
 // sprint routes

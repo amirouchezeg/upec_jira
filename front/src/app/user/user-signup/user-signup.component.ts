@@ -6,6 +6,8 @@ import { User } from 'src/app/_model/user';
 import { ViewEncapsulation } from '@angular/compiler/src/core';
 import { UserSigninComponent } from '../user-signin/user-signin.component';
 import { Router } from '@angular/router';
+import { MyAlert } from 'src/app/_model/myAlert';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export const EmailValidation = [Validators.required, Validators.email];
 
@@ -36,9 +38,9 @@ export class UserSignupComponent implements OnInit {
   confirmPassword: FormControl;
   pathavatarFC: FormControl;
   createdateFC: FormControl;
-
   userform: FormGroup;
   matcher = new MyErrorStateMatcher();
+  alert:MyAlert;
 
   constructor(
     private dialog: MatDialog,
@@ -49,6 +51,7 @@ export class UserSignupComponent implements OnInit {
 
 
   ngOnInit() {
+    this.alert=new MyAlert('');
     this.emailFC = new FormControl('', EmailValidation);
     this.firstnameFC = new FormControl('');
     this.lastnameFC = new FormControl('');
@@ -72,9 +75,9 @@ export class UserSignupComponent implements OnInit {
   
     return pass === confirmPass ? null : { notSame: true }
   }
-
+  
   onSubmit(){
-
+    this.alert.hide();
     let user: User = new User();
     user.first_name = this.firstnameFC.value;
     user.last_name = this.lastnameFC.value;
@@ -84,7 +87,13 @@ export class UserSignupComponent implements OnInit {
     console.log(user);
     this.userService.addUser(user).subscribe(
       data => {
+        this.alert.message="	✅ Votre compte est créé avec success. Voulez verifie votre email SVP";
+        this.alert.showAlert("alert-success");
         console.log("data :"+ data);
+      },error=>{
+        console.log(error)
+        this.alert.message=error.error.message;
+        this.alert.showAlert("alert-danger");
       }
     );    
   }

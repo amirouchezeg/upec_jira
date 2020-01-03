@@ -86,7 +86,7 @@ exports.new =  function (req, res) {
         }
         else{
             project = new Project();
-            var userNotExists = [];
+            var userNotExists = []; // the emails that don't exit in our db
             project.title = req.body.title;
             project.description = req.body.description;  
             project.start_date = req.body.start_date;
@@ -97,7 +97,8 @@ exports.new =  function (req, res) {
                 project.users.forEach(utilisateur => {
                     var emailofUser = utilisateur.email;
                     User.findOne({email: emailofUser}, function (err, user) {
-                        if (err) console.log('Error on the server.');
+                        if 
+                            (err) console.log('Error on the server.');
                         else {
                             if(user == null){
                                 userNotExists.push(emailofUser);   
@@ -107,10 +108,11 @@ exports.new =  function (req, res) {
                                 utilisateur.user_id = userId;
                             } 
                         } 
-                        console.log('userNotExists', userNotExists);
+                        // console.log('userNotExists', userNotExists);
                     }); 
 
                 //sending emails
+                console.log("sending emails...");
                 var email = new Email(emailofUser);            
                 email.transporter.sendMail(email.mailOptions, function(error, info){
                     if (error) {
@@ -147,10 +149,10 @@ exports.update = function (req, res) {
             //sending emails
             var email = new Email(user.email);            
             email.transporter.sendMail(email.mailOptions, function(error, info){
-                if (error) {
-                    res.send("error Send Email ",error);
-                } 
-                res.send('Email sent:...... ');
+                if (error)
+                    console.log("error Send Email ",error);
+                else
+                    console.log('Email sent:...... ');
             }); 
         });
     }
