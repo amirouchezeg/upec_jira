@@ -3,14 +3,20 @@ var nodemailer = require('nodemailer');
 
 module.exports = class Email {
 
-  constructor(email) {
+  constructor(email,type,token) {
+    var message;
+    if (type=="email_confirmer") {
+      message='<p>Merci de cliquez sur le lien pour confirmer votre compte </p> <a href="localhost:4200/user/check_email?token='+token+'">lien</a> </br> localhost:4200/user/check_email?token='+token+''
+    } else {
+      message=" <p>Quelqu'un vous a ajouté dans un projet sur le site JiraUpec connecter vous pour avoir vos projets </p><a href='localhost:4200/user'>Se connecter</a>"  
+    }
     this.email = email;
-    console.log("constructor(email): "+email);
+    // console.log("constructor(email): "+email);
     this.isSend=false;
     this.isWait=true;
     this.transporter = nodemailer.createTransport({
+      // service: 'gmail',
       host: 'smtp.gmail.com',
-      port: 465,
       auth: {
         user: 'inmyblog656@gmail.com',
         pass: 'InmYblOg12341!'
@@ -18,10 +24,10 @@ module.exports = class Email {
     });
     
     this.mailOptions = {
-      from: 'notReplay@gmail.com',
+      from: 'inmyblog656@gmail.com',
       to: this.email,
-      subject: 'Sending Email using Node.js',
-      text: 'That was easy!'
+      subject: 'Jira  Upec',
+      html: message
     };
 
   }

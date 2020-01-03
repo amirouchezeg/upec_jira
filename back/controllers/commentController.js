@@ -22,9 +22,9 @@ exports.index = function (req, res) {
 // Handle create comment actions
 exports.new = function (req, res) {
     const schema={
-        user_id:Joi.string().required(),
+        email:Joi.string().required(),
         message: Joi.string(),
-        create_date: Joi.date(),
+        create_date: Joi.date().allow(''),
         issue_id: Joi.string().required(),
     }
    
@@ -40,20 +40,23 @@ exports.new = function (req, res) {
             comment = new Comment();
             comment.message = req.body.message;
             comment.create_date = req.body.create_date;   
-            comment.user_id = req.body.user_id;
+            comment.email = req.body.e;
             comment.issue_id = req.body.issue_id;
             if(req.body.issue_id)
                 Issue.findOne({_id: comment.issue_id}, function (err, issue) {
-                    if (err) console.log('Error on the server.');
+                    if (err) res.send('Error on the server.');
                     else {
                         if(issue == null){
-                            console.log("issue doesn't exist...!")
+                            res.send("issue doesn't exist...!")
                         } 
                         else{
-                            console.log('_____id du commentaire', comment._id)
-                            issue.comments.push(comment._id);
+                            var myComment = {
+                                commentaire: req.body.message,
+                                email: req.body.email,
+                                issue_id: req.body.issue_id
+                            }  
+                            issue.comments.push(myComment);
                             m_issue={comments: issue.comments};
-                            console.log('m_issue',m_issue);
                             Issue.findByIdAndUpdate(comment.issue_id,m_issue, {
                                   new: true
                               },function(err, project) {}

@@ -63,7 +63,6 @@ exports.getSprints = function (req, res) {
 
 // Handle create project actions
 exports.new =  function (req, res) {
-
     const schema={
         title:Joi.string().min(2).required(),
         description:Joi.string(),
@@ -87,7 +86,7 @@ exports.new =  function (req, res) {
         }
         else{
             project = new Project();
-            var userNotExists = [];
+            var userNotExists = []; // the emails that don't exit in our db
             project.title = req.body.title;
             project.description = req.body.description;  
             project.start_date = req.body.start_date;
@@ -98,7 +97,8 @@ exports.new =  function (req, res) {
                 project.users.forEach(utilisateur => {
                     var emailofUser = utilisateur.email;
                     User.findOne({email: emailofUser}, function (err, user) {
-                        if (err) console.log('Error on the server.');
+                        if 
+                            (err) console.log('Error on the server.');
                         else {
                             if(user == null){
                                 userNotExists.push(emailofUser);   
@@ -108,10 +108,11 @@ exports.new =  function (req, res) {
                                 utilisateur.user_id = userId;
                             } 
                         } 
-                        console.log('userNotExists', userNotExists);
+                        // console.log('userNotExists', userNotExists);
                     }); 
 
                 //sending emails
+                console.log("sending emails...");
                 var email = new Email(emailofUser);            
                 email.transporter.sendMail(email.mailOptions, function(error, info){
                     if (error) {
@@ -143,17 +144,15 @@ exports.view = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    console.log("req.body.users",req.body.users);
     if (req.body.users) {
         req.body.users.forEach(user=>{
-            console.log("user.email",user.email);
             //sending emails
             var email = new Email(user.email);            
             email.transporter.sendMail(email.mailOptions, function(error, info){
-                if (error) {
+                if (error)
                     console.log("error Send Email ",error);
-                } 
-                console.log('Email sent:...... ');
+                else
+                    console.log('Email sent:...... ');
             }); 
         });
     }

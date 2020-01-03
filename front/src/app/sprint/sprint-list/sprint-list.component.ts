@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {MessageService} from 'primeng/api';
 import { FormGroup, FormControl } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
+import { Status } from 'src/app/issue/add-issue/add-issue.component';
 
 @Component({
   selector: 'app-sprint-list',
@@ -28,11 +29,18 @@ export class SprintListComponent implements OnInit {
   descriptionFC : FormControl;
   startDateFC : FormControl;
   endDateFC : FormControl;
+  statusFC : FormControl;
   sprint : Sprint;
   sizeInProgress : number = 0;
   sizeToDo : number = 0;
   sizeDone : number = 0;
   currentDate = new Date();
+
+  status: Status[] = [
+    {value: 'inProgress', viewValue: 'EN COURS'},
+    {value: 'toDo', viewValue: 'À FAIRE'},
+    {value: 'finished', viewValue: 'TERMINÉ'},
+  ];
   
   constructor(private _snackBar: MatSnackBar, private messageService: MessageService, private activeroute: ActivatedRoute, private route: Router, private sprintService:SprintService ,private dialog: MatDialog, public dialogDelete: MatDialog) { 
     this.sprintsInProgress = [];
@@ -42,25 +50,26 @@ export class SprintListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllSprint();
-    this.activeroute.paramMap.subscribe (params => 
-      {
-        this.idProject = String(params.get("idProject"));
-      } )
-      this.ordreFC = new FormControl('');
-      this.titleFC = new FormControl('');
-      this.descriptionFC = new FormControl('');
-      this.startDateFC = new FormControl('');
-      this.endDateFC = new FormControl('');
+    this.activeroute.paramMap.subscribe (params => {
+      this.idProject = String(params.get("idProject"));
+      this.getAllSprintOfPreject(this.idProject);
+    } );
+    this.ordreFC = new FormControl('');
+    this.titleFC = new FormControl('');
+    this.descriptionFC = new FormControl('');
+    this.startDateFC = new FormControl('');
+    this.endDateFC = new FormControl('');
+    this.statusFC = new FormControl('');
 
-      this.sprintform = new FormGroup({
-        'ordre': this.ordreFC,
-        'title': this.titleFC,
-        'description': this.descriptionFC,
-        'startDate': this.startDateFC,
-        'endDate': this.endDateFC
-      });
-      
+    this.sprintform = new FormGroup({
+      'ordre': this.ordreFC,
+      'title': this.titleFC,
+      'description': this.descriptionFC,
+      'startDate': this.startDateFC,
+      'endDate': this.endDateFC,
+      'status': this.statusFC
+    });
+    
   }
 
   addSprint(){
@@ -69,23 +78,24 @@ export class SprintListComponent implements OnInit {
       width: '60%',
       data: {idProject: this.idProject}
     }).componentInstance.submitClicked.subscribe((project:Sprint)=>{
-      this.getAllSprint();
+      this.getAllSprintOfPreject(this.idProject);
     });
   }
 
-  getAllSprint(){
+  getAllSprintOfPreject(idProject:string){
     this.sprintsInProgress = [];
     this.sprintsToDo = [];
     this.sprintsDone = [];
     this.sizeDone = 0;
     this.sizeInProgress = 0;
     this.sizeToDo = 0;
-    this.sprintService.getAllSprint().subscribe( data => {
-      console.log(data);
+    this.sprintService.getAllSprintOfPreject(idProject).subscribe( data => {
       this.sprintsToDo = [];
-      
-      let datas = (Object.values(data)[2]) as Sprint[];
-      datas.forEach(element => {
+      let jsonData=  JSON.parse(JSON.stringify(data));                       
+      let sprints:Sprint[] =JSON.parse(JSON.stringify(jsonData.data));
+      for (var i = 0; i < sprints.length; i++){
+        var element = sprints[i];
+        console.log("element",element);
         if(element.status == "toDo"){
           this.sprintsToDo.push(element);
           this.sizeToDo++;
@@ -94,16 +104,16 @@ export class SprintListComponent implements OnInit {
           this.sprintsInProgress.push(element);
           this.sizeInProgress++;
         }
-        if(element.status == "done"){
+        if(element.status == "finished"){
           this.sprintsDone.push(element);
           this.sizeDone++;
         }
-      });        
+      };        
     })
   }
 
-  detailSprint(){
-    this.route.navigateByUrl("/project/project_detail")
+  detailSprint(idSprint){
+    this.route.navigateByUrl("/project/project_detail/"+this.idProject+"/sprint/"+idSprint)
   }
 
   deleteSprint(id:number){
@@ -115,11 +125,8 @@ export class SprintListComponent implements OnInit {
         if (result !== undefined) {
             if (result === 'yes') {
                 this.sprintService.deleteSprint(id).subscribe(date=>{
-                  this.getAllSprint();
-                  this._snackBar.open("La suppression du sprint est effectuée avec succés","", {
-                    verticalPosition: 'top',
-                    duration: 2500,
-                  })
+                  this.getAllSprintOfPreject(this.idProject);        
+                  this.toast("La suppression du sprint est effectuée avec succés",'bg-success');
                 });
                 
             }
@@ -129,15 +136,16 @@ export class SprintListComponent implements OnInit {
 
   
   updateSprint(id:string){
-    this.sprintService.findById(id)
-      .pipe(finalize(()=>{
+    this.sprintService.findById(id).pipe(
+      finalize(()=>{
         console.log(this.sprint)
         let dialogRef = this.dialog.open(this.callAPIDialogUpdate,{
           width: '60%',
           data: {idSprint: id}
         });
+
         dialogRef.afterClosed().subscribe(result => {
-        if (result !== undefined) {
+          if (result !== undefined) {
             if (result === 'yes') {
               let sprintUpdate= new Sprint;
               sprintUpdate._id = id;
@@ -146,30 +154,39 @@ export class SprintListComponent implements OnInit {
               sprintUpdate.description = this.descriptionFC.value;
               sprintUpdate.start_date = this.startDateFC.value;
               sprintUpdate.end_date = this.endDateFC.value;
+              sprintUpdate.status = this.statusFC.value;
 
               this.sprintService.update(sprintUpdate, id)
-              .pipe(finalize(() => {
-                this.getAllSprint();
-                this._snackBar.open("La modification du sprint est effectuée avec succés","", {
-                  verticalPosition: 'top',
-                  duration: 2500,
-                })
-              }))
-              .subscribe();
+              .pipe(finalize(() => {}))
+              .subscribe(data=>{
+                this.getAllSprintOfPreject(this.idProject);
+                this.toast("La modification du sprint est effectuée avec succés",'bg-success');
+              },error=>{
+                if(error.error)
+                  this.toast(error.error.message,'bg-danger',4000);
+              });
             }
-        }
-    })
-      }))
-      .subscribe(data => {
+          }
+        });
+      })
+      ).subscribe(data => {
         this.sprint = (Object.values(data)[1]) as Sprint;
-
         this.ordreFC.setValue(this.sprint.ordre);
         this.titleFC.setValue(this.sprint.title);
         this.descriptionFC.setValue(this.sprint.description);
         this.startDateFC.setValue(this.sprint.start_date);
         this.endDateFC.setValue(this.sprint.end_date);
+        this.statusFC.setValue(this.sprint.status);
       })
     
+  }
+
+  toast(message:string,css_class:string="",time:number=2900){
+    this._snackBar.open(message,"", {
+      verticalPosition:'top',
+      panelClass: [css_class],
+      duration: time,
+    });
   }
 
   clear() {

@@ -4,10 +4,34 @@ let express = require('express');
 let bodyParser = require('body-parser');
 // Import Mongoose
 let mongoose = require('mongoose');
+let swaggerjsdoc = require('swagger-jsdoc');
+let swaggerUi = require('swagger-ui-express');
 // Initialise the app
 let app = express();
 
-// Import routes
+//Initialise swagger 
+ 
+const swaggerDefinition = {
+  info: {
+      title: 'Gestion des taches',
+      version: "1.0.0",
+      description: 'Outil de gestion des taches',
+      contact: {
+          name: 'Maryem Elazbaoui',
+      },
+      servers: ["http://localhost:5000"]
+  }
+};
+ 
+const options = {
+  swaggerDefinition,
+  apis: ['api-routes.js'],
+};
+ 
+let swaggerSpec = swaggerjsdoc(options);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 let apiRoutes = require("./api-routes");
 // Configure bodyparser to handle post requests
 app.use(function(req, res, next) {
@@ -32,7 +56,6 @@ else
 
 // Setup server port
 var port = process.env.PORT || 8080;
-
 // Send message for default URL
 app.get('/', (req, res) => res.send('Hello World with Express'));
 

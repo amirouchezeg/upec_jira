@@ -10,7 +10,7 @@ export class MyAlert {
         this.isDisplayed=false;
     }
 
-    showAlert(type:string){
+    showAlert(type:string="alert-danger"){
         this.type=type;
         this.isDisplayed=true;
     }

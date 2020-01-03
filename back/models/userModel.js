@@ -8,6 +8,14 @@ var userSchema = mongoose.Schema({
         required: true,
         max:255
     },
+    email_confirme: {
+        type: Boolean,
+        default:false
+    },
+    email_token: {
+        type: String,
+        max:255
+    },
     first_name: {
         type: String,
         required: true,

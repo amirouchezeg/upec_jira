@@ -1,7 +1,7 @@
 <!-- <p-toast position="top-center" class="custom-toast" background-color="#FFD07B" key="tc"></p-toast> -->
 <!-- <button type="button" pButton (click)="updateSprint()" label="Top Center" class="ui-button-info"></button> -->
 
-<div class="container h-10">
+<div class="container mb-5 h-75 ">
     <div class="row">
         <div class="col-12 add-sprint d-flex justify-content-center">
             <button class="btn btn-outline-dark btn-lg"  (click)="addSprint()">
@@ -20,11 +20,11 @@
                         Aucun sprint n'est en cours ...   
                     </div>
                     <div  *ngFor="let sprint of sprintsInProgress" value="sprint" class="div col-4 sprint-card">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body ">
+                        <div class="card">
+                            <div class="card-body">
                                 <h4 class="card-title">{{sprint.title}}</h4>
-                                <p class="card-text">{{sprint.description}}</p>
-                                <a href="#" class="btn btn-outline-secondary btn-sm" (click)="detailSprint()">Details <i class="fa fa-arrow-right"></i> </a> 
+                                <p class="card-text min-h-5">{{sprint.description.substring(0,100)}} ...</p>
+                                <a class="btn btn-outline-secondary btn-sm" (click)="detailSprint(sprint._id)">Details <i class="fa fa-arrow-right"></i> </a> 
                                 <button class=" float-right mr-btn btn btn-outline-danger btn-sm" (click)="deleteSprint(sprint._id)"> <i class="fa fa-trash"></i> </button>                          
                                 <button class=" float-right btn btn-outline-secondary btn-sm" (click)="updateSprint(sprint._id)"> <i class="fa fa-edit"></i> </button>
                             </div>
@@ -45,11 +45,11 @@
                         Aucun sprint n'est à faire ...   
                     </div>
                     <div  *ngFor="let sprint of sprintsToDo" value="sprint" class="div col-4 sprint-card">
-                        <div class="card" style="width: 18rem;">
+                        <div class="card" >
                             <div class="card-body ">
                                 <h4 class="card-title">{{sprint.title}}</h4>
-                                <p class="card-text">{{sprint.description}}</p>
-                                <a href="#" class="btn btn-outline-secondary btn-sm" (click)="detailSprint()">Details <i class="fa fa-arrow-right"></i> </a> 
+                                <p class="card-text min-h-5" >{{sprint.description.substring(0,100)}} ...</p>
+                                <a class="btn btn-outline-secondary btn-sm" (click)="detailSprint(sprint._id)">Details <i class="fa fa-arrow-right"></i> </a> 
                                 <button class=" float-right mr-btn btn btn-outline-danger btn-sm"  (click)="deleteSprint(sprint._id)"> <i class="fa fa-trash"></i> </button>                          
                                 <button class=" float-right btn btn-outline-secondary btn-sm" (click)="updateSprint(sprint._id)"> <i class="fa fa-edit"></i> </button>
                             </div>
@@ -70,11 +70,11 @@
                         Aucun sprint n'est encore fini ...   
                     </div>
                     <div  *ngFor="let sprint of sprintsDone" value="sprint" class="div col-4 sprint-card">
-                        <div class="card" style="width: 18rem;">
+                        <div class="card">
                             <div class="card-body ">
                                 <h4 class="card-title">{{sprint.title}}</h4>
-                                <p class="card-text">{{sprint.description}}</p>
-                                <a href="#" class="btn btn-outline-secondary btn-sm" (click)="detailSprint()">Details <i class="fa fa-arrow-right"></i> </a> 
+                                <p class="card-text min-h-5">{{sprint.description.substring(0,100)}} ...</p>
+                                <a  class="btn btn-outline-secondary btn-sm" (click)="detailSprint(sprint._id)">Details <i class="fa fa-arrow-right"></i> </a> 
                                 <button class=" float-right mr-btn btn btn-outline-danger btn-sm"  (click)="deleteSprint(sprint._id)"> <i class="fa fa-trash"></i> </button>                          
                                 <button class=" float-right btn btn-outline-secondary btn-sm" (click)="updateSprint(sprint._id)" > <i class="fa fa-edit"></i> </button>
                             </div>
@@ -116,7 +116,7 @@
     </mat-dialog-actions>
 </ng-template>
 
-<ng-template #callAPIDialogUpdate>
+<ng-template #callAPIDialogUpdate> 
     <form [formGroup]="sprintform">
         <mat-dialog-content>
             <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
@@ -145,6 +145,14 @@
                     <input matInput [matDatepicker]="pickerFin" value={{sprint.end_date}} formControlName="endDate" placeholder="Date de Fin" >
                     <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
                     <mat-datepicker #pickerFin></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field >
+                    <mat-label>Etas</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let statu of status" [value]="statu.value">
+                        {{statu.viewValue}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
              </div>  
         </mat-dialog-content>

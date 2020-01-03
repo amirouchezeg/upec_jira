@@ -33,6 +33,13 @@
     min-height: 25rem;
 }
 
+.h-75{
+    min-height: 75vh;
+}
+.min-h-5{
+    min-height :5rem;
+}
+
 .mat-dialog-content{
     padding-right: 0px !important;
     padding-left: 0px !important;
