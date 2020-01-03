@@ -63,7 +63,6 @@ exports.getSprints = function (req, res) {
 
 // Handle create project actions
 exports.new =  function (req, res) {
-
     const schema={
         title:Joi.string().min(2).required(),
         description:Joi.string(),
@@ -145,10 +144,8 @@ exports.view = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    console.log("req.body.users",req.body.users);
     if (req.body.users) {
         req.body.users.forEach(user=>{
-            console.log("user.email",user.email);
             //sending emails
             var email = new Email(user.email);            
             email.transporter.sendMail(email.mailOptions, function(error, info){

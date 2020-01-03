@@ -59,7 +59,6 @@ exports.new = function (req, res) {
                     else{
                       project.sprints.push(sprint._id);
                       m_sprints={sprints: project.sprints};
-                      console.log(m_sprints);
                       Project.findByIdAndUpdate(sprint.project_id,m_sprints, {
                             new: true
                         },function(err, project) {}
