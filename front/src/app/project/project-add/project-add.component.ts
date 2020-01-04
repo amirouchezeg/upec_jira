@@ -30,9 +30,9 @@ export class ProjectAddComponent implements OnInit {
 
   ngOnInit() {
     this.titleFC = new FormControl('',Validators.required);
-    this.startDateFC = new FormControl('');
-    this.endDateFC = new FormControl('');
-    this.descriptionFC = new FormControl('');
+    this.startDateFC = new FormControl('',Validators.required);
+    this.endDateFC = new FormControl('',Validators.required);
+    this.descriptionFC = new FormControl('',Validators.required);
 
     this.projectform = new FormGroup({
       'title': this.titleFC,
