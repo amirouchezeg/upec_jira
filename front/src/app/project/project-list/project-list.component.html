@@ -15,10 +15,11 @@
                         {{project.title}}
                         <button class=" mr-btn btn btn-outline-danger btn-sm" (click)="deleteProject(project._id)"> <i class="fa fa-trash"></i> </button>                          
                         <button class=" mr-btn btn btn-outline-secondary btn-sm" (click)="updateProject(project._id)"> <i class="fa fa-edit"></i> </button>
+                        <button class=" mr-btn btn btn-outline-success btn-sm" (click)="addMembers(project._id)"> <i class="fa fa-users"></i> </button>
                     </h4>
+                    <mat-divider></mat-divider>
                     <p class="card-text">{{project.description}}</p>
                     <button class="btn btn-outline-secondary btn-lg" (click)="detailProject(project._id)">Plus de détails</button>
-                    
                 </div>
             </div>
         </div>
@@ -55,15 +56,15 @@
 </ng-template>
 
 <ng-template #callAPIDialogUpdate>
-    <form [formGroup]="projectform">
+    <form [formGroup]="projectform"  (ngSubmit)="onSubmit()">
         <mat-dialog-content>
             <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
             <div class="container field-container ">
                 <mat-form-field>
                     <input matInput placeholder="Intitulé" formControlName="title" required>
                     <mat-error *ngIf="projectform.get('title').hasError('required')">
-                            Veuillez entrer l'intitulé du projet
-                        </mat-error>
+                        Veuillez entrer l'intitulé du projet
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput [matDatepicker]="pickerDeb" formControlName="startDate" placeholder="Date Début">
@@ -78,19 +79,6 @@
                 <mat-form-field>
                     <textarea matInput placeholder="Déscription" formControlName="description"></textarea>
                 </mat-form-field>
-                <mat-chip-list #chipList aria-label="Fruit selection">
-                    <mat-chip *ngFor="let email of teamEmails" [selectable]="true"
-                        [removable]="true" (removed)="remove(email)">
-                        {{email}}
-                        <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
-                    </mat-chip>
-                    <input placeholder="Equipe..."
-                    [matChipInputFor]="chipList"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    [matChipInputAddOnBlur]="addOnBlur"
-                    (matChipInputTokenEnd)="add($event)">
-                </mat-chip-list>
-                <label class="small text-muted">Entrée les e-mails de votre équipe</label>
             </div>
         </mat-dialog-content>
         <mat-dialog-actions>    
@@ -103,6 +91,76 @@
                     </div>
                     <div class="col-6">
                         <button type="submit" class="btn btn-success" mat-button  [disabled]="!projectform.valid" tabindex="1">
+                            Sauvgarder
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-dialog-actions>
+    </form>    
+</ng-template>
+
+<ng-template #callAPIDialogMembers>
+    <form [formGroup]="projectform"  (ngSubmit)="onSubmit()">
+        <mat-dialog-content>
+            <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
+            <div class="container field-container ">
+                <div class="title-popup">
+                    <h4>{{titlePrject}}</h4>
+                    <mat-divider></mat-divider>
+                </div>
+                <button class="mr-btn-add btn btn-outline-primary btn-sm-center" type="button" (click)="addNewRow()"> <i class="fa fa-user-plus"></i> </button>                          
+                <div class="container">
+                   <div class="row">
+                      <!-- <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)" > -->
+                         <p-table [columns]="tableColumns" [value]="teamEmailsTab" *ngIf="teamEmailsTab!='' ">
+                            <ng-template pTemplate="header" let-columns>
+                                  <tr>
+                                     <th *ngFor="let col of columns" > 
+                                        {{col.header}}
+                                     </th>
+                                  </tr>
+                            </ng-template>
+                            <ng-template let-emailObj pTemplate="body">
+                               <tr>
+                                    <td class="td-padding">
+                                        <button class="mr-btn-m btn btn-outline-danger btn-sm-center" (click)="deleteTableRow(emailObj)"> <i class="fa fa-user-times"></i> </button>                          
+                                    </td>
+                                    <td class="td-padding">
+                                        <mat-form-field>
+                                            <input matInput  [(value)]="emailObj.email"  (input)="saverange(emailObj.id,$event.target.value)">
+                                        </mat-form-field>
+                                        <mat-error *ngIf="emailObj.id===idEmail&&invalidEmail!=''">
+                                                {{invalidEmail}}
+                                        </mat-error>
+                                        
+                                    </td>
+                                    <td class="td-padding">  
+                                        <mat-form-field>
+                                            <mat-select [(value)]="emailObj.role" >
+                                                <mat-option *ngFor="let obj of roles" [value]="obj.role">{{obj.role}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                         </p-table>
+                      <!-- </form> -->
+                   </div>
+                
+                </div>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions>    
+            <div class="container btn-container">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-secondary" mat-button mat-dialog-close tabindex="-1">
+                            Anuler
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" (click)="onSubmitMember()" class="btn btn-success" mat-button  [disabled]="!invalidEmail==''" tabindex="1">
                             Sauvgarder
                         </button>
                     </div>

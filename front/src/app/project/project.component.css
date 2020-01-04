@@ -32,3 +32,28 @@
 .mr-btn{
     margin-left: .5rem;
 }
+
+.td-padding{
+    padding-right : 5rem;
+}
+
+.mr-btn-m{
+    font-size: 0.7em;
+}
+
+
+.mr-btn-add{
+    margin-bottom: 1rem;
+}
+
+.mat-dialog-content{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.title-popup{
+    padding-bottom: 1rem;
+}
+
