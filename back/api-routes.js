@@ -123,9 +123,9 @@ router.route('/users/resend_email')
  */
 .post(userController.sendemail);
 router.route('/users/check_email/:token')
-.get(userController.checkemail);
+.get(VerifyToken,userController.checkemail);
 router.route('/users/send_email_check/:id')
-.get(userController.send_email_check);
+.get(VerifyToken,userController.send_email_check);
 
 var sprintController = require('./controllers/sprintController');
 // sprint routes
@@ -142,7 +142,7 @@ router.route('/sprints')
  *          description: une erreur 
  * 
  */
-.get(sprintController.index)
+.get(VerifyToken,sprintController.index)
 /**
  * @swagger
  * /sprints:
@@ -155,7 +155,7 @@ router.route('/sprints')
  *          description: une erreur 
  * 
  */
-.post(sprintController.new);
+.post(VerifyToken,sprintController.new);
 router.route('/sprints/:sprint_id')
 /**
  * @swagger
@@ -169,9 +169,9 @@ router.route('/sprints/:sprint_id')
  *          description: une erreur 
  * 
  */
-    .get(sprintController.view)
-    .patch(sprintController.update)
-    .put(sprintController.update)
+    .get(VerifyToken,sprintController.view)
+    .patch(VerifyToken,sprintController.update)
+    .put(VerifyToken,sprintController.update)
     /**
  * @swagger
  * /sprints:
@@ -184,7 +184,7 @@ router.route('/sprints/:sprint_id')
  *          description: une erreur 
  * 
  */
-    .delete(sprintController.delete);
+    .delete(VerifyToken,sprintController.delete);
 
 
 router.route('/sprints/:sprint_id/issues')
@@ -200,7 +200,7 @@ router.route('/sprints/:sprint_id/issues')
  *          description: une erreur 
  * 
  */
-    .get(sprintController.getIssues)
+    .get(VerifyToken,sprintController.getIssues)
 
 router.route('/users/:user_id/projects')
 /**
@@ -215,7 +215,7 @@ router.route('/users/:user_id/projects')
  *          description: une erreur 
  * 
  */
-    .get(sprintController.getIssues)
+    .get(VerifyToken,sprintController.getIssues)
 
 
 // Import issue controller
@@ -234,7 +234,7 @@ router.route('/issues')
  *          description: une erreur 
  * 
  */
-.get(issueController.index)
+.get(VerifyToken,issueController.index)
 /**
  * @swagger
  * /issues:
@@ -247,7 +247,7 @@ router.route('/issues')
  *          description: une erreur 
  * 
  */
-.post(issueController.new);
+.post(VerifyToken,issueController.new);
 router.route('/issues/:issue_id')
 /**
  * @swagger
@@ -261,7 +261,7 @@ router.route('/issues/:issue_id')
  *          description: une erreur 
  * 
  */
-    .get(issueController.view)
+    .get(VerifyToken,issueController.view)
     /**
  * @swagger
  * /issues:
@@ -274,7 +274,7 @@ router.route('/issues/:issue_id')
  *          description: une erreur 
  * 
  */
-    .put(issueController.update)
+    .put(VerifyToken,issueController.update)
     /**
  * @issues
  * /projects:
@@ -287,7 +287,7 @@ router.route('/issues/:issue_id')
  *          description: une erreur 
  * 
  */
-    .delete(issueController.delete);
+    .delete(VerifyToken,issueController.delete);
 
 
 
@@ -307,7 +307,7 @@ router.route('/projects')
  *          description: une erreur 
  * 
  */
-.get(projectController.index)
+.get(VerifyToken,projectController.index)
 /**
  * @swagger
  * /projects:
@@ -320,7 +320,7 @@ router.route('/projects')
  *          description: une erreur 
  * 
  */
-.post(projectController.new);
+.post(VerifyToken,projectController.new);
 router.route('/projects/:project_id')
 /**
  * @swagger
@@ -334,7 +334,7 @@ router.route('/projects/:project_id')
  *          description: une erreur 
  * 
  */
-    .get(projectController.view)
+    .get(VerifyToken,projectController.view)
     /**
  * @swagger
  * /projects:
@@ -347,7 +347,7 @@ router.route('/projects/:project_id')
  *          description: une erreur 
  * 
  */
-    .put(projectController.update)
+    .put(VerifyToken,projectController.update)
     /**
  * @swagger
  * /projects:
@@ -360,7 +360,7 @@ router.route('/projects/:project_id')
  *          description: une erreur 
  * 
  */
-    .delete(projectController.delete); 
+    .delete(VerifyToken,projectController.delete); 
     
 
 router.route('/projects/users/:email')
@@ -376,7 +376,7 @@ router.route('/projects/users/:email')
  *          description: une erreur 
  * 
  */
-    .get(projectController.getProjects);
+    .get(VerifyToken,projectController.getProjects);
 router.route('/projects/:project_id/sprints')
 /**
  * @swagger
@@ -390,21 +390,20 @@ router.route('/projects/:project_id/sprints')
  *          description: une erreur 
  * 
  */
-    .get(projectController.getSprints);
-
-
-    
+    .get(VerifyToken,projectController.getSprints);
 
 // Import comment controller
 var commentController = require('./controllers/commentController');
 // comments routes
 router.route('/comments')
-.get(commentController.index)
-.post(commentController.new);
+.get(VerifyToken,commentController.index)
+.post(VerifyToken,commentController.new);
 router.route('/comments/:comment_id')
-    .get(commentController.view)
-    .patch(commentController.update)
-    .put(commentController.update)
-    .delete(commentController.delete);  
+    .get(VerifyToken,commentController.view)
+    .patch(VerifyToken,commentController.update)
+    .put(VerifyToken,commentController.update);
+
+router.route('/issues/:issue_id/comments/:comment_id')
+    .delete(VerifyToken,commentController.delete);
 // Export API routes
 module.exports = router;

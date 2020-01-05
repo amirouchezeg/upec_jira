@@ -50,29 +50,29 @@ exports.new = function (req, res) {
                             res.send("issue doesn't exist...!")
                         } 
                         else{
-                            var myComment = {
-                                commentaire: req.body.message,
-                                email: req.body.email,
-                                issue_id: req.body.issue_id
-                            }  
-                            issue.comments.push(myComment);
-                            m_issue={comments: issue.comments};
-                            Issue.findByIdAndUpdate(comment.issue_id,m_issue, {
-                                  new: true
-                              },function(err, project) {}
-                              );           
+                            comment.save(function (err) {
+                                var myComment = {
+                                    commentaire: req.body.message,
+                                    email: req.body.email,
+                                    issue_id: req.body.issue_id,
+                                    _id:comment._id
+                                }  
+                                issue.comments.push(myComment);
+                                m_issue={comments: issue.comments};
+                                Issue.findByIdAndUpdate(comment.issue_id,m_issue, {
+                                      new: true
+                                },function(err, project) {}); 
+                                
+
+                                res.json({
+                                  message: 'New comment created!',
+                                  data: comment
+                               });
+                            });          
                           }  
                     } 
                 
                 }); 
-
-            comment.save(function (err) {
-                res.json({
-                  message: 'New comment created!',
-                  data: comment
-               });
-           });
-
         }
     })
 };
@@ -106,16 +106,36 @@ exports.update = function (req, res) {
 };
 
 
+Issue = require('../models/issueModel');
+
 // Handle delete comment
 exports.delete = function (req, res) {
+    Issue.update(
+        { _id: req.params.issue_id }, 
+        { "$pull": 
+            { "comments":{ "_id": req.params.comment_id } }
+        }, 
+        { safe: true, multi:true }, 
+        function(err, obj) {
+            if(err) console.log("delete commnet in issue ",err)
+            if(obj) console.log("commnet deleted ",obj)
+
+    });
+    
     Comment.remove({
         _id: req.params.comment_id
     }, function (err, comment) {
         if (err)
             res.send(err);
-        res.json({
-            status: "success",
-            message: 'comment deleted'
-        });
+        if(!comment){
+            return res.status(404).json({
+                message: 'issue not found'
+            });
+        }else{
+            res.json({
+                status: "success",
+                message: 'comment deleted'
+            });
+        }
     });
 };

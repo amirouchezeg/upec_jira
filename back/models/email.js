@@ -6,9 +6,9 @@ module.exports = class Email {
   constructor(email,type,token) {
     var message;
     if (type=="email_confirmer") {
-      message='<p>Merci de cliquez sur le lien pour confirmer votre compte </p> <a href="localhost:4200/user/check_email?token='+token+'">lien</a> </br> localhost:4200/user/check_email?token='+token+''
+      message='<p>Merci de cliquez sur le lien pour confirmer votre compte </p> <a href="http://localhost:4200/user/check_email?token='+token+'">lien</a>  <p> localhost:4200/user/check_email?token='+token+'</p>';
     } else {
-      message=" <p>Quelqu'un vous a ajouté dans un projet sur le site JiraUpec connecter vous pour avoir vos projets </p><a href='localhost:4200/user'>Se connecter</a>"  
+      message=" <p>Quelqu'un vous a ajouté dans un projet sur le site JiraUpec connecter vous pour avoir vos projets </p><a href='http://localhost:4200/user'>Se connecter</a> <p> </p>"  
     }
     this.email = email;
     // console.log("constructor(email): "+email);

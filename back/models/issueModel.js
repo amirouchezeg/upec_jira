@@ -5,7 +5,15 @@ const status = Object.freeze({
     InProgress: 'inProgress',
     Finished: 'finished',
     preview: 'preview',
-  });
+});
+
+const Lables = Object.freeze({
+    Bug: 'Bug',
+    Prioritaire: 'Prioritaire',
+    Bloquant: 'Bloquant',
+    Amelioration: 'Amelioration',
+    
+});
 const issueSchema = mongoose.Schema({
 
     title: {
@@ -46,6 +54,10 @@ const issueSchema = mongoose.Schema({
         user_id: String,
         email: String,
       },
+    labels:[{
+        type:String,
+        enum: Object.values(Lables),
+    }]
 });
 // Export sprint model
 const Issue = module.exports = mongoose.model('issue', issueSchema);

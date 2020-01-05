@@ -33,6 +33,7 @@ exports.new = function (req, res) {
         userEmail: Joi.string().allow(''),
         sprint_id:Joi.string(),
         status: Joi.string().allow(''),
+        labels: Joi.array().items(Joi.string()),
     }
      
     Joi.validate(req.body,schema, (err, issue) =>{
@@ -51,6 +52,7 @@ exports.new = function (req, res) {
             issue.end_date = req.body.end_date;   
             issue.comments = req.body.comments;
             issue.sprint_id= req.body.sprint_id;
+            issue.labels= req.body.labels;
             Sprint.findOne({_id: issue.sprint_id}, function (err, sprint) {
                 if (err) res.send(err);
                 else {

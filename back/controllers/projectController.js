@@ -27,16 +27,24 @@ exports.index = function (req, res) {
 //get projects of a user
 exports.getProjects = function (req, res) {
         Project.find({},function (err, projects) {
-            var projectsMap ={};
+            var projectsMap =[];
             if (err)
-               res.send(err);
-                projects.forEach(function(project){
-                    project.users.forEach(dev =>{
-                            if(dev.email == req.params.email)
-                            projectsMap[project._id] = project;              
-                   }) ;
+                res.status(400).json({
+                    status: "error",
+                    message: err,
                 });
-                res.send(projectsMap);         
+            projects.forEach(function(project){
+                project.users.forEach(dev =>{
+                        if(dev.email == req.params.email)
+                        // projectsMap[project._id] = project;              
+                        projectsMap.push(project);              
+                }) ;
+            });
+            res.status(200).json({
+                status: "success",
+                message: "All projects retrieved successfully",
+                data: projectsMap
+            });
       }); 
 };
 
@@ -65,9 +73,9 @@ exports.getSprints = function (req, res) {
 exports.new =  function (req, res) {
     const schema={
         title:Joi.string().min(2).required(),
-        description:Joi.string(),
-        start_date: Joi.date(),
-        end_date: Joi.date().greater(Joi.ref('start_date')),
+        description:Joi.string().allow(''),
+        start_date: Joi.date().allow(''),
+        end_date: Joi.date().greater(Joi.ref('start_date')).allow(''),
         users: Joi.array().items(Joi.object({
             email: Joi.string().email().required(),
             role: Joi.string()
