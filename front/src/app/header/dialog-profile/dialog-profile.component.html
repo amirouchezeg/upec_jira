@@ -1,29 +1,36 @@
+<div *ngIf="alert.isDisplayed" class="d-flex alert alert-danger" role="alert">
+    <h5> {{alert.message}}</h5>
+    <button type="button" (click)="onResend()" class="ml-auto p-2 btn btn-sm btn-warning">Renvoyer l'email de vérification</button>
+</div>
 <form [formGroup]="profileform" (ngSubmit)="onSubmit()">
-        <mat-dialog-content>
-            <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
-            <div class="container field-container ">
-                <mat-form-field>
-                    <input matInput placeholder="Nome" formControlName="lastName" required>
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Prénom" formControlName="firstName" required>
-                </mat-form-field>
-            </div>
-        </mat-dialog-content>
-        <mat-dialog-actions>    
-            <div class="container btn-container">
-                <div class="row">
-                    <div class="col-6">
-                        <button class="btn btn-secondary" mat-button mat-dialog-close tabindex="-1">
-                            Anuler
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button type="submit" class="btn btn-success" mat-button  tabindex="1">
-                            Sauvgarder
-                        </button>
-                    </div>
+    <mat-dialog-content>
+        <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
+        <div class="container field-container ">
+            <mat-form-field *ngIf="showEmail">
+                <input matInput placeholder="Email" [value]="user.email" disabled="disabled">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Nome" formControlName="last_name" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Prénom" formControlName="first_name" required>
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>    
+        <div class="container btn-container">
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-secondary" mat-button mat-dialog-close tabindex="-1">
+                        Anuler
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-success" mat-button mat-dialog-close tabindex="1">
+                        Sauvgarder
+                    </button>
                 </div>
             </div>
-        </mat-dialog-actions>
+        </div>
+    </mat-dialog-actions>
     </form>

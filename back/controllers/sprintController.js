@@ -59,7 +59,6 @@ exports.new = function (req, res) {
                     else{
                       project.sprints.push(sprint._id);
                       m_sprints={sprints: project.sprints};
-                      console.log(m_sprints);
                       Project.findByIdAndUpdate(sprint.project_id,m_sprints, {
                             new: true
                         },function(err, project) {}
@@ -130,7 +129,6 @@ exports.update = function (req, res) {
                                     return;
                                 }
                             });
-                            console.log('bool', bool);
                             if(bool){
                                   res.status(500).json({
                                   message: "Ce projet contient déja un sprint en cours..."
@@ -142,7 +140,7 @@ exports.update = function (req, res) {
                                         data: sprint
                                         });
                                     } else {
-                                        res.status(500).json({
+                                        res.status(404).json({
                                         message: "Aucun sprint trouvé avec ces critères"
                                         })
                                     }

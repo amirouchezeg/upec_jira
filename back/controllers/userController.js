@@ -86,8 +86,8 @@ exports.login = function (req, res) {
                 message: "L'email ou le mot de passe est incorrect."
             });
         // check if the password is valid
-        var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-        if (!passwordIsValid) 
+        var isValidPassword = bcrypt.compareSync(req.body.password, user.password);
+        if (!isValidPassword) 
             return res.status(401).send({ 
                 message: "L'email ou le mot de passe est incorrect"
             }
@@ -122,9 +122,9 @@ exports.new = function (req, res) {
         if (err)
             res.send(err);
         if(user){
-            res.json({
+            res.status(409).json({
                 error: 'The email address is already taken!',
-                message: 'The email address is already taken!',
+                message: 'Cette adresse e-mail est déjà prise!',
             });
         }else{
             addUser(data, schema, res, req);
@@ -138,7 +138,7 @@ exports.new = function (req, res) {
 exports.view = function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
         if (err)
-        res.status(42).json({
+        res.status(422).json({
                 message:'user not found'
             });
         res.json({
@@ -192,12 +192,12 @@ function addUser(data, schema, res, req) {
             });
         }
         else {
-            // send a success response if validation passes
             var user = new User();
             user.email = req.body.email;
             user.first_name = req.body.first_name;
             user.last_name = req.body.last_name;
             user.password = bcrypt.hashSync(req.body.password, 8);
+            user.email_token=Math.random().toString(36).substring(0, 15)+Math.random().toString(36).substring(0, 15);//random tocken
             // save the user and check for errors
             user.save(function (err) {
                 if (err)
@@ -210,48 +210,56 @@ function addUser(data, schema, res, req) {
                     token: token,
                     data: user
                 });
+                //sending emails
+                console.log("sending emails...");
+                var email = new Email(user.email,"email_confirmer",user.email_token);            
+                email.transporter.sendMail(email.mailOptions, function(error, info){
+                    if (error) 
+                        console.log("error Send Email ",error);
+                    else
+                        console.log("Email sended sucessfully ");
+                }); 
             });
         }
     });
 }
 
-exports.changePassword = function (req, res) {
-    User.findOne({ email: req.body.email }, function (err, user) {
-        if (err) return res.status(500).send('Error on the server.');
+exports.changePassword = function (req, res) { 
+    console.log('req.params._id', req.params._id);
+    User.findById( req.params._id , function (err, user) {
+        if (err) return res.status(500).send({message:'Error on the server.'});
         if (!user) 
-            return res.status(401).send({ 
-                message: "L'email ou le mot de passe est incorrect."
+            return res.status(404).send({ 
+                message: "L'utilisateur n'est pas trouvé."
             });
         // check if the password is valid
-        var passwordIsValid = bcrypt.compareSync(req.body.oldPassword, user.password);
-        if (!passwordIsValid) 
+        if (!bcrypt.compareSync(req.body.old_password, user.password)) 
             return res.status(401).send({ 
                 message: "Le mot de passe est incorrect.."
             }
         );  
         //check if the new password and the confirmed one is the same
-       if(req.body.newPassword == req.body.confirmed){
-              user.password = bcrypt.hashSync(req.body.newPassword, 8)
-       }
-       else{
-        return res.status(401).send({ 
-            message: "Le mot de passe de confirmation n'est pas correct.."
-        }
-    );  
-    }  
-      // return the information
-        res.status(200).json({
-            message: 'votre mot de passe a été modifié avec succés',
-
+        if(req.body.new_password == req.body.confirmed)
+                user.password = bcrypt.hashSync(req.body.new_password, 8);
+        else
+            return res.status(401).send({ 
+                message: "Le mot de passe de confirmation n'est pas identique.."
+            });   
+        //save and return the information
+        user.save(function (err) {
+            res.status(200).json({
+                message: 'Votre mot de passe a été modifié avec succés',
+            });
         });
     });
 };
 
 exports.sendemail = function (req, res) {
-        var email = new Email(req.body.email);          
+        var email = new Email(req.body.email);  
+        console.log("email",req.body.email);        
         email.transporter.sendMail(email.mailOptions, function(error, info){
             if (error) {
-                return res.status(401).send({ 
+                return res.status(406).send({ 
                     message: "l'email est incorrect...",
                     data: error
                 });
@@ -262,4 +270,55 @@ exports.sendemail = function (req, res) {
             });        
 };
 
+
+exports.checkemail = function (req, res) {
+    console.log("token",req.params.token);  
+    User.findOne({ email_token: req.params.token }, function (err, user) {
+        if (err) return res.status(500).send('Error on the server.');
+        if (!user) 
+            return res.status(409).send({ 
+                message: "Il n y a pas d'email avec ce token."}
+            );
+        user.email_confirme=true;
+        user.save(function (err) {
+            res.status(200).json({
+                message: "Merci! Votre email est vérifié",
+            });
+        });
+        
+    });      
+};
+
+
+exports.send_email_check = function (req, res) {
+    console.log("id",req.params.id);  
+    User.findOne({ _id: req.params.id }, function (err, user) {
+        if (err) return res.status(500).send({error :'Error on the server.'});
+        if (!user) 
+            return res.status(409).send({ 
+                message: "L'utilisateur n'est pas trouvé."}
+            );
+        console.log("sending emails...");
+        user.email_token=Math.random().toString(36).substring(0, 15)+Math.random().toString(36).substring(0, 15);//random tocken
+        var email = new Email(user.email,"email_confirmer",user.email_token);            
+        email.transporter.sendMail(email.mailOptions, function(error, info){
+            if (error){
+                console.log("error Send Email ",error);
+                return res.status(409).send({ 
+                    message: "Error Send Email."}
+                );
+            }
+            else{
+                console.log("Email sended sucessfully ");
+                user.save(function (err) {
+                    res.status(200).json({
+                        message: "Merci! Votre email est vérifié",
+                        user:user
+                    });
+                });
+            }
+        }); 
+        
+    });      
+};
 

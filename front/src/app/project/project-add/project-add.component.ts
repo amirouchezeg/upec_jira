@@ -5,6 +5,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Project } from 'src/app/_model/project';
 import { ProjectService } from 'src/app/_service/project-service';
+import { Auth } from 'src/app/_service/auth';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class ProjectAddComponent implements OnInit {
   startDateFC : FormControl;
   endDateFC : FormControl;
   descriptionFC : FormControl;
-
+  auth:Auth;
   teamEmails: string[] = [];
   projectform: FormGroup;  
   teamEmailsTab : Array<{email: string, role: string}> = [];
@@ -29,10 +30,11 @@ export class ProjectAddComponent implements OnInit {
   constructor(private dialogRef:MatDialogRef<ProjectAddComponent>, private projectService: ProjectService) { }
 
   ngOnInit() {
+    this.auth=Auth.getInstance(); 
     this.titleFC = new FormControl('',Validators.required);
-    this.startDateFC = new FormControl('',Validators.required);
-    this.endDateFC = new FormControl('',Validators.required);
-    this.descriptionFC = new FormControl('',Validators.required);
+    this.startDateFC = new FormControl('',);
+    this.endDateFC = new FormControl('',);
+    this.descriptionFC = new FormControl('',);
 
     this.projectform = new FormGroup({
       'title': this.titleFC,
@@ -40,7 +42,7 @@ export class ProjectAddComponent implements OnInit {
       'endDate': this.endDateFC,
       'description': this.descriptionFC
     });
-  }
+  } 
 
   /* add remove email from inpute in html */
   add(event: MatChipInputEvent): void {
@@ -69,10 +71,10 @@ export class ProjectAddComponent implements OnInit {
   /*on Click*/
   onSubmit(){
     this.isProgressVisible=true;
-    
-    this.teamEmails.forEach(element => {
-      this.teamEmailsTab.push({email: element, role: "test"})
-    });
+    // this.teamEmails.forEach(element => {
+    // });
+    this.teamEmailsTab=[];
+    this.teamEmailsTab.push({email: this.auth.email, role: "Chef de projet"})
 
     let project : Project = new Project;
 
@@ -80,7 +82,7 @@ export class ProjectAddComponent implements OnInit {
     project.end_date = this.endDateFC.value;
     project.start_date = this.startDateFC.value;
     project.description = this.descriptionFC.value;
-    project.users = this.teamEmailsTab;
+    // project.users = this.teamEmailsTab;
     
     this.projectService.addProject(project).subscribe(data => {
       console.log(data);

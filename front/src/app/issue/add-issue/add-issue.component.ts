@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { MatChipInputEvent, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material'; 
+import { MatChipInputEvent, MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material'; 
 import { IssuesService } from 'src/app/_service/issues-service';
 import { Issues } from 'src/app/_model/issues';
 import { MyAlert } from 'src/app/_model/myAlert';
@@ -40,10 +40,10 @@ export class AddIssueComponent implements OnInit {
   issue:Issues;
   isAddAction:boolean;
 
-  constructor(private dialogRef:MatDialogRef<AddIssueComponent>,
+  constructor(private dialogRef:MatDialogRef<AddIssueComponent>,private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: string, private issuesService:IssuesService ) {
     //get the sprint id sended from page of sprint
-    var jsonData= JSON.parse(JSON.stringify(data));
+    var jsonData= JSON.parse(JSON.stringify(data)); 
     this.isAddAction=jsonData.data.type=='add'?true:false;                       
     if (this.isAddAction) {
       this.titleOfDailogBox="Ajouter Une Tâche";
@@ -63,7 +63,11 @@ export class AddIssueComponent implements OnInit {
     this.start_dateFC = new FormControl(this.issue? this.issue.start_date: '');
     this.end_dateFC = new FormControl(this.issue? this.issue.end_date: '');
     this.statusFC = new FormControl(this.issue? this.issue.status: '');
-    this.emailUserFC = new FormControl(this.issue.users? this.issue.users.email: '');
+    try {
+      this.emailUserFC = new FormControl(this.issue? this.issue.users.email: '');
+    } catch (error) {
+      this.emailUserFC = new FormControl('');      
+    }
     this.sprint_idFC = new FormControl(this.issue? this.issue.sprint_id: this.sprintId);
 
     this.issueform = new FormGroup({
@@ -117,17 +121,28 @@ export class AddIssueComponent implements OnInit {
 
   onResendInvitation(){
     //todo : test this request
-    this.issuesService.resendInvetation(this.issueform.value).subscribe( 
+    this.issuesService.resendInvetation(this.emailUserFC.value).subscribe( 
       data => {
         console.log("resend invetation",data);
+        this.toast("L'operation a effectué avec succès",'bg-success');
+
         this.dialogRef.close();
-         
       },
       error => { 
         console.log("error",error);
+        this.toast("L'opération a échoué",'bg-danger');
+
         this.dialogRef.close();
       }
     );
+  }
+
+  toast(message:string,css_class:string="",time:number=2900){
+    this._snackBar.open(message,"", {
+      verticalPosition:'top',
+      panelClass: [css_class],
+      duration: time,
+    });
   }
 
 }

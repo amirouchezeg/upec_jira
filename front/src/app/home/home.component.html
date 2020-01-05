@@ -10,10 +10,23 @@
                     Postuler            
                 </a>
                 <a class="btn btn-info btn-lg ">  
+            <h1 class=""> get the color of any pixel or area on the </h1>
+            <p class="lead text-definition">
+              Plateforme de missions et d'appels d'offres pour 
+              freelance et portage salari,Plateforme de missions et d'appels d'offres pour 
+              freelance et portage salari
+            </p>
+            <div class="buttons">
+                <a *ngIf="!isConnected" routerLink="/user/signup" class="btn btn-info btn-lg ">  
                     <i class="fas fa-user-tie"></i>
-                    Recruter             
+                    Commencer             
                 </a>
             </div>           -->
+                <a *ngIf="isConnected" routerLink="/project/project_list" class="btn btn-info btn-lg ">  
+                  <i class="fas fa-user-tie"></i>
+                  Mes Projets             
+              </a>
+            </div>          
         </div>        
       </div>
   

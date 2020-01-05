@@ -33,6 +33,7 @@ exports.new = function (req, res) {
         userEmail: Joi.string().allow(''),
         sprint_id:Joi.string(),
         status: Joi.string().allow(''),
+        labels: Joi.array().items(Joi.string()),
     }
      
     Joi.validate(req.body,schema, (err, issue) =>{
@@ -51,13 +52,12 @@ exports.new = function (req, res) {
             issue.end_date = req.body.end_date;   
             issue.comments = req.body.comments;
             issue.sprint_id= req.body.sprint_id;
-            console.log(issue.sprint_id)
+            issue.labels= req.body.labels;
             Sprint.findOne({_id: issue.sprint_id}, function (err, sprint) {
                 if (err) res.send(err);
                 else {
                     if(!sprint){
-                       console.log('sprint doesnt exists');
-                      //res.send('sprint doesnt exists');
+                       res.send('sprint doesnt exists');
                     } 
                     else{
                         sprint.issues.push(issue._id);
@@ -69,17 +69,16 @@ exports.new = function (req, res) {
                 } 
             });
             User.findOne({email: req.body.userEmail}, function (err, user) {
-                if (err) console.log('Error on the server.',err.message);
+                if (err) res.send('Error on the server.');
                   else {
                     if(!user){
-                        console.log('user doesnt exist');
+                        //res.send('cet utilisateur n\'existe pas ');
                         res.status(406).json({
-                            message:  req.body.userEmail +": Cette personne n'a pas encour inscrir sur le site!",
+                            message:  req.body.userEmail +": Cette personne ne s'est pas encore inscrite sur le site!",
                             error: "L'email n'exite pas"
                         });
                     } 
                     else{
-                        console.log('user', user)  
                         var mUser = {
                             user_id:user._id,
                             email: req.body.userEmail
@@ -87,7 +86,7 @@ exports.new = function (req, res) {
                         issue.users = mUser;  
                         issue.save(function (err) {
                             res.json({
-                                message: 'New issue created!',
+                                message: 'Une nouvelle tache a été créee',
                                 data: issue
                             });
                         });   
@@ -104,7 +103,7 @@ exports.view = function (req, res) {
         if (err)
             res.send(err);
         res.json({
-            message: 'issue details loading..',
+            message: 'Chargement..',
             data: issue
         });
     });
@@ -122,14 +121,12 @@ exports.update = function (req, res) {
             } 
             else {
                 if(!user){
-                    console.log('user doesnt exist');
                     res.status(406).json({
-                        message:  req.body.userEmail +": Cette personne n'a pas encour inscrir sur le site!",
+                        message:  req.body.userEmail +": Cette personne ne s\'est pas encore inscrite sur le site!",
                         error: "L'email n'exite pas"
                     });
                 } 
                 else{
-                    console.log('user', user)  
                     var mUser = {
                         user_id:user._id,
                         email: req.body.userEmail
@@ -186,4 +183,31 @@ exports.delete = function (req, res) {
             message: 'issue deleted'
         });
     });
+};
+
+exports.addCommentToIssue = function (req, res) {
+    if (req.body.issue_id) {
+        Issue.findOne({_id: req.body.issue_id}, function (err, issue) {
+            var myComment = {
+                commentaire: req.body.commentaire,
+                user_id: req.body.user_id
+            }  
+            req.body.comments=myComment;
+            Issue.findByIdAndUpdate(req.params.issue_id,req.body, {
+                new: true
+            },function(err, issue) {
+                if (!err) {
+                    res.status(201).json({
+                        message: "the issue is edited",
+                        data: issue
+                    });
+                } else {
+                    res.status(500).json({
+                        message: "not found any relative data"
+                    })
+                }
+            });
+
+        });
+    }
 };

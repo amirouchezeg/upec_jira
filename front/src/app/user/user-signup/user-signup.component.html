@@ -12,6 +12,9 @@
                         </h2>
                     </div>
                     <div class="card-body" >
+                        <div *ngIf="alert.isDisplayed" class="alert" [ngClass]="alert.type"  role="alert">
+                            {{alert.message}}
+                        </div>
                         <mat-progress-bar *ngIf="isProgressVisible" mode="indeterminate"></mat-progress-bar>
                         <div class="row">
                                 <div class="col-5 display-text-1">
@@ -63,7 +66,7 @@
                                 </div>
                                 <div class="col">
                                     <mat-form-field class="example-full-width">
-                                        <input class="display-text-1" matInput size="69" placeholder="Mot de passe" id="password" formControlName="password" required/>
+                                        <input class="display-text-1" matInput size="69" placeholder="Mot de passe" id="password" type="password" formControlName="password" required/>
                                         <mat-error *ngIf="userform.hasError('required', 'password')">
                                             Veuillez entrer votre mot de passe
                                         </mat-error>
@@ -81,7 +84,7 @@
                                 </div>
                                 <div class="col">
                                     <mat-form-field class="example-full-width">
-                                        <input class="display-text-1" matInput size="69"  placeholder="Confirmation" id="confirmPass" formControlName="confirmPass" [errorStateMatcher]="matcher"/>
+                                        <input class="display-text-1" matInput size="69"  placeholder="Confirmation" type="password" id="confirmPass" formControlName="confirmPass" [errorStateMatcher]="matcher"/>
                                         <mat-error *ngIf="userform.hasError('notSame')">
                                             Confirmation mot de passe incorrect
                                         </mat-error>
@@ -90,7 +93,7 @@
                             </div>
                             <div style="text-align: right">
                                 <a routerLink="/user/signin" style="text-decoration: underline; color: blue">Vous avez déjà un compte</a>
-                                <button pButton type="submit" class="ui-button-primary btn-lg" label="{{ 'Sinscrire' }}" [disabled]="!userform.valid" ></button> 
+                                <button pButton type="submit" class="ui-button-primary btn-lg" label="{{ 'Sinscrire' }}" [disabled]="!userform.valid" ></button>
                             </div>
                     </div>
                 </div>

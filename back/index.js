@@ -4,15 +4,42 @@ let express = require('express');
 let bodyParser = require('body-parser');
 // Import Mongoose
 let mongoose = require('mongoose');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 // Initialise the app
 let app = express();
 
-// Import routes
+//Initialise swagger 
+  const options = {
+    swaggerDefinition: {
+      openapi: "3.0.0",
+      info: {
+        title: "Gestion des taches",
+        version: "1.0.0",
+        description:
+          "Outil de gestion des taches - Master 2 informatique ",
+
+        contact: {
+          name: "Maryem Elazbaoui - Asma Abidi - Amirouche Zeggagh",
+          url: "https://swagger.io",
+        }
+      },
+      servers: [
+        {
+          url: "http://localhost:8080"
+        }
+      ]
+    },
+    apis: ["./models/*", "api-routes.js"]
+  };
+  const swaggerSpec = swaggerJsdoc(options);
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 let apiRoutes = require("./api-routes");
 // Configure bodyparser to handle post requests
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "x-access-token ,Origin, X-Requested-With, Content-Type, Accept,Access-Control-Allow-Headers, Authorization");
     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
     next();
 });
@@ -32,7 +59,6 @@ else
 
 // Setup server port
 var port = process.env.PORT || 8080;
-
 // Send message for default URL
 app.get('/', (req, res) => res.send('Hello World with Express'));
 

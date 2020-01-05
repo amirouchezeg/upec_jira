@@ -9,6 +9,7 @@ import { IssuesService } from 'src/app/_service/issues-service';
 import { Issues } from 'src/app/_model/issues';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/_service/user-service';
+import { IssueDetailComponent } from '../issue-detail/issue-detail.component';
 
 
 @Component({
@@ -89,6 +90,14 @@ export class OneSprintComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getAllIssueOfSprint(this.idSprint);      
+    });
+  }
+
+  onOpenDetailIssue(issue){
+    const dialogRef = this.dialog.open(IssueDetailComponent,{
+      // height: '40%',
+      width: '60%',
+      data: {issue: issue}
     });
   }
 
@@ -203,11 +212,11 @@ export class DialogOverviewSigneTo {
     this.issue.userEmail=this.emailFC.value;
     console.log("onSubmit",this.emailFC.value);
     console.log("issue",this.issue);
-    this.issuesService.editIssue(this.issue._id,this.issue).subscribe( data => {
-      console.log("edit issue",data);
-      this.dialogRef.close();
-    },
-    error => { 
+    this.issuesService.editIssue(this.issue._id,this.issue).subscribe( 
+      data => {
+        console.log("edit issue",data);
+        this.dialogRef.close();
+    },error => { 
       console.log("error",error);
       var jsonData=  JSON.parse(JSON.stringify(error));                       
       let data =JSON.parse(JSON.stringify(jsonData.error));

@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export class Project {
 
     /*whe shold to use the 'new' key when create instance */
@@ -14,7 +16,8 @@ export class Project {
     start_date:Date;
     end_date:Date;
     create_date: Date;
-    users;
+    users:User[];
+    owner:boolean=false;
 
     // isValide():boolean {
     //     // console.log("teamEmails",this.teamEmails);

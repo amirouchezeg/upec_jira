@@ -14,9 +14,10 @@ import { UserScreenComponent } from './user-screen/user-screen.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { UserService } from '../_service/user-service';
 import { ProjectModule } from '../project/project.module';
+import { EmailCheckComponent } from './email-check/email-check.component';
 
 @NgModule({
-  declarations: [UserSigninComponent, UserSignupComponent, UserScreenComponent],
+  declarations: [UserSigninComponent, UserSignupComponent, UserScreenComponent, EmailCheckComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

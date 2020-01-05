@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserSignupComponent } from '../user/user-signup/user-signup.component';
+import { UserService } from '../_service/user-service';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,11 @@ import { UserSignupComponent } from '../user/user-signup/user-signup.component';
 })
 export class HomeComponent implements OnInit {
   // private dialogRef: any;
-
-  constructor(private dialog: MatDialog, private router: Router) { }
+  isConnected:boolean;
+  constructor(private userService:UserService,private dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
+    this.isConnected=this.userService.isUserConnected();
   }
 
   Logout(){

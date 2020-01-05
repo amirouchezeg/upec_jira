@@ -10,6 +10,15 @@
 .project-card{
     padding: 10px;
 }
+.min-h-70{
+    min-height: 70vh;
+}
+.min-h-4{
+    min-height: 4rem;
+}
+.min-h-3{
+    min-height: 3rem;
+}
 
 /********************
 *project-add component

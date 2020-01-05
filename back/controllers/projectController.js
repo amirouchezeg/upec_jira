@@ -27,20 +27,28 @@ exports.index = function (req, res) {
 //get projects of a user
 exports.getProjects = function (req, res) {
         Project.find({},function (err, projects) {
-            var projectsMap ={};
+            var projectsMap =[];
             if (err)
-               res.send(err);
-                projects.forEach(function(project){
-                    project.users.forEach(dev =>{
-                            if(dev.email == req.params.email)
-                            projectsMap[project._id] = project;              
-                   }) ;
+                res.status(400).json({
+                    status: "error",
+                    message: err,
                 });
-                res.send(projectsMap);         
+            projects.forEach(function(project){
+                project.users.forEach(dev =>{
+                        if(dev.email == req.params.email)
+                        // projectsMap[project._id] = project;              
+                        projectsMap.push(project);              
+                }) ;
+            });
+            res.status(200).json({
+                status: "success",
+                message: "All projects retrieved successfully",
+                data: projectsMap
+            });
       }); 
 };
 
-//get projects of a user
+//get sprints of a user
 exports.getSprints = function (req, res) {
     Project.findById(req.params.project_id, function (err, project) {
         if (err)
@@ -63,12 +71,11 @@ exports.getSprints = function (req, res) {
 
 // Handle create project actions
 exports.new =  function (req, res) {
-
     const schema={
         title:Joi.string().min(2).required(),
-        description:Joi.string(),
-        start_date: Joi.date(),
-        end_date: Joi.date().greater(Joi.ref('start_date')),
+        description:Joi.string().allow(''),
+        start_date: Joi.date().allow(''),
+        end_date: Joi.date().greater(Joi.ref('start_date')).allow(''),
         users: Joi.array().items(Joi.object({
             email: Joi.string().email().required(),
             role: Joi.string()
@@ -87,7 +94,7 @@ exports.new =  function (req, res) {
         }
         else{
             project = new Project();
-            var userNotExists = [];
+            var userNotExists = []; // the emails that don't exit in our db
             project.title = req.body.title;
             project.description = req.body.description;  
             project.start_date = req.body.start_date;
@@ -98,7 +105,8 @@ exports.new =  function (req, res) {
                 project.users.forEach(utilisateur => {
                     var emailofUser = utilisateur.email;
                     User.findOne({email: emailofUser}, function (err, user) {
-                        if (err) console.log('Error on the server.');
+                        if 
+                            (err) console.log('Error on the server.');
                         else {
                             if(user == null){
                                 userNotExists.push(emailofUser);   
@@ -108,10 +116,11 @@ exports.new =  function (req, res) {
                                 utilisateur.user_id = userId;
                             } 
                         } 
-                        console.log('userNotExists', userNotExists);
+                        // console.log('userNotExists', userNotExists);
                     }); 
 
                 //sending emails
+                console.log("sending emails...");
                 var email = new Email(emailofUser);            
                 email.transporter.sendMail(email.mailOptions, function(error, info){
                     if (error) {
@@ -143,17 +152,15 @@ exports.view = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    console.log("req.body.users",req.body.users);
     if (req.body.users) {
         req.body.users.forEach(user=>{
-            console.log("user.email",user.email);
             //sending emails
             var email = new Email(user.email);            
             email.transporter.sendMail(email.mailOptions, function(error, info){
-                if (error) {
+                if (error)
                     console.log("error Send Email ",error);
-                } 
-                console.log('Email sent:...... ');
+                else
+                    console.log('Email sent:...... ');
             }); 
         });
     }
