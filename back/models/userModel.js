@@ -34,36 +34,201 @@ var mongoose = require('mongoose');
  *           password: xxxxxxxx,
  *           create_date: 2019-01-01
  *      PostUser:
- *        example:
- *           message: created successfuly
- *           _id: 5e1075b64e1dac4a08464afd
- *           last_name: Elazbaoui
- *           first_name: maryem
- *           email: ma.elazbaoui@gmail.com
- *           password: $2a$08$VSwpcEoB0XszTwJKTVO6VeiIW.vqDxjH916NqK74B6WbJl.42QU3S
- *           create_date: 2019-01-01
- *      getUser:
- *        example:
- *           message: retrieved successfuly
- *           _id: 5e1075b64e1dac4a08464afd
- *           last_name: Elazbaoui
- *           first_name: maryem
- *           email: ma.elazbaoui@gmail.com
- *           create_date: 2019-01-01
+ *          type: object
+ *          properties:
+ *             message:
+ *               type: string
+ *             token:
+ *               type: string
+ *             data:
+ *               type: object
+ *               properties: 
+ *                 id:
+ *                   type: string
+ *                 last_name:
+ *                   type: string
+ *                 first_name: 
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 create_date:
+ *                   type: string
+ *                 password:
+ *                   type: string
+ *          example:
+ *                    message: New user created!
+ *                    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+ *                    data:                             
+ *                        id: 5e1075b64e1dac4a08464afd
+ *                        last_name: Elazbaoui
+ *                        first_name: maryem
+ *                        email: email@gmail.com
+ *                        create_date: YYYY-MM-DD
+ *                        password: 2a$08$VSwpcEoB0XszTwJ
  *      login:
- *        example:
- *           message: loged successfuly
- *           _id: 5e1075b64e1dac4a08464afd
- *           last_name: Elazbaoui
- *           first_name: maryem
- *           email: ma.elazbaoui@gmail.com
- *           password: $2a$08$VSwpcEoB0XszTwJKTVO6VeiIW.vqDxjH916NqK74B6WbJl.42QU3S
- *           create_date: 2019-01-01
+ *          type: object
+ *          properties:
+ *             message:
+ *               type: string
+ *             token:
+ *               type: string
+ *             data:
+ *               type: object
+ *               properties: 
+ *                 id:
+ *                   type: string
+ *                 last_name:
+ *                   type: string
+ *                 first_name: 
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 create_date:
+ *                   type: string
+ *                 password:
+ *                   type: string
+ *          example:
+ *                    message: loged successfully
+ *                    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+ *                    data:                             
+ *                        id: 5e1075b64e1dac4a08464afd
+ *                        last_name: Elazbaoui
+ *                        first_name: maryem
+ *                        email: email@gmail.com
+ *                        create_date: YYYY-MM-DD
+ *                        password: 2a$08$VSwpcEoB0XszTwJ
  *      editePassword:
- *        example:
- *           old_password: XXXXXXX
- *           new_password: 123456
- *           confirmed_password: 123456
+ *          type: object
+ *          required:
+ *            - email
+ *            - oldPassword
+ *            - newPassword
+ *            - confirmed
+ *          properties:
+ *             email:
+ *               type: string
+ *             oldPassword:
+ *               type: string
+ *             newPassword:
+ *               type: object
+ *             confirmed:
+ *               type: object
+ *          example:
+ *              email: email@gmail.com
+ *              oldPassword: 123456
+ *              newPassword: 678901
+ *              confirmed: 678901
+ *      getUser:
+ *          type: object
+ *          properties:
+ *             message:
+ *               type: string
+ *             data:
+ *               type: object
+ *               properties: 
+ *                 id:
+ *                   type: string
+ *                 last_name:
+ *                   type: string
+ *                 first_name: 
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 create_date:
+ *                   type: string
+ *                 password:
+ *                   type: string
+ *                 email_confirme:
+ *                   type: boolean
+ *                 email_token:
+ *                   type:  boolean
+ *          example:
+ *                    message: user details loading..
+ *                    data:                             
+ *                        id: 5e1075b64e1dac4a08464afd
+ *                        last_name: Elazbaoui
+ *                        first_name: maryem
+ *                        email: email@gmail.com
+ *                        create_date: YYYY-MM-DD
+ *                        password: 2a$08$VSwpcEoB0XszTwJ
+ *                        mail_confirme: false 
+ *                        mail_token: false
+ *      PutUser:
+ *          type: object
+ *          properties:
+ *             message:
+ *               type: string
+ *             token:
+ *               type: string
+ *             data:
+ *               type: object
+ *               properties: 
+ *                 id:
+ *                   type: string
+ *                 last_name:
+ *                   type: string
+ *                 first_name: 
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 create_date:
+ *                   type: string
+ *                 password:
+ *                   type: string
+ *                 email_confirme:
+ *                   type: boolean
+ *                 email_token:
+ *                   type: boolean
+ *          example:
+ *                    message: user Info updated
+ *                    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+ *                    data:                             
+ *                        id: 5e1075b64e1dac4a08464afd
+ *                        last_name: Elazbaoui
+ *                        first_name: maryem
+ *                        email: email@gmail.com
+ *                        create_date: YYYY-MM-DD
+ *                        password: 2a$08$VSwpcEoB0XszTwJ
+ *                        email_confirme: false
+ *                        email_token: false
+ *      getProjects:
+ *          type: object
+ *          properties:
+ *             message:
+ *               type: string
+ *             token:
+ *               type: string
+ *             data:
+ *               type: object
+ *               properties: 
+ *                 id:
+ *                   type: string
+ *                 last_name:
+ *                   type: string
+ *                 first_name: 
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 create_date:
+ *                   type: string
+ *                 password:
+ *                   type: string
+ *                 email_confirme:
+ *                   type: boolean
+ *                 email_token:
+ *                   type: boolean
+ *          example:
+ *                    message: user Info updated
+ *                    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+ *                    data:                             
+ *                        id: 5e1075b64e1dac4a08464afd
+ *                        last_name: Elazbaoui
+ *                        first_name: maryem
+ *                        email: email@gmail.com
+ *                        create_date: YYYY-MM-DD
+ *                        password: 2a$08$VSwpcEoB0XszTwJ
+ *                        email_confirme: false
+ *                        email_token: false
  */
 var userSchema = mongoose.Schema({
     
@@ -95,7 +260,6 @@ var userSchema = mongoose.Schema({
         required: true,
         min:6
     },
-    path_avatar: String,
     create_date: {
         type: Date,
         default: Date.now
