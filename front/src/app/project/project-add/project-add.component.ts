@@ -82,7 +82,7 @@ export class ProjectAddComponent implements OnInit {
     project.end_date = this.endDateFC.value;
     project.start_date = this.startDateFC.value;
     project.description = this.descriptionFC.value;
-    project.users = this.teamEmailsTab;
+    // project.users = this.teamEmailsTab;
     
     this.projectService.addProject(project).subscribe(data => {
       console.log(data);

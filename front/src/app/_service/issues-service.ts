@@ -22,7 +22,7 @@ export class IssuesService {
   }
 
   editIssue(idIssue: string,issue: Issues) {
-    return this.http.put(this.rootUrl+"/"+idIssue, issue,
+    return this.http.put(this.rootUrl+idIssue, issue,
     {headers: this.auth.headers} );    
   }
 
