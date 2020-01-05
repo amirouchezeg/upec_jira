@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AddIssueComponent } from '../add-issue/add-issue.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
@@ -28,7 +28,9 @@ export class OneSprintComponent implements OnInit {
   done:Issues[]=[];
   emailsMember:Issues[]=[];
 
-  constructor(private userService:UserService,private dialog: MatDialog, private issueService: IssuesService, private route: ActivatedRoute) {
+  @ViewChild('callAPIDialogDelete', {static: false}) callAPIDialogDelete: TemplateRef<any>;
+
+  constructor(private _snackBar: MatSnackBar,private userService:UserService,private dialog: MatDialog, private issueService: IssuesService, private route: ActivatedRoute) {
     this.idSprint =this.route.snapshot.paramMap.get('idSprint');
     this.idProject =this.route.snapshot.paramMap.get('idProject');
   }
@@ -177,6 +179,28 @@ export class OneSprintComponent implements OnInit {
         this.emailsMember.push(obj['email']);
       }
     });
+  }
+
+
+  deleteIssue(issue:Issues){
+    let dialogRef = this.dialog.open(this.callAPIDialogDelete,{
+      width: '60%',
+      data: {idSprint: issue._id}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+            if (result === 'yes') {
+                this.issueService.deleteIssue(issue._id).subscribe(date=>{
+                  this.getAllIssueOfSprint(this.idSprint);
+                  this._snackBar.open("La suppression du la tâche est effectuée avec succés","", {
+                    verticalPosition: 'top',
+                    duration: 2500,
+                  })
+                });
+                
+            }
+        }
+    })
   }
 
 }

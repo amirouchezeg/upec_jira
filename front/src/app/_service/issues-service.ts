@@ -37,6 +37,11 @@ export class IssuesService {
       {headers: this.auth.headers} );
   }
 
+  deleteIssue(idIssue:string){
+    return this.http.delete(this.rootUrl+idIssue,
+      {headers: this.auth.headers} );
+  }
+
   addIssue(issue: Issues){
     return this.http.post(this.rootUrl, issue,
       {headers: this.auth.headers} );

@@ -27,7 +27,7 @@
                             <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>
                             <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
                             <a class="btn btn-outline-secondary btn-sm" (click)="onOpenDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
-                            <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
+                            <button (click)="deleteIssue(issue)" class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>                          
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                             <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>
                             <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
                             <a class="btn btn-outline-secondary btn-sm" (click)="onOpenDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
-                            <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
+                            <button (click)="deleteIssue(issue)" class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                             <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>
                             <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
                             <a class="btn btn-outline-secondary btn-sm" (click)="onOpenDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
-                            <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
+                            <button (click)="deleteIssue(issue)" class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                             <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>                            
                             <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
                             <a class="btn btn-outline-secondary btn-sm" (click)="onOpenDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
-                            <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
+                            <button (click)="deleteIssue(issue)" class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>
                         </div>
                     </div>
@@ -118,3 +118,35 @@
 
     </div>
 </div>
+
+
+
+<ng-template #callAPIDialogDelete>
+        <mat-dialog-content>
+            <div class="container field-container ">
+                <div class="text-danger">
+                    <h6> Avertissement : la suppression de ce projet entrainera la suppression de tout ses sprints </h6>
+                </div><br>
+                <div>
+                    <h6><strong>Voulez-vous vraiment supprimer ce projet.</strong></h6>
+                </div>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions>    
+            <div class="container btn-container">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-secondary" mat-button matDialogClose="no" tabindex="-1">
+                            Non
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-success" mat-button matDialogClose="yes" tabindex="1">
+                            Oui
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-dialog-actions>
+    </ng-template>
+    
