@@ -226,7 +226,7 @@ function addUser(data, schema, res, req) {
 
 exports.changePassword = function (req, res) { 
     console.log('req.params._id', req.params._id);
-    User.findById( req.params._id , function (err, user) {
+    User.findById( req.params.user_id , function (err, user) {
         if (err) return res.status(500).send({message:'Error on the server.'});
         if (!user) 
             return res.status(404).send({ 

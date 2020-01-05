@@ -16,12 +16,12 @@
                     <textarea matInput placeholder="Déscription" formControlName="description"></textarea>
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput [matDatepicker]="pickerDeb" formControlName="start_date" placeholder="Date Début">
+                    <input matInput [matDatepicker]="pickerDeb" formControlName="start_date" placeholder="Date de début">
                     <mat-datepicker-toggle matSuffix [for]="pickerDeb"></mat-datepicker-toggle>
                     <mat-datepicker #pickerDeb></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput [matDatepicker]="pickerFin" formControlName="end_date" placeholder="Date de Fin" >
+                    <input matInput [matDatepicker]="pickerFin" formControlName="end_date" placeholder="Date de fin" >
                     <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
                     <mat-datepicker #pickerFin></mat-datepicker>
                 </mat-form-field>
@@ -29,7 +29,7 @@
                     <input matInput placeholder="Etas" formControlName="status" required>
                 </mat-form-field> -->
                 <mat-form-field *ngIf="!isAddAction">
-                    <mat-label>Etas</mat-label>
+                    <mat-label>Etat</mat-label>
                     <mat-select formControlName="status">
                         <mat-option *ngFor="let food of status" [value]="food.value">
                         {{food.viewValue}}
@@ -37,7 +37,7 @@
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="signeto-full-width">
-                    <input type="text" placeholder="Choisir un" aria-label="Number" matInput 
+                    <input type="text" placeholder="Choisir un utilisateur" aria-label="Number" matInput 
                         [matAutocomplete]="auto" formControlName="userEmail">
                     <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let option of emailsMember" [value]="option">
@@ -45,7 +45,7 @@
                     </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>
-                <label class="small text-muted">Entrée l'e-mails de la personne</label>
+                <label class="small text-muted">Entrer l'e-mail de l'utilisateur</label>
             </div>
         </mat-dialog-content>
         <mat-dialog-actions>    
@@ -53,15 +53,15 @@
                 <div class="row">
                     <div class="col-6">
                         <button class="btn btn-secondary" mat-button mat-dialog-close tabindex="-1">
-                            Anuler
+                            Annuler
                         </button>
                     </div>
                     <div class="col-6">
                         <button *ngIf="isAddAction" type="submit" class="btn btn-success" mat-button  tabindex="1">
-                            Sauvgarder
+                            Sauvegarder
                         </button>
                         <button *ngIf="!isAddAction" type="submit" class="btn btn-info" mat-button  tabindex="1">
-                            Modifie
+                            Modifier
                         </button>
                     </div>
                 </div>

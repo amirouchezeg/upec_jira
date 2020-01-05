@@ -74,6 +74,7 @@ exports.new =  function (req, res) {
     const schema={
         title:Joi.string().min(2).required(),
         description:Joi.string().allow(''),
+        owner:Joi.boolean().allow(''),
         start_date: Joi.date().allow(''),
         end_date: Joi.date().greater(Joi.ref('start_date')).allow(''),
         users: Joi.array().items(Joi.object({
