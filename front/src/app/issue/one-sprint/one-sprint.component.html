@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>
                             <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
-                            <a class="btn btn-outline-secondary btn-sm" (click)="onDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
+                            <a class="btn btn-outline-secondary btn-sm" (click)="onOpenDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
                             <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>                          
                         </div>
@@ -53,7 +53,7 @@
                         <div class="card-body">
                             <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>
                             <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
-                            <a class="btn btn-outline-secondary btn-sm" (click)="onDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
+                            <a class="btn btn-outline-secondary btn-sm" (click)="onOpenDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
                             <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>
                         </div>
@@ -80,7 +80,7 @@
                         <div class="card-body">
                             <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>
                             <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
-                            <a class="btn btn-outline-secondary btn-sm" (click)="onDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
+                            <a class="btn btn-outline-secondary btn-sm" (click)="onOpenDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
                             <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>
                         </div>
@@ -107,7 +107,7 @@
                         <div class="card-body">
                             <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>                            
                             <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
-                            <a class="btn btn-outline-secondary btn-sm" (click)="onDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
+                            <a class="btn btn-outline-secondary btn-sm" (click)="onOpenDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
                             <button class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>
                         </div>

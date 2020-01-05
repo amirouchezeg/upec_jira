@@ -45,23 +45,28 @@ export class UserService {
   }
   
   update(user: User){
-    return this.http.put(this.userUrl+"/"+this.auth._id, user);
+    return this.http.put(this.userUrl+"/"+this.auth._id, user,
+    {headers: this.auth.headers} );
   }
 
   updatePassword(passwordObject){
-    return this.http.post(this.userUrl+"/"+this.auth._id+"/edit_password", passwordObject);
+    return this.http.post(this.userUrl+"/"+this.auth._id+"/edit_password", passwordObject,
+    {headers: this.auth.headers});
   }
 
   getUser(){
-    return this.http.get("http://localhost:8080/api/users/"+this.auth._id);
+    return this.http.get(this.auth.getRootUrl()+"users/"+this.auth._id,
+    {headers: this.auth.headers});
   }
 
   resendEmailCheck(){
-    return this.http.get("http://localhost:8080/api/users/send_email_check/"+this.auth._id);
+    return this.http.get(this.auth.getRootUrl()+"users/send_email_check/"+this.auth._id,
+    {headers: this.auth.headers});
   }
 
   checkEmail(token: String){
-    return this.http.get("http://localhost:8080/api/users/check_email/"+token);
+    return this.http.get(this.auth.getRootUrl()+"users/check_email/"+token,
+    {headers: this.auth.headers});
   }
 
   login(email: string, password: string){
@@ -71,7 +76,8 @@ export class UserService {
 
   //todo :make this in project service and rename the method to get project
   getMembersOfProject(idProject: string) {
-    return this.http.get("http://localhost:8080/api/projects/"+idProject);    
+    return this.http.get(this.auth.getRootUrl()+"projects/"+idProject,
+    {headers: this.auth.headers});    
   }
 
 }

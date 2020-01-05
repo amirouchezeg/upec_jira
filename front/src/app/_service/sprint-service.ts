@@ -14,30 +14,36 @@ export class SprintService {
 
   constructor(private http: HttpClient) { 
     this.auth=Auth.getInstance(); 
-    this.sprintUrl=this.auth.getRootUrl()+"sprints";
+    this.sprintUrl=this.auth.getRootUrl()+"sprints/";
   }
 
   addSprint(sprint: Sprint){
-    return this.http.post(this.sprintUrl, sprint);
+    return this.http.post(this.sprintUrl, sprint,
+      {headers: this.auth.headers} );
   }
 
   getAllSprint(){
-    return this.http.get(this.sprintUrl);
+    return this.http.get(this.sprintUrl,
+      {headers: this.auth.headers} );
   }
 
   getAllSprintOfPreject(idPreject:String){
-    return this.http.get(this.auth.getRootUrl()+"projects/"+idPreject+"/sprints");
+    return this.http.get(this.auth.getRootUrl()+"projects/"+idPreject+"/sprints",
+    {headers: this.auth.headers} );
   }
 
   deleteSprint(id: number){
-    return this.http.delete(this.sprintUrl + "/" + id);
+    return this.http.delete(this.sprintUrl + id,
+      {headers: this.auth.headers} );
   }
 
   findById(id: string){
-    return this.http.get(this.sprintUrl + "/" + id);
+    return this.http.get(this.sprintUrl + id,
+      {headers: this.auth.headers} );
   }
 
   update(sprint : Sprint, id:string){
-    return this.http.put(this.sprintUrl + "/" + id, sprint)
+    return this.http.put(this.sprintUrl + id, sprint,
+      {headers: this.auth.headers} )
   }
 }

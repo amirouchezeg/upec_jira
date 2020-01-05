@@ -113,4 +113,10 @@ border-left-color: #2dcb73;
 .status-upload form button > i {
 margin-right: 7px;
 }
+
+button.link { 
+    background:none;border:none; 
+    cursor: pointer;
+}
+
 /* end comment */

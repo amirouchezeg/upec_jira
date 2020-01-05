@@ -10,6 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { EmailValidation } from 'src/app/user/user-signin/user-signin.component';
+import { Auth } from 'src/app/_service/auth';
 
 @Component({
   selector: 'app-project-list',
@@ -43,13 +44,16 @@ export class ProjectListComponent implements OnInit {
   ]
 
   errorMessage : string;
+  auth:Auth;
 
   constructor( private _snackBar: MatSnackBar, private route: Router, private dialog: MatDialog, private projectService: ProjectService) { 
     this.projects = [];
+    this.auth=Auth.getInstance();
   }
  
   
   ngOnInit() {
+
     this.getAllProject();
     this.titleFC = new FormControl('');
     this.startDateFC = new FormControl('');
@@ -64,15 +68,17 @@ export class ProjectListComponent implements OnInit {
   }
 
   getAllProject(){
-    this.projectService.getAllProject().subscribe( data => {
+    this.projectService.getAllProjectOfUser().subscribe( data => {
+        console.log("projects",data);
         let dataList = (Object.values(data)[2]) as Project[];
         dataList.forEach(element => {
-          if((element.description).length>30){
-            element.description = (element.description).substr(0,30) + "..."
-          }
+          if((element.description).length>60){
+            element.description = (element.description).substr(0,60) + "..."
+          };
+          element.owner = element.users.find(element => element.email == this.auth.email && element.role=="Chef de projet") ?true:false;
+
         });
         this.projects = dataList;
-
       })
   }
 

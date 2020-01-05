@@ -10,7 +10,7 @@ export class Issues {
     end_date:Date;
     sprint_id: Date;
     status:String;
-    comments:Comments;
+    comments:Comments[];
     create_date:String;
     users:User;
     userEmail:string;

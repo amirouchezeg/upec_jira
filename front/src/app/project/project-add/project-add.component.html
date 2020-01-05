@@ -13,26 +13,26 @@
                 </mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input matInput [matDatepicker]="pickerDeb" formControlName="startDate" placeholder="Date Début" required>
+                <input matInput [matDatepicker]="pickerDeb" formControlName="startDate" placeholder="Date Début" >
                 <mat-datepicker-toggle matSuffix [for]="pickerDeb"></mat-datepicker-toggle>
                 <mat-datepicker #pickerDeb></mat-datepicker>
-                <mat-error *ngIf="projectform.get('startDate').hasError('required')">
+                <!-- <mat-error *ngIf="projectform.get('startDate').hasError('required')">
                     Veuillez entrer la date du début du projet
-                </mat-error>
+                </mat-error> -->
             </mat-form-field>
             <mat-form-field>
-                <input matInput [matDatepicker]="pickerFin" formControlName="endDate" placeholder="Date de Fin" required>
+                <input matInput [matDatepicker]="pickerFin" formControlName="endDate" placeholder="Date de Fin" >
                 <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
                 <mat-datepicker #pickerFin></mat-datepicker>
-                <mat-error *ngIf="projectform.get('endDate').hasError('required')">
+                <!-- <mat-error *ngIf="projectform.get('endDate').hasError('required')">
                     Veuillez entrer la date du fin du projet
-                </mat-error>
+                </mat-error> -->
             </mat-form-field>
             <mat-form-field>
-                <textarea matInput placeholder="Déscription" formControlName="description" required></textarea>
-                <mat-error *ngIf="projectform.get('description').hasError('required')">
+                <textarea matInput placeholder="Déscription" formControlName="description" ></textarea>
+                <!-- <mat-error *ngIf="projectform.get('description').hasError('required')">
                     Veuillez entrer la déscription du projet
-                </mat-error>
+                </mat-error> -->
             </mat-form-field>
             <!-- <mat-chip-list #chipList aria-label="Fruit selection">
                 <mat-chip *ngFor="let email of teamEmails" [selectable]="true"

@@ -93,9 +93,7 @@ export class OneSprintComponent implements OnInit {
     });
   }
 
-
-  onDetailIssue(issue){
-    console.log("issue",issue);
+  onOpenDetailIssue(issue){
     const dialogRef = this.dialog.open(IssueDetailComponent,{
       // height: '40%',
       width: '60%',

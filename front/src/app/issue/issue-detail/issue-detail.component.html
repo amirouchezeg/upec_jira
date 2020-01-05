@@ -5,8 +5,8 @@
                 <div class="col-1 icons">
                 </div>
                 <div class="col-11 contente">
-                    <h1><i class="fa fa-stop-circle"></i> Title issue</h1>
-                    <p>dans la list <b><i>A faire</i></b> </p>
+                    <h1><i class="fa fa-stop-circle"></i> {{issue.title}}</h1>
+                    <p>dans la list <b><i>{{statusIssue}}</i></b> </p>
                 </div>
             </div>
             
@@ -16,8 +16,7 @@
                 </div>
                 <div class="col-11 contente">
                     <h3>Description</h3>
-                    <p>En poursuivant votre navigation sur ce site, vous acceptez l'installation et l'utilisation de cookies sur votre poste qui permettent l'actualisation de votre panier.
-                    </p>
+                    <p>{{issue.description}}</p>
                 </div>
             </div>
             <div class="row">
@@ -29,22 +28,16 @@
                 </div>
             </div>  
             <!-- les Commentairs   -->
-            <div class="row">
+            <div  *ngFor="let comment of issue.comments" class="row">
                 <div class="col-1 icons"></div>
                 <div class="col-11 contente">
-                    <p class="text-uppercase"> <b>Frst Last name</b></p>
-                    <p style="margin-top: -1.2rem;"> Commentaire en poursuivant votre navigation sur ce site. </p>
+                    <p class="text-uppercase"> <b>{{comment.email}}</b>  
+                        <button *ngIf="comment.email==auth.email" (click)="onDeletecomment(comment)" class="link text-danger">Clicky</button> 
+                    </p>
+                    <p style="margin-top: -1.2rem;"> {{comment.commentaire}} </p>
                     <div class="h-divider"></div>
                 </div>
-            </div>    
-            <div class="row">
-                <div class="col-1 icons"></div>
-                <div class="col-11 contente">
-                    <p class="text-uppercase"> <b>Omar Dido</b></p>
-                    <p style="margin-top: -1.2rem;"> Commentaire en poursuivant votre navigation sur ce site. </p>
-                    <div class="h-divider"></div>
-                </div>
-            </div>    
+            </div>   
             <!-- les Commentairs -INPUTE-  --> 
             <div class="row">
                 <div class="col-1"></div>
@@ -62,7 +55,7 @@
         </div>
 
         <div class="col-4 right-side">
-            <h5> Signé à : <span class="badge badge-secondary mr-1">Amirouche Zeggagh</span>  </h5>
+            <h5> Signé à : <span *ngIf="issue.users" class="badge badge-secondary mr-1">{{issue.users.email}}</span>  </h5>
             <h3 class="mt-5">
                 <span class="badge badge-primary mr-1">Bug</span>
                 <span class="badge badge-secondary mr-1">Info</span>
@@ -95,11 +88,13 @@
 
             <h5 class="text-secondary d-flex justify-content-between">
                 Date debut : <i class="fa fa-stopwatch"></i>
-                <button type="button" class="btn btn-secondary " disabled>12/12/2019</button>
+                <button *ngIf="issue.start_date" type="button" class="btn btn-secondary " disabled>{{issue.start_date | date}}</button>
+                <button *ngIf="!issue.start_date" type="button" class="btn btn-secondary " disabled>Vide</button>
             </h5>
             <h5 class="text-secondary d-flex justify-content-between">
                 Date fin : <i class="fa fa-stopwatch"></i>
-                <button type="button" class="btn btn-secondary " disabled>Vide</button>
+                <button *ngIf="issue.end_date" type="button" class="btn btn-secondary " disabled> {{issue.end_date | date}}</button>
+                <button *ngIf="!issue.end_date" type="button" class="btn btn-secondary " disabled> vide</button>
             </h5>
                         
         </div>

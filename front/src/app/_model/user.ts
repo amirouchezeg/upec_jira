@@ -8,4 +8,5 @@ export class User {
     path_avatar: String;
     create_date: Date;
     email_confirme:boolean;
+    role:string;
 }

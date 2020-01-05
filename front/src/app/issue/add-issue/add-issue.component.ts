@@ -43,7 +43,7 @@ export class AddIssueComponent implements OnInit {
   constructor(private dialogRef:MatDialogRef<AddIssueComponent>,private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: string, private issuesService:IssuesService ) {
     //get the sprint id sended from page of sprint
-    var jsonData= JSON.parse(JSON.stringify(data));
+    var jsonData= JSON.parse(JSON.stringify(data)); 
     this.isAddAction=jsonData.data.type=='add'?true:false;                       
     if (this.isAddAction) {
       this.titleOfDailogBox="Ajouter Une Tâche";

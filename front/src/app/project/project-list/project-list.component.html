@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container min-h-70">
     <div class="row">
         <div class="col-12 add-project d-flex justify-content-center">
             <button class="btn btn-outline-dark btn-lg"  (click)="addProject()">
@@ -8,17 +8,24 @@
     </div>
     <h2>Projets</h2>
     <div class="row">
+        <div *ngIf="projects.length==0" style="width: 100%;" class="alert alert-info" role="alert">
+            Vous avez pas de projets
+        </div>
         <div  *ngFor="let project of projects" value="project" class="div col-4 project-card">
             <div class="card" style="width: 18rem;">
-                <div class="card-body ">
-                    <h4 class="card-title">
-                        {{project.title}}
-                        <button class=" mr-btn btn btn-outline-danger btn-sm" (click)="deleteProject(project._id)"> <i class="fa fa-trash"></i> </button>                          
-                        <button class=" mr-btn btn btn-outline-secondary btn-sm" (click)="updateProject(project._id)"> <i class="fa fa-edit"></i> </button>
-                        <button class=" mr-btn btn btn-outline-success btn-sm" (click)="addMembers(project._id)"> <i class="fa fa-users"></i> </button>
-                    </h4>
+                <div class="card-body">
+                    <div class="card-title min-h-4">
+                        <h4 >
+                            {{project.title}}
+                        </h4>
+                        <h5>
+                            <button *ngIf="project.owner" class=" btn btn-outline-danger btn-sm" (click)="deleteProject(project._id)"> <i class="fa fa-trash"></i> </button>                          
+                            <button class=" mr-btn btn btn-outline-secondary btn-sm" (click)="updateProject(project._id)"> <i class="fa fa-edit"></i> </button>
+                            <button  *ngIf="project.owner" class=" mr-btn btn btn-outline-success btn-sm" (click)="addMembers(project._id)"> <i class="fa fa-users"></i> </button>
+                        </h5>
+                    </div>
                     <mat-divider></mat-divider>
-                    <p class="card-text">{{project.description}}</p>
+                    <p class="card-text min-h-3">{{project.description}}</p>
                     <button class="btn btn-outline-secondary btn-lg" (click)="detailProject(project._id)">Plus de détails</button>
                 </div>
             </div>
