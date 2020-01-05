@@ -17,12 +17,11 @@ let app = express();
         title: "Gestion des taches",
         version: "1.0.0",
         description:
-          "Outil de gestion des taches",
+          "Outil de gestion des taches - Master 2 informatique ",
 
         contact: {
-          name: "Swagger",
+          name: "Maryem Elazbaoui - Asma Abidi - Amirouche Zeggagh",
           url: "https://swagger.io",
-          email: "Info@SmartBear.com"
         }
       },
       servers: [

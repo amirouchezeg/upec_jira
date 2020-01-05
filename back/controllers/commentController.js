@@ -118,7 +118,7 @@ exports.delete = function (req, res) {
         { safe: true, multi:true }, 
         function(err, obj) {
             if(err) console.log("delete commnet in issue ",err)
-            if(obj) console.log("commnet deleted ",obj)
+            if(obj) console.log("comment deleted ",obj)
 
     });
     

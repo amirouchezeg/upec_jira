@@ -197,6 +197,11 @@ router.route('/users/:user_id/edit_password')
  *    post:
  *      summary: Le service qui permet à l'utilisateur de changer son mot de passe
  *      tags: [Users]
+ *      parameters:
+ *       - name: user_id
+ *         description: l'identifiant de l'utilisateur 
+ *         required: true
+ *         type: string 
  *      requestBody:
  *        required: true
  *        content:
@@ -258,6 +263,23 @@ router.route('/users/:user_id')
  *            application/json:
  *              schema:
  *                $ref: '#/components/schemas/getUser'
+ *        "422":
+ *          description: les données entrées sont incorrectes
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  status:
+ *                    type: string
+ *                  message:
+ *                    type: string
+ *                  data: 
+ *                    type: string
+ *                example:
+ *                    status: error
+ *                    message: invalid data 
+ *                    data: child \"last_name\" fails because [\"last_name\" is required]
  */
     .get(VerifyToken,userController.view)
     .patch(VerifyToken,userController.update)
@@ -325,6 +347,16 @@ router.route('/users/:user_id')
  *                example:
  *                    status: success
  *                    message: l'utilisateur a été supprimé avec succés..
+ *        "500":
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                example:
+ *                    message: une erreur est survenue..
  */
     .delete(VerifyToken,userController.delete);
 router.route('/users/resend_email')
@@ -415,7 +447,7 @@ router.route('/users/check_email/:token')
  *                  message:
  *                    type: string
  *                example:
- *                    message: Il n y a pas d'email avec ce token.
+ *                    message: Il n y a pas d'email correspondant à ce token.
  *        "500":
  *          description: une erreur technique est survenue
  *          content:
@@ -798,18 +830,6 @@ router.route('/sprints/:sprint_id/issues')
     .get(VerifyToken,sprintController.getIssues)
 
 router.route('/users/:user_id/projects')
-/**
- * @swagger
- * /sprints:
- *  post:
- *    description: Récupérer toutes les taches d'un seul utilisateur dans un sprint
- *    responses:
- *      '200':
- *          description: a successful response
- *      '400':
- *          description: une erreur 
- * 
- */
     .get(VerifyToken,sprintController.getIssues)
 
 // Import issue controller
@@ -1070,7 +1090,7 @@ router.route('/projects')
  *              $ref: '#/components/schemas/Project'
  *      responses:
  *        "200":
- *          description: le schéma de la tache
+ *          description: le schéma du projet
  *          content:
  *            application/json:
  *              schema:
@@ -1329,14 +1349,209 @@ router.route('/projects/:project_id/sprints')
 var commentController = require('./controllers/commentController');
 // comments routes
 router.route('/comments')
+/**
+ * @swagger
+  * tags:
+ *   name: Comments
+ *   description: Gestion des commentaires
+ */
+
+/**
+ * @swagger
+ * path:
+ *  /comments/:
+ *    get:
+ *      summary: Le service qui permet de récupérer la liste des commentaires existants dans la base de données
+ *      tags: [Comments]
+ *      responses:
+ *        "200":
+ *          description: un tableau de commentaire
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/Comments'
+ *        "500":
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  status:
+ *                    type: string
+ *                  message:
+ *                    type: string
+ *                example:
+ *                    status: error
+ *                    message: Une erreur est survenue..
+ */
 .get(VerifyToken,commentController.index)
+/**
+ * @swagger
+ * path:
+ *  /comments/:
+ *    post:
+ *      summary: Le service qui permet d'ajouter un commentaire
+ *      tags: [Comments]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Comment'
+ *      responses:
+ *        "200":
+ *          description: un tableau de commentaire
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/getCommentById'
+ *        "500":
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  status:
+ *                    type: string
+ *                  message:
+ *                    type: string
+ *                example:
+ *                    status: error
+ *                    message: Une erreur est survenue..
+ *        "422":
+ *          description: les données entrées sont incorrectes
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  status:
+ *                    type: string
+ *                  message:
+ *                    type: string
+ *                  data: 
+ *                    type: string
+ *                example:
+ *                    status: error
+ *                    message: invalid data 
+ *                    data: child \"user_id\" fails because [\"user_id\" is required]
+ */
 .post(VerifyToken,commentController.new);
 router.route('/comments/:comment_id')
+/**
+ * @swagger
+ * path:
+ *  /comments/:comment_id:
+ *    get:
+ *      summary: Le service qui permet de récupérer un commentaire par son identifiant
+ *      tags: [Comments]
+ *      parameters:
+ *       - name: comment_id
+ *         description: l'identifiant du commentaire 
+ *         required: true
+ *         type: string 
+ *      responses:
+ *        "200":
+ *          description: un commentaire
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/getCommentById'
+ *        "500":
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  status:
+ *                    type: string
+ *                  message:
+ *                    type: string
+ *                example:
+ *                    status: error
+ *                    message: Une erreur est survenue..
+ */
     .get(VerifyToken,commentController.view)
     .patch(VerifyToken,commentController.update)
+    /**
+ * @swagger
+ * path:
+ *  /comments/:comment_id:
+ *    put:
+ *      summary: Le service qui permet de modifier un commentaire
+ *      tags: [Comments]
+ *      parameters:
+ *       - name: comment_id
+ *         description: l'identifiant de l'utilisateur à modifier
+ *         required: true
+ *         type: string 
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Comment'
+ *      responses:
+ *        "200":
+ *          description: les données ont été modifié avec succés
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/getCommentById'
+ *        "500":
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                example:
+ *                    message: not found any relative data..
+ * 
+ * */
     .put(VerifyToken,commentController.update);
 
 router.route('/issues/:issue_id/comments/:comment_id')
+    /**
+ * @swagger
+* path:
+ *  /issues/:issue_id/comments/:comment_id:
+ *    delete:
+ *      summary: Le service qui permet de supprimer un commentaire avec son identifiant d'une tache
+ *      tags: [Comments]
+ *      parameters:
+ *       - name: comment_id
+ *         description: l'identifiant du commentaire à supprimer
+ *         required: true
+ *         type: string 
+ *       - name: issue_id
+ *         description: l'identifiant de la tache
+ *         required: true
+ *         type: string         
+ *      responses:
+ *        "200":
+ *          description: Le commentaire a été supprimé avec succés
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                example:
+ *                    message: le commentaire a été supprimé avec succés
+ *        "500":
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                example:
+ *                    message: Une erreur est survenue..
+ */
     .delete(VerifyToken,commentController.delete);
 // Export API routes
 module.exports = router;

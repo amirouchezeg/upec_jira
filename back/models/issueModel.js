@@ -38,7 +38,12 @@ const mongoose = require('mongoose');
  *             description: les commentaires de la tache
  *             properties:
  *               commentaire: string
- *               email: string                      
+ *               email: string  
+ *          labels: 
+ *             type: array
+ *             description: les étiquette de la tache
+ *             properties:
+ *               enum: string               
  *        example:
  *           description: description de la tache,
  *           start_date: 2019-12-01
@@ -52,6 +57,8 @@ const mongoose = require('mongoose');
  *              commentaire: le commentaire sur la tache
  *              email: ma.elazbaoui@gmail.com
  *           sprint_id: 5db4295846817b081cec97d7
+ *           labels: 
+ *              enum: examination
  * 
  * 
  * 
@@ -77,6 +84,10 @@ const mongoose = require('mongoose');
  *                    type: string
  *                 sprint_id:
  *                    type: string
+ *                 labels:
+ *                    type: array
+ *                    properties: 
+ *                       enum: string
  *                 users:
  *                    type: array
  *                    properties:
@@ -96,6 +107,7 @@ const mongoose = require('mongoose');
  *              title: issue  
  *              users: []
  *              comments: []
+ *              labels: []
  *              start_date: 2019-03-01
  *              end_date: 2019-08-01
  *              create_date: 2020-01-04T12:25:42.459Z     
@@ -124,6 +136,10 @@ const mongoose = require('mongoose');
  *          sprint_id:
  *            type: string
  *            description: l'identifiant du sprint auquel appartient la tache
+ *          labels:
+ *            type: array
+ *            properties:
+ *              enum: string
  *          users:
  *            type: array
  *            description: les utilisateurs qui sont inscrits au projet.
@@ -144,6 +160,7 @@ const mongoose = require('mongoose');
  *            title: issues  
  *            project_id: 5db43549e451212f0c50acf6
  *            users: []
+ *            labels: []
  *            comments: []
  *            start_date: 2019-03-01
  *            end_date: 2019-08-01
@@ -175,6 +192,10 @@ const mongoose = require('mongoose');
  *               sprint_id:
  *                  type: string
  *                  description: l'identifiant du sprint auquel appartient la tache
+ *               labels:
+ *                  type: array
+ *                  properties:
+ *                      enum: string
  *               users:
  *                  type: array
  *                  properties:
@@ -195,6 +216,7 @@ const mongoose = require('mongoose');
  *                status: previw  
  *                users: []
  *                comments: []
+ *                labels: []
  *                start_date: 2019-03-01
  *                end_date: 2019-08-01
  *                create_date: 2020-01-04T12:25:42.459Z     
@@ -206,6 +228,7 @@ const mongoose = require('mongoose');
  *                status: preview
  *                users: []
  *                comments: []
+ *                labels: []
  *                start_date: 2019-03-01
  *                end_date: 2019-08-01
  *                create_date: 2020-01-04T12:25:42.459Z     
@@ -233,6 +256,10 @@ const mongoose = require('mongoose');
  *                      type: string
  *                  sprint_id:
  *                      type: string
+ *                  labels:
+ *                      type: array
+ *                      properties:
+ *                          enum: string
  *                  users:
  *                      type: array
  *                      properties:
@@ -252,6 +279,7 @@ const mongoose = require('mongoose');
  *              title: issues  
  *              users: []
  *              comments: []
+ *              labels: []
  *              start_date: 2019-03-01
  *              end_date: 2019-08-01
  *              create_date: 2020-01-04T12:25:42.459Z     
