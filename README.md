@@ -4,15 +4,16 @@
 - angular
 - mongodb
 - nodeJs
+
 3- lancer le back à l'aide de la commande :
-$ cd back
-$ npm install
-$ npm start
+- $ cd back
+- $ npm install
+- $ npm start
 
 4- lancer le front à l'aide de la commande: npm start
-$ cd front
-$ npm install
-$ npm start
+ - $ cd front
+ - $ npm install
+ - $ npm start
 
 5- lancer mongoDB à l'aide de la commande : mongod
 
