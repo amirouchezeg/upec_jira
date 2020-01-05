@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
             <button class="btn btn-add-issue btn-outline-dark btn-lg"  (click)="onDailoIssue('add',null)">
-                <i class="fa fa-plus"></i>Add Issue
+                <i class="fa fa-plus"></i>Ajouter une tâche
             </button>
         </div>
     </div>
@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <span *ngIf="issue.users" class="badge badge-secondary">{{issue.users.email}}</span>
                             <p class="card-text">{{issue.description.substring(0,100)}} ...</p>
-                            <a class="btn btn-outline-secondary btn-sm" (click)="onOpenDetailIssue(issue)">Details <i class="fa fa-arrow-right"></i> </a> 
+                            <a class="btn btn-outline-secondary btn-sm" (click)="onOpenDetailIssue(issue)">Détails <i class="fa fa-arrow-right"></i> </a> 
                             <button (click)="deleteIssue(issue)" class=" float-right mr-btn btn btn-outline-danger btn-sm"> <i class="fa fa-trash"></i> </button>                          
                             <button (click)="onDailoIssue('edit',issue)" class=" float-right btn btn-outline-secondary btn-sm"> <i class="fa fa-edit"></i> </button>                          
                         </div>
@@ -125,10 +125,10 @@
         <mat-dialog-content>
             <div class="container field-container ">
                 <div class="text-danger">
-                    <h6> Avertissement : la suppression de ce projet entrainera la suppression de tout ses sprints </h6>
+                    <h6> Avertissement : la suppression de cette tâche est définitive </h6>
                 </div><br>
                 <div>
-                    <h6><strong>Voulez-vous vraiment supprimer ce projet.</strong></h6>
+                    <h6><strong>Voulez-vous vraiment supprimer ce projet ?</strong></h6>
                 </div>
             </div>
         </mat-dialog-content>

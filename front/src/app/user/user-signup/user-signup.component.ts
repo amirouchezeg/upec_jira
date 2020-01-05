@@ -87,7 +87,7 @@ export class UserSignupComponent implements OnInit {
     console.log(user);
     this.userService.addUser(user).subscribe(
       data => {
-        this.alert.message="	✅ Votre compte est créé avec success. Voulez verifie votre email SVP";
+        this.alert.message="	✅ Votre compte a été crée avec succés. Veuillez verifier votre email SVP";
         this.alert.showAlert("alert-success");
         console.log("data :"+ data);
       },error=>{

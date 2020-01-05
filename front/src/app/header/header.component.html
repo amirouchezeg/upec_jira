@@ -9,7 +9,7 @@
     <div class="navbar-nav mr-auto">
       <a *ngIf="!isConnected" class="nav-link nav-link active" routerLink="/user/signup"> S'enregistrer</a>
       <a *ngIf="!isConnected"class="nav-link nav-link active" routerLink="/user/signin">Se connecter</a>
-      <a *ngIf="isConnected" class="nav-link nav-link active" routerLink="/project/project_list">Projects</a>
+      <a *ngIf="isConnected" class="nav-link nav-link active" routerLink="/project/project_list">Projets</a>
       <a  class="nav-link nav-link active" routerLink="/about">A propos </a>
       <!-- <a *ngIf="isConnected" class="nav-link nav-link active" (click)="onDisconect()" routerLink="">Déconnecter</a> -->
       <!-- <a  class="nav-link nav-link active" (click)="toTest()">toTest()</a> -->
@@ -19,8 +19,8 @@
         <i class="fa fa-user"></i> compte
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <button class="dropdown-item pointer" (click)="onDialogProfile()">Profile</button>
-        <button class="dropdown-item pointer" (click)="onDialogPassword()">Chage mot de passe</button>
+        <button class="dropdown-item pointer" (click)="onDialogProfile()">Profil</button>
+        <button class="dropdown-item pointer" (click)="onDialogPassword()">Changer le mot de passe</button>
         <button class="dropdown-item pointer" routerLink="" (click)="onDisconect()">Déconnecter</button>
       </div>
     </a>

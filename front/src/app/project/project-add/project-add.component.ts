@@ -82,22 +82,16 @@ export class ProjectAddComponent implements OnInit {
     project.end_date = this.endDateFC.value;
     project.start_date = this.startDateFC.value;
     project.description = this.descriptionFC.value;
-    // project.users = this.teamEmailsTab;
+    project.users = this.teamEmailsTab;
     
     this.projectService.addProject(project).subscribe(data => {
-      console.log(data);
-      //execute those to instructions after response of server 
-    this.isProgressVisible=false;    
-    
-    this.submitClicked.emit(project);
-    this.dialogRef.close();
+      console.log("data project",data);
+        //execute those to instructions after response of server 
+      this.isProgressVisible=false;    
+      
+      this.submitClicked.emit(project);
+      this.dialogRef.close();
     })
-    // console.log(project);
-    //checkValidation
-    // if (!project.isValide()) {      
-    //   console.log('not Valide: ',project);
-    //   return;
-    // }
     console.log('project: ',project);
     
   }

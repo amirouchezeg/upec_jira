@@ -39,10 +39,10 @@ export class DialogProfileComponent implements OnInit {
   onSubmit(){
     this.userService.update(this.profileform.value).subscribe(
       data => {
-        this.toast("L'operation a effectué avec succès",'bg-success');
+        this.toast("L'opération a été effectuée avec succès",'bg-success');
         console.log("data",data)
       },error=>{
-        this.toast("L'opération a échoué",'bg-danger');
+        this.toast("L'opération a échouée",'bg-danger');
     });
   }
 
@@ -57,7 +57,7 @@ export class DialogProfileComponent implements OnInit {
   onResend(){
     this.userService.resendEmailCheck().subscribe(
       data => {
-        this._snackBar.open("Email envoyé .Merci de vérifier votre Email","", {
+        this._snackBar.open("Nous vous avons envoyé un email .Merci de vérifier votre Email","", {
           verticalPosition: 'top',
           panelClass: ['bg-success'],
           duration: 2900,

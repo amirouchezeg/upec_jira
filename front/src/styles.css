@@ -121,7 +121,3 @@ input:focus:not([read-only]) {
   background: #b7d8b7;
   margin-left: 10px;
 }
-
-.mat-snack-bar-container {
-  background-color: #00b300 !important;
-}

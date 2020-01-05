@@ -160,7 +160,7 @@ export class SprintListComponent implements OnInit {
               .pipe(finalize(() => {}))
               .subscribe(data=>{
                 this.getAllSprintOfPreject(this.idProject);
-                this.toast("La modification du sprint est effectuée avec succés",'bg-success');
+                this.toast("La modification du sprint a été effectuée avec succés",'bg-success');
               },error=>{
                 if(error.error)
                   this.toast(error.error.message,'bg-danger',4000);
