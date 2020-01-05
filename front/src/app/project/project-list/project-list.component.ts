@@ -28,7 +28,7 @@ export class ProjectListComponent implements OnInit {
   descriptionFC : FormControl;
   teamEmails: string[] = [];
   projectform: FormGroup;  
-  teamEmailsTab : Array<{id:number, email: string, role: string}> = [];
+  teamEmailsTab : Array<{id:string, email: string, role: string}> = [];
   idProjectToUpdate : string;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   project : Project;
@@ -213,7 +213,7 @@ titlePrject:string;
 
   addNewRow(){
     this.teamEmailsTab.push({
-      id: this.teamEmailsTab.length+1,
+      id: this.teamEmailsTab.length+1+'',
       email: '',
       role: ''
       })
@@ -245,8 +245,8 @@ titlePrject:string;
     
   }
 invalidEmail: string;
-idEmail: number;
-  saverange(id : number, event){
+idEmail: string;
+  saverange(id : string, event){
    let regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     if(!regexp.test(event)){
       this.invalidEmail = "Email invalid";
