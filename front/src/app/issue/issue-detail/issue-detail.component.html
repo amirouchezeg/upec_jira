@@ -57,9 +57,7 @@
         <div class="col-4 right-side">
             <h5> Signé à : <span *ngIf="issue.users" class="badge badge-secondary mr-1">{{issue.users.email}}</span>  </h5>
             <h3 class="mt-5">
-                <span class="badge badge-primary mr-1">Bug</span>
-                <span class="badge badge-secondary mr-1">Info</span>
-                <span class="badge badge-danger ">New</span><br>
+                <span *ngFor="let item of issue.labels" [ngClass]="{'badge-info': item=='Amelioration','badge-danger': item=='Bug','badge-warning': item=='Bloquant','badge-primary': item=='Prioritaire'}" class="badge mr-1">  {{item}} <i (click)="deleteLabel(item)"  class="fa fa-times  pointer"></i> </span>
             </h3>
             <form [formGroup]="lableform" (ngSubmit)="onAddLable()">
                 <mat-dialog-content>
@@ -75,7 +73,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-2">
-                            <h3><span class="btn btn-success"><i class="fa fa-plus-square"></i></span></h3>
+                            <h3><button type="submit"  class="btn btn-success"><i class="fa fa-plus-square"></i></button></h3>
                         </div>
                         <div class="col-4">
                         </div>

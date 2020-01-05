@@ -1,12 +1,8 @@
 ----front
-    -- get project of one users
-    -- only admin can add delete auther members and edit or delete project
     -- show labeles
-    -- in project page add the min-hiegth  
 ---back
-    -- when add project add automaticlly the user added this project to members as admin
-    -- when to update members he send email to all but it shold't dot it
     -- manage labeles
+    -- when to update members he send email to all but it shold't dot it
 --------------documentation
-    --complite the swager
-    --write texts for the web site
+    -- complite the swager
+    -- write texts for the web site

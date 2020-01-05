@@ -19,10 +19,10 @@ export interface Lables {
 export class IssueDetailComponent implements OnInit {
 
   lables: Lables[] = [
-    {value: 'preview', viewValue: 'Bug'},
-    {value: 'toDo', viewValue: 'Info'},
-    {value: 'inProgress', viewValue: 'Review'},
-    {value: 'finished', viewValue: 'Dev'},
+    {value: 'Bug', viewValue: 'Bug'},
+    {value: 'Prioritaire', viewValue: 'Prioritaire'},
+    {value: 'Bloquant', viewValue: 'Bloquant'},
+    {value: 'Amelioration', viewValue: 'Amelioration'},
   ];
 
   lableFC : FormControl;
@@ -70,6 +70,8 @@ export class IssueDetailComponent implements OnInit {
     });
   }
 
+
+
   onSebmitComment(comment:string){
     console.log("comment",comment);
     let objComment:Comments  ={
@@ -103,9 +105,43 @@ export class IssueDetailComponent implements OnInit {
   }
 
   onAddLable(){
-    console.log("lable",this.lableFC.value);
+    if (this.lableFC.value=="") 
+      return
+
+    this.issue.labels.push(this.lableFC.value);
+    let mIssue:Issues={
+      _id:this.issue._id,
+      labels:this.issue.labels
+    }
+    this.editLable(mIssue);
+    
   }
 
+  deleteLabel(item:string){
+    const index = this.issue.labels.indexOf(item);
+    if (index > -1) {
+      this.issue.labels.splice(index, 1);
+    }
+    let mIssue:Issues={
+      _id:this.issue._id,
+      labels:this.issue.labels
+    }
+    this.editLable(mIssue);
+  }
+
+  editLable(mIssue:Issues){
+    console.log("labels",this.issue.labels)
+    this.issuesService.editIssue(this.issue._id,mIssue).subscribe( 
+      data => {
+        console.log("data ",data);
+        var jsonData= JSON.parse(JSON.stringify(data)); 
+        this.issue= JSON.parse(JSON.stringify(jsonData.data)) as Issues;
+      },
+      error => { 
+        console.log("error",error);
+        this.toast("L'opération a échoué",'bg-danger');
+    });
+  }
   toast(message:string,css_class:string="",time:number=2900){
     this._snackBar.open(message,"", {
       verticalPosition:'top',
