@@ -138,7 +138,7 @@ exports.new = function (req, res) {
 exports.view = function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
         if (err)
-        res.status(42).json({
+        res.status(422).json({
                 message:'user not found'
             });
         res.json({
