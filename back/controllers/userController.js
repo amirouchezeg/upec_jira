@@ -225,6 +225,7 @@ function addUser(data, schema, res, req) {
 }
 
 exports.changePassword = function (req, res) { 
+    console.log('req.params._id', req.params._id);
     User.findById( req.params._id , function (err, user) {
         if (err) return res.status(500).send({message:'Error on the server.'});
         if (!user) 
@@ -242,7 +243,7 @@ exports.changePassword = function (req, res) {
                 user.password = bcrypt.hashSync(req.body.new_password, 8);
         else
             return res.status(401).send({ 
-                message: "Le mot de passe de confirmation n'est pas correct.."
+                message: "Le mot de passe de confirmation n'est pas identique.."
             });   
         //save and return the information
         user.save(function (err) {

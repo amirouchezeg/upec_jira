@@ -129,7 +129,6 @@ exports.update = function (req, res) {
                                     return;
                                 }
                             });
-                            console.log('bool', bool);
                             if(bool){
                                   res.status(500).json({
                                   message: "Ce projet contient déja un sprint en cours..."
@@ -141,7 +140,7 @@ exports.update = function (req, res) {
                                         data: sprint
                                         });
                                     } else {
-                                        res.status(500).json({
+                                        res.status(404).json({
                                         message: "Aucun sprint trouvé avec ces critères"
                                         })
                                     }

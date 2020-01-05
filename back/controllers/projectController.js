@@ -48,7 +48,7 @@ exports.getProjects = function (req, res) {
       }); 
 };
 
-//get projects of a user
+//get sprints of a user
 exports.getSprints = function (req, res) {
     Project.findById(req.params.project_id, function (err, project) {
         if (err)

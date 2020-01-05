@@ -4,33 +4,37 @@ let express = require('express');
 let bodyParser = require('body-parser');
 // Import Mongoose
 let mongoose = require('mongoose');
-let swaggerjsdoc = require('swagger-jsdoc');
-let swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 // Initialise the app
 let app = express();
 
 //Initialise swagger 
- 
-const swaggerDefinition = {
-  info: {
-      title: 'Gestion des taches',
-      version: "1.0.0",
-      description: 'Outil de gestion des taches',
-      contact: {
-          name: 'Maryem Elazbaoui',
-      },
-      servers: ["http://localhost:5000"]
-  }
-};
- 
-const options = {
-  swaggerDefinition,
-  apis: ['api-routes.js'],
-};
- 
-let swaggerSpec = swaggerjsdoc(options);
+  const options = {
+    swaggerDefinition: {
+      openapi: "3.0.0",
+      info: {
+        title: "Gestion des taches",
+        version: "1.0.0",
+        description:
+          "Outil de gestion des taches",
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+        contact: {
+          name: "Swagger",
+          url: "https://swagger.io",
+          email: "Info@SmartBear.com"
+        }
+      },
+      servers: [
+        {
+          url: "http://localhost:8080"
+        }
+      ]
+    },
+    apis: ["./models/*", "api-routes.js"]
+  };
+  const swaggerSpec = swaggerJsdoc(options);
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 let apiRoutes = require("./api-routes");
 // Configure bodyparser to handle post requests
