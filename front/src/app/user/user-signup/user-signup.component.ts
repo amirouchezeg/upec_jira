@@ -31,6 +31,7 @@ export const PasswordValidation = [
 })
 
 export class UserSignupComponent implements OnInit {
+  name: FormControl;
   emailFC: FormControl;
   firstnameFC: FormControl;
   lastnameFC: FormControl;
